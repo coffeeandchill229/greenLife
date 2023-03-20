@@ -2,7 +2,7 @@
     <form action="" method="post">
         @csrf
         <div class="row bg-white d-flex justify-content-between py-5">
-            <h4 class="text-center mb-5">THANH TOÁN</h4>
+            <h4 class="text-center text-success mb-5">THANH TOÁN</h4>
 
             <div class="col-6">
                 <h6 class="fw-bold">THÔNG TIN THANH TOÁN</h6>
@@ -12,20 +12,20 @@
                 </div>
                 <div class="form-group mb-2">
                     <label class="form-label">Địa chỉ</label>
-                    <input type="address" name="name" class="form-control">
+                    <input type="address" name="address" class="form-control">
                 </div>
                 <div class="form-group mb-2">
                     <label class="form-label">Số điện thoại</label>
-                    <input type="phone" name="name" class="form-control">
+                    <input type="phone" name="phone" class="form-control">
                 </div>
                 <div class="form-group mb-2">
                     <label class="form-label">Email</label>
-                    <input type="email" name="name" class="form-control">
+                    <input type="email" name="email" value="{{Auth::guard('customer')->user()->email}}" class="form-control">
                 </div>
                 <h6 class="fw-bold mt-4">THÔNG TIN THANH TOÁN</h6>
                 <div class="form-group mb-2">
                     <label class="form-label">Ghi chú</label>
-                    <textarea class="form-control" name="" id="" cols="30" rows="5"
+                    <textarea class="form-control" name="note" id="" cols="30" rows="5"
                         placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay địa điểm giao hàng chi tiết hơn."></textarea>
                 </div>
             </div>

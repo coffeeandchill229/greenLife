@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     function index(){
-        return view('welcome');
+        $products = Product::orderByDesc('id')->get();
+
+        return view('welcome',compact('products'));
     }
     // Cart
     function cart(){

@@ -1,6 +1,6 @@
 <x-only-header title="Giỏ hàng">
     <div class="row py-5">
-        <h4 class="text-center mb-5">GIỎ HÀNG CỦA BẠN</h4>
+        <h4 class="text-center text-success mb-5">GIỎ HÀNG CỦA BẠN</h4>
         <div class="col-7">
             <table class="table">
                 <thead>
