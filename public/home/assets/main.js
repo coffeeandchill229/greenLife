@@ -94,7 +94,7 @@ function start() {
 function scrollHeader() {
     window.addEventListener('scroll', (e) => {
         // Header
-        if (window.scrollY > 32) {
+        if (window.scrollY > 10) {
            Object.assign(header.style, {
                 top: '0px',
            });

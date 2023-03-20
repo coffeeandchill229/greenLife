@@ -269,7 +269,7 @@ $nav_bar = config('nav_bar');
                             <a class="nav-link menu-link {{$nav_item['codePage'] == $attributes['title'] ? 'active' : ''}}"
                                 href="#{{$nav_item['codePage']}}" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="{{$nav_item['codePage']}}">
-                                <i class="mdi mdi-speedometer"></i> <span
+                                <i class="{{$nav_item['icon']}}"></i> <span
                                     data-key="t-dashboards">{{$nav_item['title']}}</span>
                             </a>
                             <div class="text-light">

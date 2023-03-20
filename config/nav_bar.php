@@ -10,7 +10,7 @@ return [
     [
         'codePage'=>'Product',
         'title'=>'Sản phẩm',
-        'icon'=>'',
+        'icon'=>'ri-shopping-basket-fill',
         'childs'=>[
             [
                 'codePage'=>'Product-list',
@@ -29,7 +29,7 @@ return [
     [
         'codePage'=>'Customers',
         'title'=>'Khách hàng',
-        'icon'=>'',
+        'icon'=>'ri-user-fill',
         'childs'=>[
             [
                 'codePage'=>'Customer-list',
@@ -42,7 +42,7 @@ return [
     [
         'codePage'=>'Users',
         'title'=>'Nhân viên',
-        'icon'=>'',
+        'icon'=>'ri-user-settings-fill',
         'childs'=>[
             [
                 'codePage'=>'User-list',

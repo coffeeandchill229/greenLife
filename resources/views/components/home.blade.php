@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="/home/assets/responsive.css" />
     <link rel="icon"
         href="https://9xgarden.com/wp-content/uploads/2020/09/danh-muc-tieu-canh-de-ban-terrarium-9xgarden.jpg">
+    <style>
+        @media (min-width: 1200px) {
+            .container {
+                width: 1170px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -75,21 +82,23 @@
                             <li class="me-2">
                                 @if (Auth::guard('customer')->user())
                                 <div class="dropdown">
-                                    <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2" data-mdb-toggle="dropdown" aria-expanded="false">
+                                    <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
+                                        data-mdb-toggle="dropdown" aria-expanded="false">
                                         {{Auth::guard('customer')->user()->name}}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                      <li><a href="" class="dropdown-item" type="button">Thông tin</a></li>
-                                      <li><a href="" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
-                                      <li><a href="{{route('home.logout')}}" class="dropdown-item" type="button">Đăng xuất</a></li>
+                                        <li><a href="" class="dropdown-item" type="button">Thông tin</a></li>
+                                        <li><a href="" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
+                                        <li><a href="{{route('home.logout')}}" class="dropdown-item" type="button">Đăng
+                                                xuất</a></li>
                                     </ul>
-                                  </div>
+                                </div>
                                 @else
                                 <a class="text-dark" href="{{route('home.login')}}">Đăng nhập</a>
                                 @endif
                             </li>
                             <li class="me-2">
-                                <a style="color: var(--header_color)" href="">Giỏ hàng <i
+                                <a style="color: var(--header_color)" href="{{route('home.cart')}}">Giỏ hàng <i
                                         class="fas fa-shopping-bag"></i>
                                     <sup style="font-size: 13px;">[10]</sup></a>
                             </li>
@@ -123,7 +132,7 @@
                             <nav class="nav_bar">
                                 <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
                                     <li class="nav_bar_item pt-2 pb-2 pe-2">
-                                        <a class="text-dark" href="">Trang chủ</a>
+                                        <a class="text-dark" href="{{route('home')}}">Trang chủ</a>
                                     </li>
                                     <li class="nav_bar_item p-2">
                                         <a class="text-dark" href="">Giới thiệu</a>

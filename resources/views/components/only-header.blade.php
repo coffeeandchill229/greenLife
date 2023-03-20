@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="/home/assets/responsive.css" />
     <link rel="icon"
         href="https://9xgarden.com/wp-content/uploads/2020/09/danh-muc-tieu-canh-de-ban-terrarium-9xgarden.jpg">
+    <style>
+        @media (min-width: 1200px) {
+            .container {
+                width: 1155px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -91,7 +98,7 @@
                                 @endif
                             </li>
                             <li class="me-2">
-                                <a style="color: var(--header_color)" href="">Giỏ hàng <i
+                                <a style="color: var(--header_color)" href="{{route('home.cart')}}">Giỏ hàng <i
                                         class="fas fa-shopping-bag"></i>
                                     <sup style="font-size: 13px;">[10]</sup></a>
                             </li>
@@ -103,14 +110,14 @@
     </header>
     <section class="navigation">
         <div class="container">
-            <div class="row bg-light shadow-sm">
+            <div class="row bg-white shadow-sm">
                 <div class="col">
                     <div class="row shadow-sm d-flex align-items-center">
                         <div class="col-lg-10">
                             <nav class="nav_bar">
                                 <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
                                     <li class="nav_bar_item pt-2 pb-2 pe-2">
-                                        <a class="text-dark" href="">Trang chủ</a>
+                                        <a class="text-dark" href="{{route('home')}}">Trang chủ</a>
                                     </li>
                                     <li class="nav_bar_item p-2">
                                         <a class="text-dark" href="">Giới thiệu</a>

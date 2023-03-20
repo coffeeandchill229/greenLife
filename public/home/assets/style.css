@@ -47,7 +47,7 @@ header {
     align-items: center;
     background: white;
     box-shadow: 0 2px 5px #9999;
-    transition: all .3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    transition: all .4s ease;
 }
 header .search_form .search_box {
     border: 1px solid var(--header_color);
