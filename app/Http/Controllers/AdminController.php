@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,8 @@ class AdminController extends Controller
     }
     function dashboard()
     {
-        return view('admin.dashboard');
+        $best_selling = Product::orderByDesc('id')->get();
+        return view('admin.dashboard',compact('best_selling'));
     }
     function store_login(Request $request)
     {
