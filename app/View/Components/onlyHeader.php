@@ -2,12 +2,11 @@
 
 namespace App\View\Components;
 
-use App\Models\Category;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class home extends Component
+class onlyHeader extends Component
 {
     /**
      * Create a new component instance.
@@ -22,8 +21,6 @@ class home extends Component
      */
     public function render(): View|Closure|string
     {
-        $cat = Category::all();
-        $cats = Category::orderByDesc('id')->get();
-        return view('components.home',compact('cat','cats'));
+        return view('components.only-header');
     }
 }

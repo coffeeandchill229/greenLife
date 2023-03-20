@@ -26,5 +26,31 @@ return [
             ],
         ]
     ],
+    [
+        'codePage'=>'Customers',
+        'title'=>'Khách hàng',
+        'icon'=>'',
+        'childs'=>[
+            [
+                'codePage'=>'Customer-list',
+                'title'=>'Danh sách',
+                'icon'=>'',
+                'href'=>'admin.customer',
+            ],
+        ]
+    ],
+    [
+        'codePage'=>'Users',
+        'title'=>'Nhân viên',
+        'icon'=>'',
+        'childs'=>[
+            [
+                'codePage'=>'User-list',
+                'title'=>'Danh sách',
+                'icon'=>'',
+                'href'=>'admin.user',
+            ],
+        ]
+    ],
 
 ];

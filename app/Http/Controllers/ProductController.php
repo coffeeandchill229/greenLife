@@ -4,48 +4,60 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use RealRashid\SweetAlert\Facades\Alert;
 class ProductController extends Controller
 {
-    function index(){
+    function index()
+    {
         $products = Product::orderByDesc('id')->get();
-        return view('admin.products.index',compact('products'));
+        return view('admin.products.index', compact('products'));
     }
-    function add(){
-        return view('admin.products.add');
+    function addOrUpdate($id = null)
+    {
+        $product_edit = null;
+        if ($id) {
+            $product_edit = Product::findOrFail($id);
+        }
+        return view('admin.products.addOrUpdate', compact('product_edit'));
     }
-    function store(Request $request){
+    function store(Request $request, $id=null)
+    {
         $data = $request->all();
         unset($data['_token']);
 
         $rules = [
-            'name'=>'required',
-            'price'=>'required|numeric|max:999999|min:0',
-            'stock'=>'required|numeric',
-            'description'=>'required',
-            'category_id'=>'required'
+            'name' => 'required',
+            'price' => 'required|numeric|max:999999|min:0',
+            'stock' => 'required|numeric',
+            'description' => 'required',
+            'category_id' => 'required'
         ];
         $messages = [
-            'name'=>'Tên sản phẩm',
-            'price'=>'Giá',
-            'stock'=>'Tồn kho',
-            'description'=>'Mô tả',
-            'category_id'=>'Danh mục'
+            'name' => 'Tên sản phẩm',
+            'price' => 'Giá',
+            'stock' => 'Tồn kho',
+            'description' => 'Mô tả',
+            'category_id' => 'Danh mục'
         ];
 
-        $this->customValidate($data,$rules,$messages);
+        $this->customValidate($data, $rules, $messages);
 
 
         $file = $request->file('image');
-        if($file){
+        if ($file) {
             $filename = $file->hashName();
             $file->store('/public/products');
             $data['image'] = $filename;
         }
 
-        $product = Product::updateOrCreate($data);
+        $product = Product::updateOrCreate(['id'=>$id],$data);
         $product->save();
 
+        return back();
+    }
+
+    function delete($id=null){
+        Product::destroy($id);
         return back();
     }
 }

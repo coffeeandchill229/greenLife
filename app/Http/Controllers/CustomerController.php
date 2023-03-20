@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
+class CustomerController extends Controller
 {
-    function index()
-    {
-        return view('admin.login');
-    }
-    function dashboard()
-    {
-        return view('admin.dashboard');
+    function login(){
+        return view('customer.login');
     }
     function store_login(Request $request)
     {
@@ -29,15 +24,15 @@ class AdminController extends Controller
             'email' => 'Email',
             'password' => 'Password'
         ]);
-        if (Auth::attempt($data)) {
+        if (Auth::guard('customer')->attempt($data)) {
             $request->session()->regenerate();
 
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('home');
         }
         return back();
     }
     function register(){
-        return view('admin.register');
+        return view('customer.register');
     }
     function store_register(Request $request){
         $data = $request->all();
@@ -51,25 +46,30 @@ class AdminController extends Controller
         ];
         $messages = [
             'email'=>'Email',
-            'name'=>'Name',
-            'password'=>'Password',
-            'confirm_password'=>'Confirm Password'
+            'name'=>'Họ tên',
+            'password'=>'Mật khẩu',
+            'confirm_password'=>'Nhập lại mật khẩu'
         ];
         $this->customValidate($data,$rules,$messages);
 
         $data['password'] = Hash::make($request->password);
         unset($data['confirm_password']);
 
-        $user = User::create($data);
+        $user = Customer::create($data);
         $user->save();
-        return redirect()->route('admin.login');
+        return redirect()->route('home.login');
         
     }
     function logout(Request $request){
-        Auth::logout();
- 
+        Auth::guard('customer')->logout();
+      
         $request->session()->regenerateToken();
      
-        return redirect()->route('admin.login');
+        return redirect()->route('home.login');
+    }
+    // Manager
+    function index(){
+        $customers = Customer::orderByDesc('id')->get();
+        return view('admin.customer.index',compact('customers'));
     }
 }

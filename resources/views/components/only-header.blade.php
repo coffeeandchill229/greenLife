@@ -75,15 +75,17 @@
                             <li class="me-2">
                                 @if (Auth::guard('customer')->user())
                                 <div class="dropdown">
-                                    <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2" data-mdb-toggle="dropdown" aria-expanded="false">
+                                    <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
+                                        data-mdb-toggle="dropdown" aria-expanded="false">
                                         {{Auth::guard('customer')->user()->name}}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                      <li><a href="" class="dropdown-item" type="button">Thông tin</a></li>
-                                      <li><a href="" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
-                                      <li><a href="{{route('home.logout')}}" class="dropdown-item" type="button">Đăng xuất</a></li>
+                                        <li><a href="" class="dropdown-item" type="button">Thông tin</a></li>
+                                        <li><a href="" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
+                                        <li><a href="{{route('home.logout')}}" class="dropdown-item" type="button">Đăng
+                                                xuất</a></li>
                                     </ul>
-                                  </div>
+                                </div>
                                 @else
                                 <a class="text-dark" href="{{route('home.login')}}">Đăng nhập</a>
                                 @endif
@@ -102,22 +104,7 @@
     <section class="navigation">
         <div class="container">
             <div class="row bg-light shadow-sm">
-                <div class="col-lg-3">
-                    <div class="category">
-                        <ul class="list-group rounded-0">
-                            <li class="list-group-item text-light" style="background-color: var(--header_color)"
-                                aria-current="true">
-                                <i class="fas fa-bars"></i> <span>DANH MỤC SẢN PHẨM</span>
-                            </li>
-                            @foreach ($cats as $item)
-                            <li class="list-group-item">
-                                <a class="text-dark" href="">{{$item->name}}</a>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-9">
+                <div class="col">
                     <div class="row shadow-sm d-flex align-items-center">
                         <div class="col-lg-10">
                             <nav class="nav_bar">
@@ -145,98 +132,13 @@
                                 style="background-color: var(--header_color)">0123.456.789</span>
                         </div>
                     </div>
-                    <div class="row my-2">
-                        <div id="carouselExampleControls" class="carousel slide" data-mdb-ride="carousel">
-                            <div class="carousel-inner" style="height: 350px">
-                                <div class="carousel-item active">
-                                    <img src="https://chuteu.com/wp-content/uploads/2022/01/cay-canh-mini-noi-that-van-phong.jpg"
-                                        class="d-block w-100" alt="Wild Landscape" />
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://web2141.sangiaodichweb.com/data/web2141/banner-2.jpg"
-                                        class="d-block w-100" alt="Camera" />
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://media.loveitopcdn.com/6415/thumb/900x450/banner-cach-trong-chau-cay-thuy-sinh-de-ban-xinh-xan.jpg?zc=1"
-                                        class="d-block w-100" alt="Exotic Fruits" />
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button"
-                                data-mdb-target="#carouselExampleControls" data-mdb-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button"
-                                data-mdb-target="#carouselExampleControls" data-mdb-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
     <section class="content my-2">
         <div class="container bg-light">
-            <!-- Danh mục sản phẩm -->
-            <div class="row py-3">
-                <div class="category_heading text-center mb-3">
-                    <h4 class="border-3 border-bottom border-success d-inline-block pb-2"
-                        style="color: var(--header_color)">
-                        Danh Mục Sản Phẩm
-                    </h4>
-                </div>
-                @if ($cat->count()>0)
-                <!-- Danh mục đầu tiên -->
-                <div class="col-lg-6 text-center">
-                    <div class="card shadow category_item_first d-grid justify-content-center">
-                        <div class="bg-image hover-overlay rippler" data-mdb-ripple-color="light">
-                            <img src="/storage/images/{{$cat->first()->image}}" class="img-thumbnail border-0" />
-                            <a href="#!">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                            </a>
-                        </div>
-                        <div class="card-body p-1 text-center">
-                            <span class="card-title">{{$cat->first()->name}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <!-- Danh mục thứ 2 trở về sau -->
-                        @php
-                        unset($cat[0]);
-                        @endphp
-                        @foreach ($cat as $item)
-                        @if ($item->image)
-                        <div class="col-lg-6 mb-3">
-                            <div class="card shadow">
-                                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light"
-                                    style="height: 240px;">
-                                    <img src="/storage/images/{{$item->image}}" class="img-thumbnail" />
-                                    <a href="">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                                    </a>
-                                </div>
-                                <div class="card-body p-1 text-center">
-                                    <span class="card-title">{{$item->name}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                        @endforeach
-                    </div>
-                </div>
-                @endif
-            </div>
-            <!-- Sản phẩm -->
-            <div class="product_category">
-                <h4>Sản phẩm mới</h4>
-            </div>
-            <div class="product_list row py-3">
-                {{$slot}}
-            </div>
+            {{$slot}}
         </div>
     </section>
     <footer>
