@@ -78,12 +78,15 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="login">
-                        <ul class="m-0 p-0 d-flex justify-content-end" style="list-style: none">
+                        <ul class="m-0 p-0 d-flex justify-content-end align-items-center" style="list-style: none">
                             <li class="me-2">
                                 @if (Auth::guard('customer')->user())
                                 <div class="dropdown">
                                     <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
                                         data-mdb-toggle="dropdown" aria-expanded="false">
+                                        <img src="/storage/avatars/{{Auth::guard('customer')->user()->avatar}}"
+                                            width="30" height="30" class="rounded-circle"
+                                            alt="{{Auth::guard('customer')->user()->name}}">
                                         {{Auth::guard('customer')->user()->name}}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -100,7 +103,7 @@
                             <li class="me-2">
                                 <a style="color: var(--header_color)" href="{{route('home.cart')}}">Giỏ hàng <i
                                         class="fas fa-shopping-bag"></i>
-                                    <sup style="font-size: 13px;">[10]</sup></a>
+                                    <sup style="font-size: 13px;">[{{$cart->total_quantity}}]</sup></a>
                             </li>
                         </ul>
                     </div>
@@ -126,26 +129,34 @@
                         </ul>
                     </div>
                 </div>
+                @php
+                $navbars = [
+                [
+                'name'=>'Trang chủ',
+                'route'=>'home'
+                ],
+                [
+                'name'=>'Giới thiệu',
+                'route'=>'about'
+                ],
+                [
+                'name'=>'Liên hệ',
+                'route'=>'contact'
+                ]
+                ];
+                $route_curr = Route::currentRouteName();
+                @endphp
                 <div class="col-lg-9">
-                    <div class="row shadow-sm d-flex align-items-center">
+                    <div class="row d-flex align-items-center">
                         <div class="col-lg-10">
                             <nav class="nav_bar">
                                 <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
+                                    @foreach ($navbars as $item)
                                     <li class="nav_bar_item pt-2 pb-2 pe-2">
-                                        <a class="text-dark" href="{{route('home')}}">Trang chủ</a>
+                                        <a class="text-dark"
+                                            href="{{$item['route'] ? route($item['route']) : ''}}">{{$item['name']}}</a>
                                     </li>
-                                    <li class="nav_bar_item p-2">
-                                        <a class="text-dark" href="">Giới thiệu</a>
-                                    </li>
-                                    <li class="nav_bar_item p-2">
-                                        <a class="text-dark" href="">Hướng dẫn mua hàng</a>
-                                    </li>
-                                    <li class="nav_bar_item p-2">
-                                        <a class="text-dark" href="">Đăng ký mua buôn</a>
-                                    </li>
-                                    <li class="nav_bar_item p-2">
-                                        <a class="text-dark" href="">Địa chỉ</a>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </nav>
                         </div>
@@ -158,15 +169,15 @@
                         <div id="carouselExampleControls" class="carousel slide" data-mdb-ride="carousel">
                             <div class="carousel-inner" style="height: 350px">
                                 <div class="carousel-item active">
-                                    <img src="https://chuteu.com/wp-content/uploads/2022/01/cay-canh-mini-noi-that-van-phong.jpg"
+                                    <img src="https://9xgarden.com/wp-content/uploads/2021/06/shop-cay-canh-mini-khong-trong-dat-9x-garden-1.jpg"
                                         class="d-block w-100" alt="Wild Landscape" />
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="https://web2141.sangiaodichweb.com/data/web2141/banner-2.jpg"
+                                    <img src="https://9xgarden.com/wp-content/uploads/2021/06/shop-cay-canh-mini-khong-trong-dat-9x-garden-1.jpg"
                                         class="d-block w-100" alt="Camera" />
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="https://media.loveitopcdn.com/6415/thumb/900x450/banner-cach-trong-chau-cay-thuy-sinh-de-ban-xinh-xan.jpg?zc=1"
+                                    <img src="https://9xgarden.com/wp-content/uploads/2021/06/shop-cay-canh-mini-khong-trong-dat-9x-garden-1.jpg"
                                         class="d-block w-100" alt="Exotic Fruits" />
                                 </div>
                             </div>
@@ -189,13 +200,13 @@
     <section class="content my-2">
         <div class="container bg-light">
             <!-- Danh mục sản phẩm -->
-            <div class="row py-3">
-                <div class="category_heading text-center mb-3">
-                    <h4 class="border-3 border-bottom border-success d-inline-block pb-2"
-                        style="color: var(--header_color)">
-                        Danh Mục Sản Phẩm
-                    </h4>
-                </div>
+            <div class="category_heading text-center mt-3">
+                <h4 class="border-3 border-bottom border-success d-inline-block pb-2"
+                    style="color: var(--header_color)">
+                    Danh Mục Sản Phẩm
+                </h4>
+            </div>
+            <div class="row py-3 d-flex align-items-center">
                 @if ($cat->count()>0)
                 <!-- Danh mục đầu tiên -->
                 <div class="col-lg-6 text-center">

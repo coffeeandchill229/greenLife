@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
@@ -14,8 +15,16 @@ Route::prefix('/')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     // Cart
     Route::prefix('cart')->group(function () {
-        Route::get('/', [HomeController::class, 'cart'])->name('home.cart');
-        Route::get('/checkout', [HomeController::class, 'checkout'])->name('home.checkout');
+        // Cart - Page
+        Route::get('/', [HomeController::class, 'cart'])->name('home.cart')->middleware('customer');
+        // Checkout - Page
+        Route::get('/checkout', [HomeController::class, 'checkout'])->name('home.checkout')->middleware('customer');
+        Route::post('/checkout', [HomeController::class, 'store_checkout'])->name('home.store_checkout');
+        // Crud
+        Route::get('/add/{id?}', [CartController::class, 'add'])->name('cart.add')->middleware('customer');
+        Route::post('/update', [CartController::class, 'update'])->name('cart.update')->middleware('customer');
+        Route::get('/delete/{id?}', [CartController::class, 'delete'])->name('cart.delete')->middleware('customer');
+        Route::get('/remove', [CartController::class, 'remove'])->name('cart.remove')->middleware('customer');
     });
     // Customer
     Route::prefix('customer')->group(function () {
@@ -28,6 +37,10 @@ Route::prefix('/')->group(function () {
         // Logout
         Route::get('logout', [CustomerController::class, 'logout'])->name('home.logout');
     });
+    // About
+    Route::get('about', [HomeController::class, 'about'])->name('about');
+    // Contact
+    Route::get('contact', [HomeController::class, 'contact'])->name('contact');
 });
 // Admin
 Route::prefix('admin')->group(function () {

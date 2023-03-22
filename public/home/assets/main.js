@@ -5,20 +5,19 @@ const search_form = document.querySelector('.search_form');
 function start() {
     scrollHeader();
     backToTop();
-    renderProducts();
 }
 
 function scrollHeader() {
     window.addEventListener('scroll', (e) => {
         // Header
         if (window.scrollY > 10) {
-           Object.assign(header.style, {
+            Object.assign(header.style, {
                 top: '0px',
-           });
+            });
         } else {
             Object.assign(header.style, {
                 top: '32px',
-           });
+            });
         }
         // Show btn back to top
         if (window.scrollY > 200) {

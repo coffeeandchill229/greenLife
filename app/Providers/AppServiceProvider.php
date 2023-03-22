@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Helper\CartHelper;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::usebootstrap();
+
+        View::composer('*', function ($view) {
+            $view->with(['cart' => new CartHelper()]);
+        });
     }
 }

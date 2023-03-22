@@ -49,6 +49,7 @@ header {
     box-shadow: 0 2px 5px #9999;
     transition: all .4s ease;
 }
+
 header .search_form .search_box {
     border: 1px solid var(--header_color);
     display: flex;
@@ -124,6 +125,16 @@ header .search_form .search_box .search_btn {
     right: 13px;
     transform: translateY(-50%);
     background: var(--header_color);
+}
+
+#btn_add_to_cart {
+    margin-top: 0;
+    transition: .2s ease-in-out;
+    transform: translateY(40px);
+}
+
+.card:hover>#btn_add_to_cart {
+    transform: translateY(0px);
 }
 
 /* Footer */

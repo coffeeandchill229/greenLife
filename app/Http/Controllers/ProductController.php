@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+
 class ProductController extends Controller
 {
     function index()
     {
-        $products = Product::orderByDesc('id')->get();
+        $products = Product::orderByDesc('id')->paginate(4);
         return view('admin.products.index', compact('products'));
     }
     function addOrUpdate($id = null)
@@ -20,7 +21,7 @@ class ProductController extends Controller
         }
         return view('admin.products.addOrUpdate', compact('product_edit'));
     }
-    function store(Request $request, $id=null)
+    function store(Request $request, $id = null)
     {
         $data = $request->all();
         unset($data['_token']);
@@ -50,13 +51,13 @@ class ProductController extends Controller
             $data['image'] = $filename;
         }
 
-        $product = Product::updateOrCreate(['id'=>$id],$data);
+        $product = Product::updateOrCreate(['id' => $id], $data);
         $product->save();
 
         return back();
     }
-
-    function delete($id=null){
+    function delete($id = null)
+    {
         Product::destroy($id);
         return back();
     }

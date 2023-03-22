@@ -100,7 +100,7 @@
                             <li class="me-2">
                                 <a style="color: var(--header_color)" href="{{route('home.cart')}}">Giỏ hàng <i
                                         class="fas fa-shopping-bag"></i>
-                                    <sup style="font-size: 13px;">[10]</sup></a>
+                                    <sup style="font-size: 13px;">[{{$cart->total_quantity}}]</sup></a>
                             </li>
                         </ul>
                     </div>
@@ -110,9 +110,9 @@
     </header>
     <section class="navigation">
         <div class="container">
-            <div class="row bg-white shadow-sm">
+            <div class="row bg-white border-bottom py-2">
                 <div class="col">
-                    <div class="row shadow-sm d-flex align-items-center">
+                    <div class="row d-flex align-items-center">
                         <div class="col-lg-10">
                             <nav class="nav_bar">
                                 <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
@@ -144,7 +144,7 @@
         </div>
     </section>
     <section class="content my-2">
-        <div class="container bg-light">
+        <div class="container">
             {{$slot}}
         </div>
     </section>

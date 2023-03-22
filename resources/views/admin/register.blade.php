@@ -26,7 +26,7 @@
                                     alt="Sample image">
                             </div>
                             <div class="col-5">
-                                <form method="POST" action="{{route('home.store_register')}}">
+                                <form method="POST" action="{{route('admin.store_register')}}">
                                     @csrf
                                     <div class="row">
                                         <div class="mb-4">

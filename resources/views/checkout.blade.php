@@ -1,5 +1,5 @@
 <x-only-header title="Thanh toán">
-    <form action="" method="post">
+    <form action="{{route('home.store_checkout')}}" method="post">
         @csrf
         <div class="row bg-white d-flex justify-content-between py-5">
             <h4 class="text-center text-success mb-5">THANH TOÁN</h4>
@@ -17,10 +17,17 @@
                 <div class="form-group mb-2">
                     <label class="form-label">Số điện thoại</label>
                     <input type="phone" name="phone" class="form-control">
+                    @error('phone')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
                 <div class="form-group mb-2">
                     <label class="form-label">Email</label>
-                    <input type="email" name="email" value="{{Auth::guard('customer')->user()->email}}" class="form-control">
+                    <input type="email" name="email" value="{{Auth::guard('customer')->user()->email}}"
+                        class="form-control">
+                    @error('email')
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
                 <h6 class="fw-bold mt-4">THÔNG TIN THANH TOÁN</h6>
                 <div class="form-group mb-2">
@@ -37,16 +44,24 @@
                             <td class="fw-bold">SẢN PHẨM</td>
                             <td class="fw-bold">TẠM TÍNH</td>
                         </tr>
+                        @foreach ($cart->items as $item)
+                        <tr>
+                            <td>{{$item['name']}} x {{$item['quantity']}}</td>
+                            <td>{{number_format($item['price'])}} <sup>đ</sup></td>
+                        </tr>
+                        @endforeach
                         <tr>
                             <td class="fw-bold">TỔNG</td>
-                            <td>1.000.000 VND</td>
+                            <td>{{number_format($cart->total_price)}} <sup>đ</sup>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
                 <h6 class="fw-bold">CHỌN PHƯƠNG THỨC THANH TOÁN</h6>
                 <div class="form group">
-                    <input type="radio" name="method" class="mt-3"> <span>Trả tiền mặt khi nhận hàng</span> <br>
-                    <input type="radio" name="method" class="mt-3"> <span>Chuyển khoản ngân hàng</span>
+                    <input type="radio" name="method" checked value="0" class="mt-3"> <span>Trả tiền mặt khi nhận
+                        hàng</span> <br>
+                    <input type="radio" name="method" value="1" class="mt-3"> <span>Chuyển khoản ngân hàng</span>
                 </div>
                 <button class="btn btn-success mt-3">ĐẶT HÀNG</button>
             </div>

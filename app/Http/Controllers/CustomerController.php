@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
-    function login(){
+    function login()
+    {
         return view('customer.login');
     }
     function store_login(Request $request)
@@ -22,7 +23,7 @@ class CustomerController extends Controller
             'password' => 'required'
         ], [
             'email' => 'Email',
-            'password' => 'Password'
+            'password' => 'Mật khẩu'
         ]);
         if (Auth::guard('customer')->attempt($data)) {
             $request->session()->regenerate();
@@ -31,26 +32,28 @@ class CustomerController extends Controller
         }
         return back();
     }
-    function register(){
+    function register()
+    {
         return view('customer.register');
     }
-    function store_register(Request $request){
+    function store_register(Request $request)
+    {
         $data = $request->all();
         unset($data['_token']);
 
         $rules = [
-            'email'=>'required|email',
-            'name'=>'required',
-            'password'=>'required|min:6',
-            'confirm_password'=>'required|same:password|min:6'
+            'email' => 'required|email',
+            'name' => 'required',
+            'password' => 'required|min:6',
+            'confirm_password' => 'required|same:password|min:6'
         ];
         $messages = [
-            'email'=>'Email',
-            'name'=>'Họ tên',
-            'password'=>'Mật khẩu',
-            'confirm_password'=>'Nhập lại mật khẩu'
+            'email' => 'Email',
+            'name' => 'Họ tên',
+            'password' => 'Mật khẩu',
+            'confirm_password' => 'Nhập lại mật khẩu'
         ];
-        $this->customValidate($data,$rules,$messages);
+        $this->customValidate($data, $rules, $messages);
 
         $data['password'] = Hash::make($request->password);
         unset($data['confirm_password']);
@@ -58,18 +61,19 @@ class CustomerController extends Controller
         $user = Customer::create($data);
         $user->save();
         return redirect()->route('home.login');
-        
     }
-    function logout(Request $request){
+    function logout(Request $request)
+    {
         Auth::guard('customer')->logout();
-      
+
         $request->session()->regenerateToken();
-     
+
         return redirect()->route('home.login');
     }
     // Manager
-    function index(){
+    function index()
+    {
         $customers = Customer::orderByDesc('id')->get();
-        return view('admin.customer.index',compact('customers'));
+        return view('admin.customer.index', compact('customers'));
     }
 }
