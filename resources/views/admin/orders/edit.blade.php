@@ -1,5 +1,6 @@
 <x-admin title="Order-Edit">
     <form action="{{route('admin.order.store',$order_edit->id)}}" method="post">
+        @csrf
         <div class="row">
             <div class="col-6">
                 <x-input name="name" label="Họ tên" value="{{$order_edit->name}}" />
@@ -18,8 +19,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Trạng thái đơn hàng</label>
-                    <select name="method" class="form-select" id="">
-                        <option value="" disabled selected>Chọn một phương thức</option>
+                    <select name="status_id" class="form-select" id="">
                         @foreach ($order_status as $item)
                         <option value="{{$item->id}}" {{$item->id == $order_edit->status_id ? 'selected' :
                             ''}}>{{$item->name}}</option>
@@ -30,4 +30,5 @@
             </div>
         </div>
     </form>
+    <a href="{{route('admin.order')}}" class="btn btn-sm btn-dark">Trở về</a>
 </x-admin>

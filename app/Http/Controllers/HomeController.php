@@ -62,4 +62,8 @@ class HomeController extends Controller
         }
         return back();
     }
+    function product_detail($id){
+        $product = Product::findOrFail($id);
+        return view('product_detail',compact('product'));
+    }
 }

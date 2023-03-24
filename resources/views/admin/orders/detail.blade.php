@@ -32,6 +32,7 @@
                     @endforeach
                 </tbody>
             </table>
+            <a href="{{route('admin.order')}}" class="btn btn-sm btn-dark">Trở về</a>
         </div>
     </div>
 </x-admin>

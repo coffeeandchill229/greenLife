@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 // Client
 Route::prefix('/')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    // Product
+    Route::prefix('products')->group(function (){
+        Route::get('/detail/{id?}',[HomeController::class, 'product_detail'])->name('home.product_detail');
+    });
     // Cart
     Route::prefix('cart')->group(function () {
         // Cart - Page

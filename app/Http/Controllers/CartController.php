@@ -9,10 +9,11 @@ use Illuminate\Queue\NullQueue;
 
 class CartController extends Controller
 {
-    function add(CartHelper $cart, $id)
+    function add(CartHelper $cart, $id, Request $request)
     {
+        $quantity = $request->quantity;
         $product = Product::find($id);
-        $cart->add($product);
+        $cart->add($product,$quantity);
         return back();
     }
     function delete(CartHelper $cart, $id)

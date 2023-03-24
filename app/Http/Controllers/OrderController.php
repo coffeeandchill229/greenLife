@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
@@ -25,13 +26,25 @@ class OrderController extends Controller
     {
         $order_edit = Order::findOrFail($id);
         $order_status = OrderStatus::all();
-        return view('admin.orders.edit', compact('order_edit','order_status'));
+        return view('admin.orders.edit', compact('order_edit', 'order_status'));
+    }
+    function store(Request $request, $id)
+    {
+        $data = $request->all();
+        unset($data['_token']);
+
+        $data['staff_id'] = Auth::user()->id;
+
+        $order_edit = Order::updateOrCreate(['id' => $id], $data);
+        $order_edit->save();
+
+        return back();
     }
     function delete($id)
     {
-        $order_detail = OrderDetail::where('order_id',$id)->get();
-        if($order_detail){
-            foreach($order_detail as $item){
+        $order_detail = OrderDetail::where('order_id', $id)->get();
+        if ($order_detail) {
+            foreach ($order_detail as $item) {
                 OrderDetail::destroy($item->id);
             }
             Order::destroy($id);
