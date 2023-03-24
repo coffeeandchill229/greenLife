@@ -255,6 +255,7 @@
                 <h4>Sản phẩm mới</h4>
             </div>
             <div class="product_list row py-3">
+                @include('sweetalert::alert')
                 {{$slot}}
             </div>
         </div>
@@ -328,6 +329,7 @@
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=238683943543481&autoLogAppEvents=1"
         nonce="tdycEoV4"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
 </body>
 
 </html>

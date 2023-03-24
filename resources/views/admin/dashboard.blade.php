@@ -1,37 +1,91 @@
 <x-admin title="Dashboard">
-    <h4 class="text-center text-primary">Welcome! {{Auth::user()->name}}</h4>
     <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <div class="card card-height-100">
-                <div class="card-body">
-                    <div class="float-end">
-                        <div class="dropdown card-header-dropdown">
-                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <span class="text-muted fs-18"><i class="mdi mdi-dots-vertical align-middle"></i></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Today</a>
-                                <a class="dropdown-item" href="#">Last Week</a>
-                                <a class="dropdown-item" href="#">Last Month</a>
-                                <a class="dropdown-item" href="#">Current Year</a>
+
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="row">
+                <div class="col-4">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="fw-medium text-muted mb-0">Nhân viên</p>
+                                    <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
+                                            data-target="{{$total_users}}">{{$total_users}}</span></h2>
+                                </div>
+                                <div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title bg-dark rounded-circle fs-2">
+                                            <i class="las la-user-shield"></i>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="avatar-sm flex-shrink-0">
-                            <span class="avatar-title bg-primary rounded fs-3">
-                                <i class="bx bx-dollar-circle"></i>
-                            </span>
-                        </div>
-                        <div class="flex-grow-1 ps-3">
-                            <h5 class="text-muted text-uppercase fs-13 mb-0">Tổng doanh thu</h5>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-1">
-                        <h4 class="fs-22 fw-semibold ff-secondary mb-0"><span class="counter-value"
-                                data-target="10000000"></span>VND</h4>
-                    </div>
+                        </div><!-- end card body -->
+                    </div> <!-- end card-->
+                </div>
+                <div class="col-4">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="fw-medium text-muted mb-0">Khách hàng</p>
+                                    <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
+                                            data-target="{{$total_customers}}">{{$total_customers}}</span></h2>
+                                </div>
+                                <div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title bg-warning rounded-circle fs-2">
+                                            <i class="las la-user"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end card body -->
+                    </div> <!-- end card-->
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span class="avatar-title bg-light text-primary rounded-circle shadow fs-3">
+                                        <i class="ri-money-dollar-circle-fill align-middle"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <p class="text-uppercase fw-semibold fs-12 text-muted mb-1">
+                                        Tổng doanh thu</p>
+                                    <h4 class=" mb-0"><span class="counter-value"
+                                            data-target="{{$total_revenue}}"></span> <sup>đ</sup></h4>
+                                </div>
+                            </div>
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span class="avatar-title bg-light text-primary rounded-circle shadow fs-3">
+                                        <i class="ri-money-dollar-circle-fill align-middle"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <p class="text-uppercase fw-semibold fs-12 text-muted mb-1">
+                                        Doanh thu hôm nay</p>
+                                    <h4 class=" mb-0"><span class="counter-value"
+                                            data-target="{{$revenue_today}}"></span> <sup>đ</sup></h4>
+                                </div>
+                            </div>
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
                 </div>
             </div>
         </div>
@@ -63,12 +117,12 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <h5 class="fs-14 my-1 fw-normal">{{number_format($item->price)}}</h5>
-                                        <span class="text-muted">VND</span>
+                                        <h5 class="fs-14 my-1 fw-normal">{{number_format($item->price)}} <sup>đ</sup>
+                                        </h5>
                                     </td>
                                     <td>
-                                        <h5 class="fs-14 my-1 fw-normal">62</h5>
-                                        <span class="text-muted">Đơn đặt hàng</span>
+                                        <h5 class="fs-14 my-1 fw-normal">{{$item->sold}}</h5>
+                                        <span class="text-muted">Đã bán</span>
                                     </td>
                                     <td>
                                         <h5 class="fs-14 my-1 fw-normal">{{$item->stock}}</h5>
@@ -79,34 +133,16 @@
                             </tbody>
                         </table>
                     </div>
-
                     <div class="align-items-center mt-4 pt-2 justify-content-between d-flex">
                         <div class="flex-shrink-0">
                             <div class="text-muted">
-                                Hiển thị <span class="fw-semibold">5</span> của <span
-                                    class="fw-semibold">{{$best_selling->count()}}</span>
-                                Kết quả
+                                Hiển thị {{$best_selling->count()}} của {{$best_selling->total()}} kết quả
                             </div>
                         </div>
-                        <ul class="pagination pagination-separated pagination-sm mb-0">
-                            <li class="page-item disabled">
-                                <a href="#" class="page-link">←</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="#" class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">→</a>
-                            </li>
-                        </ul>
+                        <div>
+                            {{$best_selling->links()}}
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -129,28 +165,31 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($recent_orders as $item)
                                 <tr>
                                     <td>
                                         <a href="apps-ecommerce-order-details.html"
-                                            class="fw-medium link-primary">01</a>
+                                            class="fw-medium link-primary">{{$item->id}}</a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="flex-shrink-0 me-2">
-                                                <img src="assets/images/users/avatar-1.jpg" alt=""
+                                                <img src="/storage/avatars/{{$item->customer->avatar}}" alt=""
                                                     class="avatar-xs rounded-circle shadow">
                                             </div>
-                                            <div class="flex-grow-1">Alex Smith</div>
+                                            <div class="flex-grow-1">{{$item->customer->name}}</div>
                                         </div>
                                     </td>
-                                    <td>Clothes</td>
+                                    <td>{{$item->order_detail[0]->product->name}}</td>
                                     <td>
-                                        <span class="text-success">$109.00</span>
+                                        <span class="text-success">{{number_format($item->order_detail[0]['price'])}}
+                                            <sup>đ</sup></span>
                                     </td>
                                     <td>
-                                        <span class="badge badge-soft-success">Paid</span>
+                                        <span class="badge badge-soft-success">Chưa làm :v</span>
                                     </td>
                                 </tr><!-- end tr -->
+                                @endforeach
                             </tbody><!-- end tbody -->
                         </table><!-- end table -->
                     </div>

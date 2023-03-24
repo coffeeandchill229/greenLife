@@ -21,7 +21,7 @@
                                 <a href="{{route('cart.delete',$item['id'])}}" class="text-danger"><i
                                         class="fas fa-times"></i></a>
                                 <img class="mx-3"
-                                    src="https://9xgarden.com/wp-content/uploads/2022/12/cay-trong-khong-dat-de-ban-chau-kichirou-9xgarden-16-300x300.jpg"
+                                    src="/storage/products/{{$item['image']}}"
                                     width="60" height="60" alt="">
                                 <span>{{$item['name']}}</span>
                             </td>

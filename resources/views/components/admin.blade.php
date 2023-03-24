@@ -340,6 +340,7 @@ $nav_bar = config('nav_bar');
                             </div>
                         </div>
                         <div class="col-12">
+                            @include('sweetalert::alert')
                             {{$slot}}
                         </div>
                     </div>
@@ -1071,8 +1072,7 @@ $nav_bar = config('nav_bar');
     <!-- App js -->
     <script src="/ad/assets/js/app.js"></script>
     <!-- Sweet Alerts js -->
-    <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
 </body>
 
 </html>

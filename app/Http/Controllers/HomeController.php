@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 use App\Helper\CartHelper;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
     function index()
     {
+        Alert::success('Success Title', 'Success Message');
         $products = Product::orderByDesc('id')->take(32)->get();
         return view('welcome', compact('products'));
     }
@@ -44,6 +46,7 @@ class HomeController extends Controller
 
         $data['total'] = $cart->total_price;
         $data['customer_id'] = Auth::guard('customer')->user()->id;
+        $data['status_id'] = 1;
 
         $order = Order::create($data);
         if ($order) {

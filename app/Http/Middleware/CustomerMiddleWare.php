@@ -19,6 +19,6 @@ class CustomerMiddleWare
         if(Auth::guard('customer')->user()){
             return $next($request);
         }
-        return back();
+        return redirect()->route('home.login');
     }
 }

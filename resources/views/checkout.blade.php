@@ -36,7 +36,7 @@
                         placeholder="Ghi chú về đơn hàng, ví dụ: thời gian hay địa điểm giao hàng chi tiết hơn."></textarea>
                 </div>
             </div>
-            <div class="col-5 border border-2 border-success p-3">
+            <div class="col-5 border border-1 border-success p-3">
                 <h6 class="fw-bold">ĐƠN HÀNG CỦA BẠN</h6>
                 <table class="table">
                     <tbody>

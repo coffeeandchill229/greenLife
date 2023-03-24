@@ -5,6 +5,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderStatusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ThemeSettingController;
 use App\Http\Controllers\UserController;
@@ -78,6 +80,23 @@ Route::prefix('admin')->group(function () {
         Route::get('{id?}', [UserController::class, 'index'])->name('admin.user');
         Route::post('store/{id?}', [UserController::class, 'store'])->name('admin.user.store');
         Route::get('delete/{id?}', [UserController::class, 'delete'])->name('admin.user.delete');
+    });
+    // Orders
+    Route::prefix('orders')->middleware('auth')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('admin.order');
+        Route::get('/detail/{id?}', [OrderController::class, 'detail'])->name('admin.order.detail');
+        Route::get('/update/{id?}', [OrderController::class, 'update'])->name('admin.order.update');
+        Route::post('/store/{id?}', [OrderController::class, 'store'])->name('admin.order.store');
+        Route::get('/delete/{id?}', [OrderController::class, 'delete'])->name('admin.order.delete');
+    });
+    // Order - Status
+    Route::prefix('order-status')->middleware('auth')->group(function () {
+        Route::get('/', [OrderStatusController::class, 'index'])->name('admin.order_status');
+        Route::post('/store', [OrderStatusController::class, 'store'])->name('admin.order_status.store');
+    });
+    // Order - Detail
+    Route::prefix('order-detail')->middleware('auth')->group(function () {
+        Route::get('/delete/{id?}', [OrderController::class, 'order_detail_delete'])->name('admin.order_detail.delete');
     });
     // Setting store
     Route::post('store_theme_setting', [ThemeSettingController::class, 'store'])->name('admin.store_theme_setting');

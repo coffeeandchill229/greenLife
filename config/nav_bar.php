@@ -29,7 +29,7 @@ return [
     [
         'codePage'=>'Customers',
         'title'=>'Khách hàng',
-        'icon'=>'ri-user-fill',
+        'icon'=>'bx bx-user',
         'childs'=>[
             [
                 'codePage'=>'Customer-list',
@@ -42,7 +42,7 @@ return [
     [
         'codePage'=>'Users',
         'title'=>'Nhân viên',
-        'icon'=>'ri-user-settings-fill',
+        'icon'=>'bx bx-ghost',
         'childs'=>[
             [
                 'codePage'=>'User-list',
@@ -52,5 +52,23 @@ return [
             ],
         ]
     ],
-
+    [
+        'codePage'=>'Orders',
+        'title'=>'Đơn hàng',
+        'icon'=>'bx bx-cart',
+        'childs'=>[
+            [
+                'codePage'=>'Order-list',
+                'title'=>'Danh sách',
+                'icon'=>'',
+                'href'=>'admin.order',
+            ],
+            [
+                'codePage'=>'Order-status',
+                'title'=>'Trạng thái',
+                'icon'=>'',
+                'href'=>'admin.order_status',
+            ],
+        ]
+    ],
 ];
