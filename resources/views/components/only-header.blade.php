@@ -30,7 +30,7 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
     <div id="fb-root"></div>
 
     <span class="back_to_top"><i class="fas fa-chevron-circle-up"></i></span>
@@ -67,9 +67,9 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <form action="" method="get" class="search_form">
+                    <form action="{{route('home.search')}}" method="get" class="search_form">
                         <div class="search_box">
-                            <input type="text" class="search_input" placeholder="Tìm kiếm sản phẩm..." />
+                            <input type="text" name="key" class="search_input" placeholder="Tìm kiếm sản phẩm..." />
                             <button class="search_btn">
                                 <i class="fas fa-search"></i>
                             </button>
@@ -114,23 +114,31 @@
                 <div class="col">
                     <div class="row d-flex align-items-center">
                         <div class="col-lg-10">
+                            @php
+                            $navbars = [
+                            [
+                            'name'=>'Trang chủ',
+                            'route'=>'home'
+                            ],
+                            [
+                            'name'=>'Giới thiệu',
+                            'route'=>'about'
+                            ],
+                            [
+                            'name'=>'Liên hệ',
+                            'route'=>'contact'
+                            ]
+                            ];
+                            $route_curr = Route::currentRouteName();
+                            @endphp
                             <nav class="nav_bar">
                                 <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
+                                    @foreach ($navbars as $item)
                                     <li class="nav_bar_item pt-2 pb-2 pe-2">
-                                        <a class="text-dark" href="{{route('home')}}">Trang chủ</a>
+                                        <a class="text-dark"
+                                            href="{{$item['route'] ? route($item['route']) : ''}}">{{$item['name']}}</a>
                                     </li>
-                                    <li class="nav_bar_item p-2">
-                                        <a class="text-dark" href="">Giới thiệu</a>
-                                    </li>
-                                    <li class="nav_bar_item p-2">
-                                        <a class="text-dark" href="">Hướng dẫn mua hàng</a>
-                                    </li>
-                                    <li class="nav_bar_item p-2">
-                                        <a class="text-dark" href="">Đăng ký mua buôn</a>
-                                    </li>
-                                    <li class="nav_bar_item p-2">
-                                        <a class="text-dark" href="">Địa chỉ</a>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </nav>
                         </div>

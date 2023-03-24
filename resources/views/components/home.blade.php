@@ -30,7 +30,7 @@
     </style>
 </head>
 
-<body>
+<body class="bg-light">
     <div id="fb-root"></div>
 
     <span class="back_to_top"><i class="fas fa-chevron-circle-up"></i></span>
@@ -67,9 +67,9 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <form action="" method="get" class="search_form">
+                    <form action="{{route('home.search')}}" method="get" class="search_form">
                         <div class="search_box">
-                            <input type="text" class="search_input" placeholder="Tìm kiếm sản phẩm..." />
+                            <input type="text" name="key" class="search_input" placeholder="Tìm kiếm sản phẩm..." />
                             <button class="search_btn">
                                 <i class="fas fa-search"></i>
                             </button>
@@ -113,7 +113,7 @@
     </header>
     <section class="navigation">
         <div class="container">
-            <div class="row bg-light shadow-sm">
+            <div class="row bg-white shadow-sm">
                 <div class="col-lg-3">
                     <div class="category">
                         <ul class="list-group rounded-0">
@@ -123,7 +123,8 @@
                             </li>
                             @foreach ($cats as $item)
                             <li class="list-group-item">
-                                <a class="text-dark" href="">{{$item->name}}</a>
+                                <a class="text-dark"
+                                    href="{{route('home.product_category',$item->id)}}">{{$item->name}}</a>
                             </li>
                             @endforeach
                         </ul>
@@ -198,7 +199,7 @@
         </div>
     </section>
     <section class="content my-2">
-        <div class="container bg-light">
+        <div class="container bg-white">
             <!-- Danh mục sản phẩm -->
             <div class="category_heading text-center mt-3">
                 <h4 class="border-3 border-bottom border-success d-inline-block pb-2"
@@ -213,7 +214,7 @@
                     <div class="card shadow category_item_first d-grid justify-content-center">
                         <div class="bg-image hover-overlay rippler" data-mdb-ripple-color="light">
                             <img src="/storage/images/{{$cat->first()->image}}" class="img-thumbnail border-0" />
-                            <a href="#!">
+                            <a href="{{route('home.product_category',$cat->first()->id)}}">
                                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
                             </a>
                         </div>
@@ -235,7 +236,7 @@
                                 <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light"
                                     style="height: 240px;">
                                     <img src="/storage/images/{{$item->image}}" class="img-thumbnail" />
-                                    <a href="">
+                                    <a href="{{route('home.product_category',$item->id)}}">
                                         <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
                                     </a>
                                 </div>

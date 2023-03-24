@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Helper\CartHelper;
+use App\Models\Category;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -62,8 +63,32 @@ class HomeController extends Controller
         }
         return back();
     }
-    function product_detail($id){
+    function product_detail($id)
+    {
         $product = Product::findOrFail($id);
-        return view('product_detail',compact('product'));
+        return view('product_detail', compact('product'));
+    }
+    function product_category($id)
+    {
+        $cats = Category::all();
+        $category_find = Category::findOrFail($id);
+        $products = Product::where('category_id', $category_find->id)->get();
+        return view('product_category', compact('products', 'cats', 'category_find'));
+    }
+    function search(Request $request)
+    {
+        $data = $request->all();
+        dd($data);
+        $cats = Category::all();
+        // $products = Product::where('category_id', $category_find->id)->get();
+        return view('product_category', compact('products', 'cats'));
+    }
+    function about()
+    {
+        return view('about');
+    }
+    function contact()
+    {
+        return view('contact');
     }
 }

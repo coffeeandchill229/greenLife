@@ -16,9 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     // Product
-    Route::prefix('products')->group(function (){
-        Route::get('/detail/{id?}',[HomeController::class, 'product_detail'])->name('home.product_detail');
+    Route::prefix('products')->group(function () {
+        Route::get('/detail/{id?}', [HomeController::class, 'product_detail'])->name('home.product_detail');
     });
+    // Product - Category
+    Route::prefix('product-category')->group(function () {
+        Route::get('{id?}', [HomeController::class, 'product_category'])->name('home.product_category');
+    });
+    // Search
+    Route::get('search',[HomeController::class, 'search'])->name('home.search');
     // Cart
     Route::prefix('cart')->group(function () {
         // Cart - Page
