@@ -24,7 +24,7 @@ Route::prefix('/')->group(function () {
         Route::get('{id?}', [HomeController::class, 'product_category'])->name('home.product_category');
     });
     // Search
-    Route::get('search',[HomeController::class, 'search'])->name('home.search');
+    Route::get('search', [HomeController::class, 'search'])->name('home.search');
     // Cart
     Route::prefix('cart')->group(function () {
         // Cart - Page

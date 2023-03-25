@@ -5,7 +5,7 @@
                 <div class="col-5">
                     <h4 class="fw-bold">Liên hệ</h4>
                     <p style="text-align: justify;">
-                        NamLee luôn sẵn lòng đón nhận các ý kiến đóng góp cũng như hồi đáp các thắc mắc của bạn về các
+                        Chúng tôi luôn sẵn lòng đón nhận các ý kiến đóng góp cũng như hồi đáp các thắc mắc của bạn về các
                         sản
                         phẩm, dịch vụ. Bạn có thể liên hệ qua biểu mẫu hoặc liên hệ theo các thông tin dưới đây nếu bạn
                         có
@@ -16,16 +16,16 @@
                     <form action="" method="post">
                         @csrf
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control" placeholder="Họ tên">
+                            <input type="text" name="name" class="form-control rounded-0" placeholder="Họ tên">
                         </div>
                         <div class="form-group mt-3">
-                            <input type="email" name="email" class="form-control" placeholder="Email">
+                            <input type="email" name="email" class="form-control rounded-0" placeholder="Email">
                         </div>
                         <div class="form-group mt-3">
-                            <input type="text" name="phone" class="form-control" placeholder="Số điện thoại">
+                            <input type="text" name="phone" class="form-control rounded-0" placeholder="Số điện thoại">
                         </div>
                         <div class="form-group mt-3">
-                            <textarea type="text" rows="4" name="content" class="form-control"
+                            <textarea type="text" rows="4" name="content" class="form-control rounded-0"
                                 placeholder="Nội dung"></textarea>
                         </div>
                         <button class="btn btn-sm btn-success mt-3">Gửi</button>

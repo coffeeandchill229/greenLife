@@ -1,6 +1,6 @@
 <x-only-header title="Chi tiết sản phẩm">
     <form action="{{route('cart.add',$product->id)}}" method="get">
-        <div class="row py-5">
+        <div class="row my-4">
             <div class="col-5">
                 <img class="w-100 h-100 img-thumbnail" style="object-fit: contain;"
                     src="/storage/products/{{$product->image}}" alt="">

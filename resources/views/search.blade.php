@@ -1,5 +1,5 @@
-<x-only-header title="Tìm kiếm - ">
-    <div class="row">
+<x-only-header title="Tìm kiếm - '{{$key}}'">
+    <div class="row my-4">
         <div class="col-3">
             <div class="category">
                 <ul class="list-group rounded-0">
@@ -19,7 +19,7 @@
             <ul class="d-flex align-items-center m-0 p-0 mb-2" style="list-style: none;">
                 <li><a href="{{route('home')}}" class="text-secondary">Trang chủ</a></li>
                 <span class="mx-2">/</span>
-                <li><a class="text-secondary" href="">{{$category_find->name}}</a></li>
+                <li>Kết quả tìm kiếm '{{$key}}'</li>
             </ul>
             <div class="row">
                 @if ($products->count() >0)

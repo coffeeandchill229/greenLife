@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 use App\Helper\CartHelper;
 use App\Models\Category;
 use App\Models\OrderDetail;
+use App\View\Components\input;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Error;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
@@ -68,20 +70,33 @@ class HomeController extends Controller
         $product = Product::findOrFail($id);
         return view('product_detail', compact('product'));
     }
-    function product_category($id)
+    function product_category(Request $request, $id)
     {
         $cats = Category::all();
         $category_find = Category::findOrFail($id);
-        $products = Product::where('category_id', $category_find->id)->get();
+        // Fillter
+        $orderBy = $request->input('orderBy');
+        $products = null;
+        if ($orderBy == 'default') {
+            $products = Product::where('category_id', '=', $id)->orderBy('price', 'ASC')->get();
+        } else if ($orderBy == 'latest') {
+            $products = Product::where('category_id', '=', $id)->orderBy('id', 'DESC')->get();
+        } else if ($orderBy == 'low_price') {
+            $products = Product::where('category_id', '=', $id)->orderBy('price', 'ASC')->get();
+        } else if ($orderBy == 'high_price') {
+            $products = Product::where('category_id', '=', $id)->orderBy('price', 'DESC')->get();
+        } else {
+            $products = Product::where('category_id', '=', $id)->get();
+        }
         return view('product_category', compact('products', 'cats', 'category_find'));
     }
     function search(Request $request)
     {
         $data = $request->all();
-        dd($data);
+        $key = $request->key;
         $cats = Category::all();
-        // $products = Product::where('category_id', $category_find->id)->get();
-        return view('product_category', compact('products', 'cats'));
+        $products = Product::where('name', 'like', '%' . $key . '%')->get();
+        return view('search', compact('products', 'cats', 'key'));
     }
     function about()
     {

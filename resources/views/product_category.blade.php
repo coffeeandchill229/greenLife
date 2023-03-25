@@ -1,5 +1,5 @@
 <x-only-header title="Danh mục - {{$category_find->name}}">
-    <div class="row">
+    <div class="row my-4">
         <div class="col-3">
             <div class="category">
                 <ul class="list-group rounded-0">
@@ -16,12 +16,30 @@
             </div>
         </div>
         <div class="col-9">
-            <ul class="d-flex align-items-center m-0 p-0 mb-2" style="list-style: none;">
-                <li><a href="{{route('home')}}" class="text-secondary">Trang chủ</a></li>
-                <span class="mx-2">/</span>
-                <li><a class="text-secondary" href="">{{$category_find->name}}</a></li>
-            </ul>
-            <div class="row">
+            <div class="row d-flex align-items-center">
+                <div class="col-6">
+                    <ul class="d-flex align-items-center m-0 p-0 mb-2" style="list-style: none;">
+                        <li><a href="{{route('home')}}" class="text-secondary">Trang chủ</a></li>
+                        <span class="mx-2">/</span>
+                        <li><a class="text-secondary" href="">{{$category_find->name}}</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 d-flex justify-content-end">
+                    <div class="d-flex align-items-center">
+                        <form action="" method="get">
+                            <label class="me-2">Sắp xếp theo</label>
+                            <select name="orderBy" class="p-1 rounded-3" style="outline: none;">
+                                <option value="default">Thứ tự mặc định</option>
+                                <option value="latest">Mới nhất</option>
+                                <option value="low_price">Từ giá thấp đến cao</option>
+                                <option value="high_price">Từ giá cao đến thấp</option>
+                            </select>
+                            <button class="btn btn-sm btn-dark"><i class="fas fa-filter"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
                 @if ($products->count() >0)
                 @foreach ($products as $item)
                 <div class="product_item col-lg-3 col-md-4 col-6 mb-3">
