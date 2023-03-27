@@ -25,6 +25,7 @@
         @media (min-width: 1200px) {
             .container {
                 width: 1170px;
+                padding: 0 15px;
             }
         }
     </style>
@@ -62,7 +63,7 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <h2 class="m-0" style="color: var(--header_color)">
-                            Nam Lee <i class="fab fa-pagelines"></i>
+                            Le Nam <i class="fab fa-pagelines"></i>
                         </h2>
                     </div>
                 </div>
@@ -153,8 +154,9 @@
                             <nav class="nav_bar">
                                 <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
                                     @foreach ($navbars as $item)
-                                    <li class="nav_bar_item pt-2 pb-2 pe-2">
-                                        <a class="text-dark"
+                                    <li
+                                        class="nav_bar_item me-1 py-1 pe-2">
+                                        <a class="{{$item['route'] == $route_curr ? 'text-success' : 'text-dark'}}"
                                             href="{{$item['route'] ? route($item['route']) : ''}}">{{$item['name']}}</a>
                                     </li>
                                     @endforeach
@@ -168,19 +170,17 @@
                     </div>
                     <div class="row my-2">
                         <div id="carouselExampleControls" class="carousel slide" data-mdb-ride="carousel">
-                            <div class="carousel-inner" style="height: 350px">
+                            <div class="carousel-inner rounded-3" style="height: 350px">
                                 <div class="carousel-item active">
-                                    <img src="https://9xgarden.com/wp-content/uploads/2021/06/shop-cay-canh-mini-khong-trong-dat-9x-garden-1.jpg"
-                                        class="d-block w-100" alt="Wild Landscape" />
+                                    <img src="https://vuoncayviet.com/data/aditems/93/vuon-cay-viet-banner-new.jpg"
+                                        alt="Wild Landscape" />
                                 </div>
+                                @foreach ($banners as $item)
                                 <div class="carousel-item">
-                                    <img src="https://9xgarden.com/wp-content/uploads/2021/06/shop-cay-canh-mini-khong-trong-dat-9x-garden-1.jpg"
-                                        class="d-block w-100" alt="Camera" />
+                                    <img src="/storage/banner/{{$item->image}}" class="d-block w-100"
+                                        alt="Wild Landscape" />
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="https://9xgarden.com/wp-content/uploads/2021/06/shop-cay-canh-mini-khong-trong-dat-9x-garden-1.jpg"
-                                        class="d-block w-100" alt="Exotic Fruits" />
-                                </div>
+                                @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
                                 data-mdb-target="#carouselExampleControls" data-mdb-slide="prev">
@@ -256,7 +256,6 @@
                 <h4>Sản phẩm mới</h4>
             </div>
             <div class="product_list row py-3">
-                @include('sweetalert::alert')
                 {{$slot}}
             </div>
         </div>

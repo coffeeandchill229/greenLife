@@ -186,7 +186,7 @@
                                             <sup>đ</sup></span>
                                     </td>
                                     <td>
-                                        <span class="badge badge-soft-success">Chưa làm :v</span>
+                                        <span class="badg badge-soft-success">{{$item->status->name}}</span>
                                     </td>
                                 </tr><!-- end tr -->
                                 @endforeach

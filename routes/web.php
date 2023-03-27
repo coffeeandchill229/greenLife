@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -107,6 +108,12 @@ Route::prefix('admin')->group(function () {
     // Order - Detail
     Route::prefix('order-detail')->middleware('auth')->group(function () {
         Route::get('/delete/{id?}', [OrderController::class, 'order_detail_delete'])->name('admin.order_detail.delete');
+    });
+    // Banner
+    Route::prefix('banners')->middleware('auth')->group(function () {
+        Route::get('/{id?}', [BannerController::class, 'index'])->name('admin.banner');
+        Route::post('/store/{id?}', [BannerController::class, 'store'])->name('admin.banner.store');
+        Route::get('/delete/{id?}', [BannerController::class, 'delete'])->name('admin.banner.delete');
     });
     // Setting store
     Route::post('store_theme_setting', [ThemeSettingController::class, 'store'])->name('admin.store_theme_setting');

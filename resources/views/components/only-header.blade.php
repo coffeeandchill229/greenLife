@@ -24,7 +24,8 @@
     <style>
         @media (min-width: 1200px) {
             .container {
-                width: 1155px;
+                width: 1170px;
+                padding: 0 15px;
             }
         }
     </style>
@@ -62,7 +63,7 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <h2 class="m-0" style="color: var(--header_color)">
-                            Nam Lee <i class="fab fa-pagelines"></i>
+                            Le Nam <i class="fab fa-pagelines"></i>
                         </h2>
                     </div>
                 </div>
@@ -134,8 +135,8 @@
                             <nav class="nav_bar">
                                 <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
                                     @foreach ($navbars as $item)
-                                    <li class="nav_bar_item pt-2 pb-2 pe-2">
-                                        <a class="text-dark"
+                                    <li class="nav_bar_item me-1 py-1 pe-2">
+                                        <a class="{{$item['route'] == $route_curr ? 'text-success' : 'text-dark'}}"
                                             href="{{$item['route'] ? route($item['route']) : ''}}">{{$item['name']}}</a>
                                     </li>
                                     @endforeach

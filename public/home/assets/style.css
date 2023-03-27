@@ -51,12 +51,10 @@ header {
 }
 
 header .search_form .search_box {
+    width: 75%;
     border: 1px solid var(--header_color);
     display: flex;
     justify-content: space-between;
-}
-
-header .search_form .search_box {
     border-radius: 5px;
     overflow: hidden;
 }
@@ -87,15 +85,6 @@ header .search_form .search_box .search_btn {
 .category .list-group .list-group-item:hover {
     background: #eee;
     color: white;
-}
-
-/* Navbar */
-.nav_bar .nav_bar_list .nav_bar_item {
-    border-bottom: 2px solid white;
-}
-
-.nav_bar .nav_bar_list .nav_bar_item:hover {
-    border-bottom: 2px solid var(--header_color);
 }
 
 /* Content */

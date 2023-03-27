@@ -62,6 +62,7 @@
                 </div>
                 @endforeach
                 @else
+                <img src="https://hautesignatures.com/images/utilities/empty_product.svg" class="text-center" width="100" height="100" alt="">
                 <p class="text-danger text-center">Không tìm thấy sản phẩm!</p>
                 @endif
             </div>

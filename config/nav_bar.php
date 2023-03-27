@@ -71,4 +71,30 @@ return [
             ],
         ]
     ],
+    [
+        'codePage'=>'Banners',
+        'title'=>'Banner',
+        'icon'=>'bx bx-image',
+        'childs'=>[
+            [
+                'codePage'=>'Banner-list',
+                'title'=>'Danh sách',
+                'icon'=>'',
+                'href'=>'admin.banner',
+            ],
+        ]
+    ],
+    [
+        'codePage'=>'Posts',
+        'title'=>'Bài viết',
+        'icon'=>'bx bx-pen',
+        'childs'=>[
+            [
+                'codePage'=>'Post-list',
+                'title'=>'Danh sách',
+                'icon'=>'',
+                'href'=>'admin.order',
+            ],
+        ]
+    ],
 ];

@@ -2,8 +2,8 @@
 
 namespace App\View\Components;
 
+use App\Models\Banner;
 use App\Models\Category;
-use App\Models\Product;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -25,7 +25,8 @@ class home extends Component
     {
         $cat = Category::all();
         $cats = Category::orderByDesc('id')->get();
+        $banners = Banner::orderByDesc('id')->get();
 
-        return view('components.home', compact(['cat', 'cats']));
+        return view('components.home', compact(['cat', 'cats','banners']));
     }
 }
