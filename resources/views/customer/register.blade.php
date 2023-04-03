@@ -19,7 +19,7 @@
                                         <!-- Name input -->
                                         <div class="form-outline">
                                             <input type="text" id="name" class="form-control form-control-lg"
-                                                placeholder="Nhập họ tên" name="name" />
+                                                placeholder="Nhập họ tên" name="name" value="{{old('name')}}" />
                                             <label class="form-label" for="name">Họ tên</label>
                                         </div>
                                         @error('name')
@@ -28,7 +28,8 @@
                                         <!-- Email input -->
                                         <div class="form-outline mt-3">
                                             <input type="email" id="email" class="form-control form-control-lg"
-                                                placeholder="Nhập địa chỉ email" name="email" />
+                                                placeholder="Nhập địa chỉ email" name="email"
+                                                value="{{old('email')}}" />
                                             <label class="form-label" for="email">Email</label>
                                         </div>
                                         @error('email')
@@ -37,7 +38,7 @@
                                         <!-- Address input -->
                                         <div class="form-outline mt-3">
                                             <input type="text" id="address" class="form-control form-control-lg"
-                                                placeholder="Nhập địa chỉ" name="address" />
+                                                placeholder="Nhập địa chỉ" name="address" value="{{old('address')}}" />
                                             <label class="form-label" for="address">Địa chỉ</label>
                                         </div>
                                         @error('address')
@@ -46,10 +47,10 @@
                                         <!-- Phone input -->
                                         <div class="form-outline mt-3">
                                             <input type="text" id="phone" class="form-control form-control-lg"
-                                                placeholder="Nhập điện thoại" name="phone" />
+                                                placeholder="Nhập điện thoại" name="phone" value="{{old('phone')}}" />
                                             <label class="form-label" for="phone">Điện thoại</label>
                                         </div>
-                                        @error('address')
+                                        @error('phone')
                                         <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>

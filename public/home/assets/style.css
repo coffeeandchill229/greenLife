@@ -78,7 +78,7 @@ header .search_form .search_box .search_btn {
 
 /* Navigation */
 .navigation {
-    margin-top: calc(var(--header_height) + 10px);
+    margin-top: calc(var(--header_height) + 20px);
 }
 
 /* Category */

@@ -4,11 +4,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderStatusController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ThemeSettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -49,11 +52,27 @@ Route::prefix('/')->group(function () {
         Route::post('register', [CustomerController::class, 'store_register'])->name('home.store_register');
         // Logout
         Route::get('logout', [CustomerController::class, 'logout'])->name('home.logout');
+
+        Route::get('/info', [HomeController::class, 'info'])->name('home.info');
+        Route::post('/info', [HomeController::class, 'store_info'])->name('home.store_info');
+
+        Route::get('/my-order/{id?}', [HomeController::class, 'my_order'])->name('home.my_order');
+
     });
     // About
     Route::get('about', [HomeController::class, 'about'])->name('about');
     // Contact
     Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+    // News
+    Route::get('new', [HomeController::class, 'new'])->name('new');
+    Route::get('new_detail/{id?}', [HomeController::class, 'new_detail'])->name('new_detail');
+    // Comments
+    Route::post('/comment/{post_id?}/{customer_id?}', [CommentController::class, 'store'])->name('home.store_comment');
+    Route::get('/delete-comment/{id?}',[CommentController::class, 'delete'])->name('home.comment.delete');
+    // Reply - comment
+    Route::post('/reply-comment/{comment_id?}/{customer_id?}', [ReplyController::class, 'store'])->name('home.store_reply_comment');
+    Route::get('/delete-reply-comment/{id?}',[ReplyController::class, 'delete'])->name('home.reply_comment.delete');
+
 });
 // Admin
 Route::prefix('admin')->group(function () {
@@ -86,7 +105,7 @@ Route::prefix('admin')->group(function () {
         Route::post('store/{id?}', [CustomerController::class, 'store'])->name('admin.customer.store');
         Route::get('delete/{id?}', [CustomerController::class, 'delete'])->name('admin.customer.delete');
     });
-    // Customers
+    // Users
     Route::prefix('users')->middleware('auth')->group(function () {
         Route::get('{id?}', [UserController::class, 'index'])->name('admin.user');
         Route::post('store/{id?}', [UserController::class, 'store'])->name('admin.user.store');
@@ -115,6 +134,26 @@ Route::prefix('admin')->group(function () {
         Route::post('/store/{id?}', [BannerController::class, 'store'])->name('admin.banner.store');
         Route::get('/delete/{id?}', [BannerController::class, 'delete'])->name('admin.banner.delete');
     });
+    // Posts
+    Route::prefix('posts')->middleware('auth')->group(function () {
+        Route::get('/', [PostController::class, 'index'])->name('admin.post');
+        Route::get('addOrUpdate/{id?}', [PostController::class, 'addOrUpdate'])->name('admin.post.addOrUpdate');
+        Route::post('add/{id?}', [PostController::class, 'store'])->name('admin.post.store');
+    });
     // Setting store
     Route::post('store_theme_setting', [ThemeSettingController::class, 'store'])->name('admin.store_theme_setting');
+});
+
+Route::get('/fun', function () {
+    $n = 20;
+    for ($i = 1; $i <= $n; $i++) {
+        for ($j = 1; $j <= $n; $j++) {
+            if ($i == 1 || $i == $n || $j == 1 || $j == $n) {
+                echo ' *';
+            } else {
+                echo str_repeat('&nbsp;', 2);
+            }
+        }
+        echo '<br>';
+    }
 });

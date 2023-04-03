@@ -27,6 +27,8 @@ $nav_bar = config('nav_bar');
     <link href="/ad/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- Sweet Alert css-->
     <link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
 </head>
 
 <body>
@@ -207,7 +209,7 @@ $nav_bar = config('nav_bar');
                                         src="/storage/avatars/{{Auth::user()->avatar}}" alt="Header Avatar">
                                     <span class="text-start ms-xl-2">
                                         <span
-                                            class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Admin</span>
+                                            class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{Auth::user()->name}}</span>
                                         <span
                                             class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
                                     </span>
@@ -331,8 +333,7 @@ $nav_bar = config('nav_bar');
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a
-                                                href="javascript: void(0);">Admin</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
                                         <li class="breadcrumb-item active">{{$attributes['title']}}</li>
                                     </ol>
                                 </div>
@@ -1071,8 +1072,9 @@ $nav_bar = config('nav_bar');
 
     <!-- App js -->
     <script src="/ad/assets/js/app.js"></script>
-    <!-- Sweet Alerts js -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+    <script>
+        CKEDITOR.replace( 'editor1' );
+    </script>
 </body>
 
 </html>

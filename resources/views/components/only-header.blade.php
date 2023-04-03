@@ -79,17 +79,20 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="login">
-                        <ul class="m-0 p-0 d-flex justify-content-end" style="list-style: none">
+                        <ul class="m-0 p-0 d-flex align-items-center justify-content-end" style="list-style: none">
                             <li class="me-2">
                                 @if (Auth::guard('customer')->user())
                                 <div class="dropdown">
                                     <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
                                         data-mdb-toggle="dropdown" aria-expanded="false">
+                                        <img src="/storage/avatars/{{Auth::guard('customer')->user()->avatar}}"
+                                            width="30" height="30" class="rounded-circle"
+                                            alt="{{Auth::guard('customer')->user()->name}}">
                                         {{Auth::guard('customer')->user()->name}}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                        <li><a href="" class="dropdown-item" type="button">Thông tin</a></li>
-                                        <li><a href="" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
+                                        <li><a href="{{route('home.info')}}" class="dropdown-item" type="button">Thông
+                                                tin</a></li>
                                         <li><a href="{{route('home.logout')}}" class="dropdown-item" type="button">Đăng
                                                 xuất</a></li>
                                     </ul>
@@ -111,43 +114,43 @@
     </header>
     <section class="navigation">
         <div class="container">
-            <div class="row bg-white border-bottom py-2">
-                <div class="col">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-lg-10">
-                            @php
-                            $navbars = [
-                            [
-                            'name'=>'Trang chủ',
-                            'route'=>'home'
-                            ],
-                            [
-                            'name'=>'Giới thiệu',
-                            'route'=>'about'
-                            ],
-                            [
-                            'name'=>'Liên hệ',
-                            'route'=>'contact'
-                            ]
-                            ];
-                            $route_curr = Route::currentRouteName();
-                            @endphp
-                            <nav class="nav_bar">
-                                <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
-                                    @foreach ($navbars as $item)
-                                    <li class="nav_bar_item me-1 py-1 pe-2">
-                                        <a class="{{$item['route'] == $route_curr ? 'text-success' : 'text-dark'}}"
-                                            href="{{$item['route'] ? route($item['route']) : ''}}">{{$item['name']}}</a>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="col-lg-2 text-end">
-                            <span class="px-3 btn rounded-pill text-light"
-                                style="background-color: var(--header_color)">0123.456.789</span>
-                        </div>
-                    </div>
+            <div class="row pb-2 border-bottom">
+                <div class="col-lg-10">
+                    @php
+                    $navbars = [
+                    [
+                    'name'=>'Trang chủ',
+                    'route'=>'home'
+                    ],
+                    [
+                    'name'=>'Giới thiệu',
+                    'route'=>'about'
+                    ],
+                    [
+                    'name'=>'Tin tức',
+                    'route'=>'new'
+                    ],
+                    [
+                    'name'=>'Liên hệ',
+                    'route'=>'contact'
+                    ]
+                    ];
+                    $route_curr = Route::currentRouteName();
+                    @endphp
+                    <nav class="nav_bar">
+                        <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
+                            @foreach ($navbars as $item)
+                            <li class="nav_bar_item me-1 py-1 pe-2">
+                                <a class="{{$item['route'] == $route_curr ? 'text-success' : 'text-dark'}}"
+                                    href="{{$item['route'] ? route($item['route']) : ''}}">{{$item['name']}}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-2 text-end">
+                    <span class="px-3 btn rounded-pill text-light"
+                        style="background-color: var(--header_color)">0123.456.789</span>
                 </div>
             </div>
         </div>

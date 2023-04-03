@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/home/assets/responsive.css" />
     <link rel="icon"
         href="https://9xgarden.com/wp-content/uploads/2020/09/danh-muc-tieu-canh-de-ban-terrarium-9xgarden.jpg">
+    <script src="/ckeditor.js"></script>
     <style>
         @media (min-width: 1200px) {
             .container {
@@ -91,8 +92,8 @@
                                         {{Auth::guard('customer')->user()->name}}
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                        <li><a href="" class="dropdown-item" type="button">Thông tin</a></li>
-                                        <li><a href="" class="dropdown-item" type="button">Đổi mật khẩu</a></li>
+                                        <li><a href="{{route('home.info')}}" class="dropdown-item" type="button">Thông
+                                                tin</a></li>
                                         <li><a href="{{route('home.logout')}}" class="dropdown-item" type="button">Đăng
                                                 xuất</a></li>
                                     </ul>
@@ -114,7 +115,7 @@
     </header>
     <section class="navigation">
         <div class="container">
-            <div class="row bg-white shadow-sm">
+            <div class="row bg-white">
                 <div class="col-lg-3">
                     <div class="category">
                         <ul class="list-group rounded-0">
@@ -142,6 +143,10 @@
                 'route'=>'about'
                 ],
                 [
+                'name'=>'Tin tức',
+                'route'=>'new'
+                ],
+                [
                 'name'=>'Liên hệ',
                 'route'=>'contact'
                 ]
@@ -154,8 +159,7 @@
                             <nav class="nav_bar">
                                 <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
                                     @foreach ($navbars as $item)
-                                    <li
-                                        class="nav_bar_item me-1 py-1 pe-2">
+                                    <li class="nav_bar_item me-1 py-1 pe-2">
                                         <a class="{{$item['route'] == $route_curr ? 'text-success' : 'text-dark'}}"
                                             href="{{$item['route'] ? route($item['route']) : ''}}">{{$item['name']}}</a>
                                     </li>
@@ -329,7 +333,6 @@
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=238683943543481&autoLogAppEvents=1"
         nonce="tdycEoV4"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
 </body>
 
 </html>

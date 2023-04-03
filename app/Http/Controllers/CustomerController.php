@@ -42,14 +42,16 @@ class CustomerController extends Controller
         unset($data['_token']);
 
         $rules = [
-            'email' => 'required|email',
+            'email' => 'required|email|unique:customers,email',
             'name' => 'required',
+            'phone' => 'required|unique:customers,phone',
             'password' => 'required|min:6',
             'confirm_password' => 'required|same:password|min:6'
         ];
         $messages = [
             'email' => 'Email',
             'name' => 'Họ tên',
+            'phone' => 'Điện thoại',
             'password' => 'Mật khẩu',
             'confirm_password' => 'Nhập lại mật khẩu'
         ];
