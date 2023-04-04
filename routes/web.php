@@ -53,10 +53,10 @@ Route::prefix('/')->group(function () {
         // Logout
         Route::get('logout', [CustomerController::class, 'logout'])->name('home.logout');
 
-        Route::get('/info', [HomeController::class, 'info'])->name('home.info')->middleware('customer');
-        Route::post('/info', [HomeController::class, 'store_info'])->name('home.store_info')->middleware('customer');
+        Route::get('/info', [HomeController::class, 'info'])->name('home.info')->middleware('customer', 'checkbanned');
+        Route::post('/info', [HomeController::class, 'store_info'])->name('home.store_info')->middleware('customer', 'checkbanned');
 
-        Route::get('/my-order/{id?}', [HomeController::class, 'my_order'])->name('home.my_order')->middleware('customer');
+        Route::get('/my-order/{id?}', [HomeController::class, 'my_order'])->name('home.my_order')->middleware('customer', 'checkbanned');
     });
     // About
     Route::get('about', [HomeController::class, 'about'])->name('about');
@@ -101,6 +101,7 @@ Route::prefix('admin')->group(function () {
     // Customers
     Route::prefix('customers')->middleware('auth')->group(function () {
         Route::get('{id?}', [CustomerController::class, 'index'])->name('admin.customer');
+        Route::get('edit/{id?}', [CustomerController::class, 'edit'])->name('admin.customer.edit');
         Route::post('store/{id?}', [CustomerController::class, 'store'])->name('admin.customer.store');
         Route::get('delete/{id?}', [CustomerController::class, 'delete'])->name('admin.customer.delete');
     });

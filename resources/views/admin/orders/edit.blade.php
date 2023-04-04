@@ -13,8 +13,8 @@
                     <label class="form-label">Phương thức thanh toán</label>
                     <select name="method" class="form-select" id="">
                         <option value="" disabled selected>Chọn một phương thức</option>
-                        <option value="0">Thanh toán tiền mặt</option>
-                        <option value="1">Chuyển khoản ngân hàng</option>
+                        <option {{$order_edit->method == 0 ? 'selected' : ''}} value="0">Thanh toán tiền mặt</option>
+                        <option {{$order_edit->method == 1 ? 'selected' : ''}} value="1">Chuyển khoản ngân hàng</option>
                     </select>
                 </div>
                 <div class="form-group">

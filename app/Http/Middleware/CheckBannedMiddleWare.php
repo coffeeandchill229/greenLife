@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CustomerMiddleWare
+class CheckBannedMiddleWare
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,12 @@ class CustomerMiddleWare
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $cus = Auth::guard('customer')->user();
-        if ($cus && $cus->banned != 0) {
+        if (Auth::guard('customer')->user()->banned == 0) {
+            Auth::guard('customer')->logout();
+            $request->session()->regenerateToken();
+            return redirect()->route('home.login')->with('error', 'Tài khoản của bạn đã bị cấm!');
+        } else {
             return $next($request);
         }
-        return redirect()->route('home.login');
     }
 }

@@ -14,6 +14,9 @@
                                 <div class="mb-4">
                                     <h4 class="text-center text-success">Đăng nhập</h4>
                                 </div>
+                                @if (Session::has('error'))
+                                <p class="text-danger text-center h6">{{Session::get('error')}}</p>
+                                @endif
                                 <!-- Email input -->
                                 <div class="form-outline">
                                     <input type="email" id="email" class="form-control form-control-lg"

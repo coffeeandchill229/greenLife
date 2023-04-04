@@ -25,11 +25,18 @@ class CustomerController extends Controller
             'email' => 'Email',
             'password' => 'Mật khẩu'
         ]);
-        if (Auth::guard('customer')->attempt($data)) {
-            $request->session()->regenerate();
 
-            return redirect()->route('home');
+        if (Auth::guard('customer')->attempt($data)) {
+            if (Auth::guard('customer')->user()->banned != 0) {
+                $request->session()->regenerate();
+                return redirect()->route('home');
+            } else {
+                Auth::guard('customer')->logout();
+                $request->session()->regenerateToken();
+                return redirect()->route('home.login')->with('error', 'Tài khoản của bạn đã bị cấm!');
+            }
         }
+
         return back();
     }
     function register()
@@ -77,5 +84,52 @@ class CustomerController extends Controller
     {
         $customers = Customer::orderByDesc('id')->get();
         return view('admin.customer.index', compact('customers'));
+    }
+    function edit($id = null)
+    {
+        $customer = Customer::findOrFail($id);
+        return view('admin.customer.edit', compact('customer'));
+    }
+    function store(Request $request, $id = null)
+    {
+        $data = $request->all();
+        unset($data['_token']);
+
+        $cus = Customer::findOrFail($id);
+        $password = $request->password;
+
+        $file = $request->file('avatar');
+        if ($file) {
+            $filename = $file->hashName();
+            $file->storeAs('/public/avatars', $filename);
+            $data['avatar'] = $filename;
+        }
+        if ($request->banned) {
+            $data['banned'] = 0;
+            Auth::guard('customer')->logout();
+
+            $request->session()->regenerateToken();
+        } else {
+            $data['banned'] = 1;
+        }
+
+        if ($password) {
+            $request->validate([
+                'password' => 'min:6',
+                'confirm_password' => 'required|same:password'
+            ], [], [
+                'password' => 'Mật khẩu',
+                'confirm_password' => 'Mật khẩu nhập lại'
+            ]);
+            $data['password'] = Hash::make($password);
+        } else {
+            $data['password'] = $cus->password;
+        }
+
+        unset($data['old_password']);
+        unset($data['confirm_password']);
+
+        $cus->update($data);
+        return back();
     }
 }

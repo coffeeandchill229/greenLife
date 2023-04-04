@@ -75,7 +75,6 @@ header .search_form .search_box .search_btn {
     background-color: var(--header_color);
     color: white;
 }
-
 /* Navigation */
 .navigation {
     margin-top: calc(var(--header_height) + 20px);

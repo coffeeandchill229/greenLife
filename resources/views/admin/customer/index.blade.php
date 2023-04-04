@@ -16,6 +16,7 @@
                         <th>Địa chỉ</th>
                         <th>Số điện thoại</th>
                         <th>Đăng ký lúc</th>
+                        <th>Chặn</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
@@ -24,7 +25,8 @@
                     <tr style="vertical-align: middle;">
                         <td>{{$item->id}}</td>
                         <td>
-                            <img src="/storage/avatars/{{$item->avatar}}" class="rounded-circle" width="70" height="70" alt="">
+                            <img src="/storage/avatars/{{$item->avatar}}" class="rounded-circle" width="70" height="70"
+                                alt="">
                         </td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
@@ -32,8 +34,14 @@
                         <td>{{$item->phone}}</td>
                         <td>{{$item->created_at->format('H:i:s - d/m/Y')}}</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-info"><i class="ri-eye-line"></i></a>
-                            <a href="{{route('admin.product.addOrUpdate',$item->id)}}" class="btn btn-sm btn-warning"><i
+                            @if ($item->banned == 0)
+                            <i class="ri-check-fill text-success fw-bold"></i>
+                            @else
+                            <i class="ri-close-fill text-danger fw-bold"></i>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{route('admin.customer.edit',$item->id)}}" class="btn btn-sm btn-warning"><i
                                     class="ri-quill-pen-line"></i></a>
                             <a href="{{route('admin.product.delete',$item->id)}}" class="btn btn-sm btn-danger"><i
                                     class="ri-delete-bin-line"></i></a>

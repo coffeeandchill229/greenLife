@@ -64,7 +64,7 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <h2 class="m-0" style="color: var(--header_color)">
-                            Le Nam <i class="fab fa-pagelines"></i>
+                            Nam Lê <i class="fab fa-pagelines"></i>
                         </h2>
                     </div>
                 </div>
@@ -113,6 +113,7 @@
             </div>
         </div>
     </header>
+    </div>
     <section class="navigation">
         <div class="container">
             <div class="row bg-white">
@@ -271,7 +272,7 @@
                     <h5 class="fw-bold badge bg-success">Về chúng tôi</h5>
                     <div class="logo my-3">
                         <h2 class="m-0" style="color: var(--header_color)">
-                            Nam Lee <i class="fab fa-pagelines"></i>
+                            Cây cảnh Nam Lê <i class="fab fa-pagelines"></i>
                         </h2>
                     </div>
                     <p style="text-align: justify">
