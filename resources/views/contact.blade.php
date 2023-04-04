@@ -5,7 +5,8 @@
                 <div class="col-5">
                     <h4 class="fw-bold">Liên hệ</h4>
                     <p style="text-align: justify;">
-                        Chúng tôi luôn sẵn lòng đón nhận các ý kiến đóng góp cũng như hồi đáp các thắc mắc của bạn về các
+                        Chúng tôi luôn sẵn lòng đón nhận các ý kiến đóng góp cũng như hồi đáp các thắc mắc của bạn về
+                        các
                         sản
                         phẩm, dịch vụ. Bạn có thể liên hệ qua biểu mẫu hoặc liên hệ theo các thông tin dưới đây nếu bạn
                         có
@@ -13,7 +14,7 @@
                     </p>
                 </div>
                 <div class="col-7">
-                    <form action="" method="post">
+                    <form action="{{route('home.store_contact')}}" method="post">
                         @csrf
                         <div class="form-group">
                             <input type="text" name="name" class="form-control rounded-0" placeholder="Họ tên">
@@ -36,26 +37,17 @@
         <div class="col-3 p-3 bg-white">
             <h5>Bài viết mới nhất</h5>
             <ul class="m-0 p-0" style="list-style: none;">
-                <li class="d-flex align-items-center justify-content-between border-bottom mb-3 pb-2">
-                    <img src="http://127.0.0.1:8000/storage/products/MX7utbHMtJ2J3ZJN98xn3wwPjnzXGKJmT75UMCbe.jpg"
-                        class="border-0 img-thumbnail rounded-circle" width="50" height="50" alt="">
-                    <a href="" class="text-secondary" style="font-size: 13px;">Cách trồng cây kim ngân để bàn đúng cách</a>
+                @if (isset($post_new))
+                @foreach ($post_new as $item)
+                <li class="d-flex align-items-center border-bottom mb-3 pb-2">
+                    <img src="/storage/posts/{{$item->image}}" class="border-0 img-thumbnail" width="50" alt="">
+                    <div class="text-truncate">
+                        <a href="{{route('new_detail',$item->id)}}" class="text-secondary"
+                            style="font-size: 13px;">{{$item->title}}</a>
+                    </div>
                 </li>
-                <li class="d-flex align-items-center justify-content-between border-bottom mb-3 pb-2">
-                    <img src="http://127.0.0.1:8000/storage/products/MX7utbHMtJ2J3ZJN98xn3wwPjnzXGKJmT75UMCbe.jpg"
-                        class="border-0 img-thumbnail rounded-circle" width="50" height="50" alt="">
-                    <a href="" class="text-secondary" style="font-size: 13px;">Cách trồng cây kim ngân để bàn đúng cách</a>
-                </li>
-                <li class="d-flex align-items-center justify-content-between border-bottom mb-3 pb-2">
-                    <img src="http://127.0.0.1:8000/storage/products/MX7utbHMtJ2J3ZJN98xn3wwPjnzXGKJmT75UMCbe.jpg"
-                        class="border-0 img-thumbnail rounded-circle" width="50" height="50" alt="">
-                    <a href="" class="text-secondary" style="font-size: 13px;">Cách trồng cây kim ngân để bàn đúng cách</a>
-                </li>
-                <li class="d-flex align-items-center justify-content-between border-bottom mb-3 pb-2">
-                    <img src="http://127.0.0.1:8000/storage/products/MX7utbHMtJ2J3ZJN98xn3wwPjnzXGKJmT75UMCbe.jpg"
-                        class="border-0 img-thumbnail rounded-circle" width="50" height="50" alt="">
-                    <a href="" class="text-secondary" style="font-size: 13px;">Cách trồng cây kim ngân để bàn đúng cách</a>
-                </li>
+                @endforeach
+                @endif
             </ul>
         </div>
     </div>

@@ -9,7 +9,11 @@
                     <x-input name="email" value="{{$cus->email}}" label="Email" />
                     <x-input name="address" value="{{$cus->address}}" label="Địa chỉ" />
                     <x-input name="phone" value="0{{$cus->phone}}" label="Số điện thoại" />
-                    <x-input name="avatar" id="avatar" type="file" label="Ảnh đại diện" />
+                    <div class="form-group">
+                        <label class="form-label">Ảnh đại diện</label>
+                        <input name="avatar" onchange="changeAvatar(event)" id="avatar" class="form-control"
+                            type="file" />
+                    </div>
                 </div>
                 <div class="col-6">
                     <h6 class="fw-bold">Thay đổi mật khẩu</h6>

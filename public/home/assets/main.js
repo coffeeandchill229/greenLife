@@ -11,7 +11,6 @@ const btn_cancel = document.querySelectorAll('.btn_cancel');
 function start() {
     scrollHeader();
     backToTop();
-    changeAvatar();
     showReplyComment();
 }
 
@@ -43,11 +42,8 @@ function backToTop() {
     }
 }
 
-function changeAvatar() {
-    avatar.onchange = (e) => {
-        console.log(avatar_review);
-        avatar_review.src = URL.createObjectURL(e.target.files[0]);
-    }
+function changeAvatar(e) {
+    avatar_review.src = URL.createObjectURL(e.target.files[0]);
 }
 
 function showReplyComment() {

@@ -53,26 +53,25 @@ Route::prefix('/')->group(function () {
         // Logout
         Route::get('logout', [CustomerController::class, 'logout'])->name('home.logout');
 
-        Route::get('/info', [HomeController::class, 'info'])->name('home.info');
-        Route::post('/info', [HomeController::class, 'store_info'])->name('home.store_info');
+        Route::get('/info', [HomeController::class, 'info'])->name('home.info')->middleware('customer');
+        Route::post('/info', [HomeController::class, 'store_info'])->name('home.store_info')->middleware('customer');
 
-        Route::get('/my-order/{id?}', [HomeController::class, 'my_order'])->name('home.my_order');
-
+        Route::get('/my-order/{id?}', [HomeController::class, 'my_order'])->name('home.my_order')->middleware('customer');
     });
     // About
     Route::get('about', [HomeController::class, 'about'])->name('about');
     // Contact
     Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+    Route::post('contact', [HomeController::class, 'store_contact'])->name('home.store_contact');
     // News
     Route::get('new', [HomeController::class, 'new'])->name('new');
     Route::get('new_detail/{id?}', [HomeController::class, 'new_detail'])->name('new_detail');
     // Comments
-    Route::post('/comment/{post_id?}/{customer_id?}', [CommentController::class, 'store'])->name('home.store_comment');
-    Route::get('/delete-comment/{id?}',[CommentController::class, 'delete'])->name('home.comment.delete');
+    Route::post('/comment/{post_id?}/{customer_id?}', [CommentController::class, 'store'])->name('home.store_comment')->middleware('customer');
+    Route::get('/delete-comment/{id?}', [CommentController::class, 'delete'])->name('home.comment.delete');
     // Reply - comment
-    Route::post('/reply-comment/{comment_id?}/{customer_id?}', [ReplyController::class, 'store'])->name('home.store_reply_comment');
-    Route::get('/delete-reply-comment/{id?}',[ReplyController::class, 'delete'])->name('home.reply_comment.delete');
-
+    Route::post('/reply-comment/{comment_id?}/{customer_id?}', [ReplyController::class, 'store'])->name('home.store_reply_comment')->middleware('customer');
+    Route::get('/delete-reply-comment/{id?}', [ReplyController::class, 'delete'])->name('home.reply_comment.delete');
 });
 // Admin
 Route::prefix('admin')->group(function () {
@@ -144,11 +143,11 @@ Route::prefix('admin')->group(function () {
     Route::post('store_theme_setting', [ThemeSettingController::class, 'store'])->name('admin.store_theme_setting');
 });
 
-Route::get('/fun', function () {
-    $n = 20;
+Route::get('/namle', function () {
+    $n = 10;
     for ($i = 1; $i <= $n; $i++) {
-        for ($j = 1; $j <= $n; $j++) {
-            if ($i == 1 || $i == $n || $j == 1 || $j == $n) {
+        for ($j = 1; $j <= $i; $j++) {
+            if ($i == 1 || $i == $n || $j == 1 || $j == $i) {
                 echo ' *';
             } else {
                 echo str_repeat('&nbsp;', 2);

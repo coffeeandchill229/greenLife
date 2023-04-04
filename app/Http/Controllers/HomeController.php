@@ -15,6 +15,7 @@ use App\View\Components\input;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use PhpParser\Error;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -68,7 +69,20 @@ class HomeController extends Controller
             }
             $cart->remove();
         }
-        return back();
+
+        Mail::send(
+            'email.checkout',
+            [
+                'order' => $order,
+            ],
+            function ($mail) use ($request) {
+                $mail->to($request->email);
+                $mail->from('lnam6507@gmail.com');
+                $mail->subject('Đơn hàng tại Cây cảnh Nam Lê đã được đặt!');
+            }
+        );
+
+        return redirect()->route('home');
     }
     function product_detail($id)
     {
@@ -112,7 +126,26 @@ class HomeController extends Controller
     // Trang liên hệ
     function contact()
     {
-        return view('contact');
+        $post_new = Post::orderByDesc('id')->take(5)->get();
+        return view('contact', compact('post_new'));
+    }
+    function store_contact(Request $request)
+    {
+        Mail::send(
+            'email.contact',
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'content' => $request->content
+            ],
+            function ($mail) use ($request) {
+                $mail->to('lnam6507@gmail.com');
+                $mail->from($request->email);
+                $mail->subject('Có liên hệ mới!');
+            }
+        );
+        return back();
     }
     // Trang bài viết
     function new()
@@ -154,7 +187,6 @@ class HomeController extends Controller
 
         $cus = Auth::guard('customer')->user();
 
-        $old_password = $request->old_password;
         $password = $request->password;
 
         if ($password) {

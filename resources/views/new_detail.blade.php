@@ -17,7 +17,7 @@
                     alt="">
                 <div class="ms-2" style="width: 100%;">
                     <h6>{{$item->customer->name}}</h6>
-                    <p class="p-2 rounded-2" style="text-align: justify; background: #f1f1f1;">{{$item->content}}!</p>
+                    <p class="p-2 rounded-2" style="text-align: justify; background: #f1f1f1;">{{$item->content}}</p>
                     {{-- Delete - comment --}}
                     <div class="text-end">
                         <a style="font-size: 13px;" class="btn_reply">Trả lời</a>
@@ -37,7 +37,7 @@
                             <div class="ms-2" style="width: 100%;">
                                 <h6>{{$child->customer->name}}</h6>
                                 <p class="p-2 rounded-2" style="text-align: justify; background: #f1f1f1;">
-                                    {{$child->content}}!</p>
+                                    {{$child->content}}</p>
                                 <div class="text-end">
                                     @if ($child->customer == Auth::guard('customer')->user())
                                     <a style="font-size: 13px;" class="ms-2 text-danger"
