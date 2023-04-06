@@ -229,6 +229,38 @@
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=238683943543481&autoLogAppEvents=1"
         nonce="tdycEoV4"></script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1 = document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    Tawk_API.customStyle = {
+		visibility : {
+			desktop : {
+				position : 'br',
+				xOffset : 50,
+				yOffset : 10
+			},
+			mobile : {
+				position : 'br',
+				xOffset : 0,
+				yOffset : 0
+			},
+			bubble : {
+				rotate : '0deg',
+			 	xOffset : -20,
+			 	yOffset : 0
+			}
+		}
+	};
+    s1.async=true;
+    s1.src='https://embed.tawk.to/642bd2e231ebfa0fe7f65df2/1gt5ivhfh';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
 </body>
 
 </html>

@@ -5,16 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Helper\CartHelper;
-use Illuminate\Queue\NullQueue;
 
 class CartController extends Controller
 {
     function add(CartHelper $cart, $id, Request $request)
     {
-        $quantity = $request->quantity;
-        $product = Product::find($id);
-        $cart->add($product,$quantity);
-        return back();
+        if ($id) {
+            $quantity = $request->quantity;
+            $product = Product::find($id);
+            $cart->add($product, $quantity);
+            return response()->json(['total_quantity' => count($cart->items)]);
+        }
     }
     function delete(CartHelper $cart, $id)
     {

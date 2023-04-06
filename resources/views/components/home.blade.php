@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <!-- MD Bootstrap -->
+
+    <!-- Jquery -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="/home/assets/style.css" />
@@ -22,6 +24,9 @@
     <link rel="icon"
         href="https://9xgarden.com/wp-content/uploads/2020/09/danh-muc-tieu-canh-de-ban-terrarium-9xgarden.jpg">
     <script src="/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
     <style>
         @media (min-width: 1200px) {
             .container {
@@ -105,7 +110,7 @@
                             <li class="me-2">
                                 <a style="color: var(--header_color)" href="{{route('home.cart')}}">Giỏ hàng <i
                                         class="fas fa-shopping-bag"></i>
-                                    <sup style="font-size: 13px;">[{{$cart->total_quantity}}]</sup></a>
+                                    <sup style="font-size: 13px;" id="cart_number">[{{$cart->total_quantity}}]</sup></a>
                             </li>
                         </ul>
                     </div>
@@ -330,10 +335,44 @@
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/home/assets/main.js"></script>
+    <script src="/home/assets/index.js"></script>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=238683943543481&autoLogAppEvents=1"
         nonce="tdycEoV4"></script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1 = document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    Tawk_API.customStyle = {
+		visibility : {
+			desktop : {
+				position : 'br',
+				xOffset : 50,
+				yOffset : 10
+			},
+			mobile : {
+				position : 'br',
+				xOffset : 0,
+				yOffset : 0
+			},
+			bubble : {
+				rotate : '0deg',
+			 	xOffset : -20,
+			 	yOffset : 0
+			}
+		}
+	};
+    s1.async=true;
+    s1.src='https://embed.tawk.to/642bd2e231ebfa0fe7f65df2/1gt5ivhfh';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
 </body>
 
 </html>
