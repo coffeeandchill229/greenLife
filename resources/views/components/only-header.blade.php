@@ -32,6 +32,7 @@
             }
         }
     </style>
+    @yield('style')
 </head>
 
 <body class="bg-light">
@@ -65,9 +66,9 @@
             <div class="row py-2 d-flex align-items-center">
                 <div class="col-lg-3 col-4">
                     <div class="logo">
-                        <h2 class="m-0" style="color: var(--header_color)">
+                        <h3 class="m-0" style="color: var(--header_color)">
                             Nam Lê <i class="fab fa-pagelines"></i>
-                        </h2>
+                        </h3>
                     </div>
                 </div>
                 <div class="col-lg-5 d-none d-lg-block">
@@ -122,7 +123,7 @@
     <section class="navigation">
         <div class="container">
             <div class="row pb-2 border-bottom">
-                <div class="col-lg-10">
+                <div class="col-lg-10 col-md-8">
                     @php
                         $navbars = [
                             [
@@ -155,7 +156,7 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-2 d-none d-md-block text-end">
+                <div class="col-lg-2 col-md-4 d-none d-md-block text-end">
                     <span class="px-3 btn rounded-pill text-light"
                         style="background-color: var(--header_color)">0123.456.789</span>
                 </div>
@@ -174,9 +175,9 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <h5 class="fw-bold badge bg-success">Về chúng tôi</h5>
                     <div class="logo my-3">
-                        <h2 class="m-0" style="color: var(--header_color)">
+                        <h3 class="m-0" style="color: var(--header_color)">
                             Nam Lê <i class="fab fa-pagelines"></i>
-                        </h2>
+                        </h3>
                     </div>
                     <p style="text-align: justify">
                         Cây Xinh là thương hiệu dẫn đầu trong lĩnh vực sản xuất & cung cấp
