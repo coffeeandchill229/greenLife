@@ -16,7 +16,6 @@ class CategoryController extends Controller
             $cat_edit = Category::findOrFail($id);
         }
         $cat = Category::orderBy('image')->get();
-        Alert::success('Success Title', 'Success Message');
 
         return view('admin.categories.index', compact('cat', 'cat_edit'));
     }
@@ -48,6 +47,11 @@ class CategoryController extends Controller
     }
     function delete($id)
     {
+        $cat = Category::findOrFail($id);
+        if ($cat->product->count() > 0) {
+            Alert::warning('Không thể xóa danh mục này!');
+            return back();
+        }
         Category::destroy($id);
         return back();
     }

@@ -29,7 +29,7 @@ class ProductController extends Controller
         $rules = [
             'name' => 'required',
             'price' => 'required|numeric|max:999999|min:0',
-            'stock' => 'required|numeric',
+            'stock' => 'required|numeric|min:0',
             'description' => 'required',
             'category_id' => 'required'
         ];
@@ -42,18 +42,14 @@ class ProductController extends Controller
         ];
 
         $this->customValidate($data, $rules, $messages);
-
-
         $file = $request->file('image');
         if ($file) {
             $filename = $file->hashName();
             $file->store('/public/products');
             $data['image'] = $filename;
         }
-
         $product = Product::updateOrCreate(['id' => $id], $data);
         $product->save();
-
         return back();
     }
     function delete($id = null)

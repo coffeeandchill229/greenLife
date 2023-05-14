@@ -125,6 +125,18 @@ header .search_form .search_box .search_btn {
     transform: translateY(0px);
 }
 
+
+.card .ribbon-corner {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: var(--header_color);
+    z-index: 1;
+    color: #fff;
+    padding: 5px 10px;
+}
+
+
 /* Footer */
 footer {
     border-top: 1px solid #ddd;

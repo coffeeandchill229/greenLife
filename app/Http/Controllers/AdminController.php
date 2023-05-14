@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -60,7 +61,7 @@ class AdminController extends Controller
         ]);
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
-
+            Alert::success('Đăng nhập thành công!');
             return redirect()->route('admin.dashboard');
         }
         return back();
@@ -98,9 +99,7 @@ class AdminController extends Controller
     function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->regenerateToken();
-
         return redirect()->route('admin.login');
     }
 }

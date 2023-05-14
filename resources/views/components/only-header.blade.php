@@ -16,9 +16,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <!-- MD Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
-
+    {{-- Css --}}
     <link rel="stylesheet" href="/home/assets/style.css" />
     <link rel="stylesheet" href="/home/assets/responsive.css" />
+    {{-- Jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <link rel="icon"
         href="https://9xgarden.com/wp-content/uploads/2020/09/danh-muc-tieu-canh-de-ban-terrarium-9xgarden.jpg">
     <style>
@@ -63,7 +66,7 @@
                 <div class="col-lg-3">
                     <div class="logo">
                         <h2 class="m-0" style="color: var(--header_color)">
-                            Le Nam <i class="fab fa-pagelines"></i>
+                            Nam Lê <i class="fab fa-pagelines"></i>
                         </h2>
                     </div>
                 </div>
@@ -104,7 +107,7 @@
                             <li class="me-2">
                                 <a style="color: var(--header_color)" href="{{route('home.cart')}}">Giỏ hàng <i
                                         class="fas fa-shopping-bag"></i>
-                                    <sup style="font-size: 13px;">[{{$cart->total_quantity}}]</sup></a>
+                                    <sup style="font-size: 13px;" id="cart_number">[{{$cart->total_quantity}}]</sup></a>
                             </li>
                         </ul>
                     </div>
@@ -157,6 +160,7 @@
     </section>
     <section class="content my-2">
         <div class="container">
+            @include('sweetalert::alert')
             {{$slot}}
         </div>
     </section>
@@ -167,7 +171,7 @@
                     <h5 class="fw-bold badge bg-success">Về chúng tôi</h5>
                     <div class="logo my-3">
                         <h2 class="m-0" style="color: var(--header_color)">
-                            Nam Lee <i class="fab fa-pagelines"></i>
+                            Nam Lê <i class="fab fa-pagelines"></i>
                         </h2>
                     </div>
                     <p style="text-align: justify">
@@ -205,8 +209,8 @@
                 </div>
                 <div class="col-lg-4">
                     <h5 class="fw-bold badge bg-success">Fanpage</h5>
-                    <div class="fb-page" data-href="https://www.facebook.com/NCSfanmade" data-width="380"
-                        data-hide-cover="false" data-show-facepile="false"></div>
+                    <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100091749211692"
+                        data-width="380" data-hide-cover="false" data-show-facepile="false"></div>
                 </div>
             </div>
             <div class="row">
@@ -225,7 +229,9 @@
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/home/assets/main.js"></script>
+    <script src="/home/assets/index.js"></script>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=238683943543481&autoLogAppEvents=1"
         nonce="tdycEoV4"></script>

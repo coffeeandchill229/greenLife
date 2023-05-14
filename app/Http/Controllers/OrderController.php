@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderStatus;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -13,14 +14,14 @@ class OrderController extends Controller
 {
     function index()
     {
-        Alert::success('Success Title', 'Success Message');
         $orders = Order::orderByDesc('id')->get();
         return view('admin.orders.index', compact('orders'));
     }
     function detail($id)
     {
+        $order_id = $id;
         $order_detail = OrderDetail::where('order_id', $id)->orderByDesc('id')->get();
-        return view('admin.orders.detail', compact('order_detail'));
+        return view('admin.orders.detail', compact(['order_detail', 'order_id']));
     }
     function update($id)
     {
@@ -56,5 +57,15 @@ class OrderController extends Controller
     {
         OrderDetail::destroy($id);
         return back();
+    }
+
+    function print_order($order_id)
+    {
+        $order_detail = OrderDetail::where('order_id', $order_id)->get();
+
+        $pdf = Pdf::loadView('MyPDF.order', [
+            'order_detail' => $order_detail
+        ]);
+        return $pdf->stream();
     }
 }

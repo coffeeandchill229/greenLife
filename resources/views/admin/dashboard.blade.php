@@ -1,6 +1,5 @@
 <x-admin title="Dashboard">
     <div class="row">
-
     </div>
     <div class="row">
         <div class="col-6">
@@ -180,13 +179,11 @@
                                             <div class="flex-grow-1">{{$item->customer->name}}</div>
                                         </div>
                                     </td>
-                                    <td></td>
-                                    <td></td>
-                                    {{-- <td>{{$item->order_detail[0]->product->name}}</td>
+                                    <td>{{$item->order_detail[0]->product->name}}</td>
                                     <td>
                                         <span class="text-success">{{number_format($item->order_detail[0]['price'])}}
                                             <sup>đ</sup></span>
-                                    </td> --}}
+                                    </td>
                                     <td>
                                         <span class="badg badge-soft-success">{{$item->status->name}}</span>
                                     </td>

@@ -25,7 +25,6 @@
                         <td class="w-25">{{$item->description}}</td>
                         <td>{{$item->user->name}}</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-info"><i class="ri-eye-fill"></i></a>
                             <a href="{{route('admin.post.addOrUpdate',$item->id)}}" class="btn btn-sm btn-warning"><i
                                     class="ri-edit-fill"></i></a>
                             <a href="" class="btn btn-sm btn-danger"><i class="ri-delete-bin-fill"></i></a>

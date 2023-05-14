@@ -32,15 +32,15 @@ Route::prefix('/')->group(function () {
     // Cart
     Route::prefix('cart')->group(function () {
         // Cart - Page
-        Route::get('/', [HomeController::class, 'cart'])->name('home.cart')->middleware('customer');
+        Route::get('/', [HomeController::class, 'cart'])->name('home.cart');
         // Checkout - Page
         Route::get('/checkout', [HomeController::class, 'checkout'])->name('home.checkout')->middleware('customer');
-        Route::post('/checkout', [HomeController::class, 'store_checkout'])->name('home.store_checkout');
+        Route::post('/checkout', [HomeController::class, 'store_checkout'])->name('home.store_checkout')->middleware('customer');
         // Crud
-        Route::get('/add/{id?}', [CartController::class, 'add'])->name('cart.add')->middleware('customer');
-        Route::post('/update', [CartController::class, 'update'])->name('cart.update')->middleware('customer');
-        Route::get('/delete/{id?}', [CartController::class, 'delete'])->name('cart.delete')->middleware('customer');
-        Route::get('/remove', [CartController::class, 'remove'])->name('cart.remove')->middleware('customer');
+        Route::get('/add/{id?}', [CartController::class, 'add'])->name('cart.add');
+        Route::post('/update', [CartController::class, 'update'])->name('cart.update');
+        Route::get('/delete/{id?}', [CartController::class, 'delete'])->name('cart.delete');
+        Route::get('/remove', [CartController::class, 'remove'])->name('cart.remove');
     });
     // Customer
     Route::prefix('customer')->group(function () {
@@ -107,7 +107,8 @@ Route::prefix('admin')->group(function () {
     });
     // Users
     Route::prefix('users')->middleware('auth')->group(function () {
-        Route::get('{id?}', [UserController::class, 'index'])->name('admin.user');
+        Route::get('/', [UserController::class, 'index'])->name('admin.user');
+        Route::get('addOrUpdate/{id?}', [UserController::class, 'addOrUpdate'])->name('admin.user.addOrUpdate');
         Route::post('store/{id?}', [UserController::class, 'store'])->name('admin.user.store');
         Route::get('delete/{id?}', [UserController::class, 'delete'])->name('admin.user.delete');
     });
@@ -118,6 +119,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/update/{id?}', [OrderController::class, 'update'])->name('admin.order.update');
         Route::post('/store/{id?}', [OrderController::class, 'store'])->name('admin.order.store');
         Route::get('/delete/{id?}', [OrderController::class, 'delete'])->name('admin.order.delete');
+        Route::get('/print/{id?}', [OrderController::class, 'print_order'])->name('admin.order.print');
     });
     // Order - Status
     Route::prefix('order-status')->middleware('auth')->group(function () {

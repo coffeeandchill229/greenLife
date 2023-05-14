@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <!-- MD Bootstrap -->
-
-    <!-- Jquery -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="/home/assets/style.css" />
@@ -24,6 +22,7 @@
     <link rel="icon"
         href="https://9xgarden.com/wp-content/uploads/2020/09/danh-muc-tieu-canh-de-ban-terrarium-9xgarden.jpg">
     <script src="/ckeditor.js"></script>
+    <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.6.4.js"
         integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 
@@ -266,6 +265,7 @@
                 <h4>Sản phẩm mới</h4>
             </div>
             <div class="product_list row py-3">
+                @include('sweetalert::alert')
                 {{$slot}}
             </div>
         </div>
@@ -277,7 +277,7 @@
                     <h5 class="fw-bold badge bg-success">Về chúng tôi</h5>
                     <div class="logo my-3">
                         <h2 class="m-0" style="color: var(--header_color)">
-                            Cây cảnh Nam Lê <i class="fab fa-pagelines"></i>
+                            Nam Lê <i class="fab fa-pagelines"></i>
                         </h2>
                     </div>
                     <p style="text-align: justify">
@@ -315,8 +315,8 @@
                 </div>
                 <div class="col-lg-4">
                     <h5 class="fw-bold badge bg-success">Fanpage</h5>
-                    <div class="fb-page" data-href="https://www.facebook.com/NCSfanmade" data-width="380"
-                        data-hide-cover="false" data-show-facepile="false"></div>
+                    <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100091749211692"
+                        data-width="380" data-hide-cover="false" data-show-facepile="false"></div>
                 </div>
             </div>
             <div class="row">

@@ -11,9 +11,15 @@ class CartController extends Controller
     function add(CartHelper $cart, $id, Request $request)
     {
         if ($id) {
-            $quantity = $request->quantity;
             $product = Product::find($id);
+            $quantity = $request->quantity;
+
             $cart->add($product, $quantity);
+
+            if ($request->quantity) {
+                return back();
+            }
+
             return response()->json(['total_quantity' => count($cart->items)]);
         }
     }

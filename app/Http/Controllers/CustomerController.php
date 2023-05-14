@@ -29,6 +29,7 @@ class CustomerController extends Controller
         if (Auth::guard('customer')->attempt($data)) {
             if (Auth::guard('customer')->user()->banned != 0) {
                 $request->session()->regenerate();
+                alert()->success('Đăng nhập thành công!');
                 return redirect()->route('home');
             } else {
                 Auth::guard('customer')->logout();
@@ -90,6 +91,17 @@ class CustomerController extends Controller
         $customer = Customer::findOrFail($id);
         return view('admin.customer.edit', compact('customer'));
     }
+    function delete($id = null)
+    {
+        $customer = Customer::findOrFail($id);
+        if ($customer->order->count() > 0 || $customer->comment->count() > 0 || $customer->reply->count() > 0) {
+            alert()->warning('Xóa không thành công!');
+            return back();
+        }
+        $customer->delete();
+        return back();
+    }
+
     function store(Request $request, $id = null)
     {
         $data = $request->all();

@@ -56,13 +56,15 @@
                                 class="card-title text-dark h6">{{$item->name}}</a>
                             <p class="card-text text-danger fw-bold">{{number_format($item->price)}} <sup>đ</sup></p>
                         </div>
-                        <a id="btn_add_to_cart" class="text-light text-center py-2 bg-secondary"
-                            href="{{route('cart.add',$item->id)}}">Thêm vào giỏ hàng</a>
+                        <a class="text-light text-center py-2 bg-secondary" onclick="addToCart({{$item->id}})"
+                            data-id="{{$item->id}}" style="cursor: pointer;">Thêm vào
+                            giỏ hàng</a>
                     </div>
                 </div>
                 @endforeach
                 @else
-                <img src="https://hautesignatures.com/images/utilities/empty_product.svg" class="text-center" width="100" height="100" alt="">
+                <img src="https://hautesignatures.com/images/utilities/empty_product.svg" class="text-center"
+                    width="100" height="100" alt="">
                 <p class="text-danger text-center">Không tìm thấy sản phẩm!</p>
                 @endif
             </div>

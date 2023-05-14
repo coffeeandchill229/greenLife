@@ -30,7 +30,6 @@
                         <td>{{$item->stock}}</td>
                         <td>{{$item->category->name}}</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-info"><i class="ri-eye-line"></i></a>
                             <a href="{{route('admin.product.addOrUpdate',$item->id)}}" class="btn btn-sm btn-warning"><i
                                     class="ri-quill-pen-line"></i></a>
                             <a href="{{route('admin.product.delete',$item->id)}}" class="btn btn-sm btn-danger"><i

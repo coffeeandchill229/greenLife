@@ -18,7 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guarded = [];
-    public function setting(){
+    public function setting()
+    {
         return $this->hasOne(ThemeSetting::class, 'user_id', 'id');
+    }
+    public function post()
+    {
+        return $this->hasMany(Post::class, 'user_id', 'id');
     }
 }

@@ -1,7 +1,7 @@
 <x-admin title="User-list">
     <div class="row">
         <div class="col-12">
-            <a href="" class="btn btn-sm btn-success">Thêm mới</a>
+            <a href="{{route('admin.user.addOrUpdate')}}" class="btn btn-sm btn-success">Thêm mới</a>
         </div>
         <div class="col-12 mt-3">
             <h6 class="badge bg-info">Danh Sách Nhân Viên</h6>
@@ -22,16 +22,16 @@
                     <tr style="vertical-align: middle;">
                         <td>{{$item->id}}</td>
                         <td>
-                            <img src="/storage/avatars/{{$item->avatar}}" class="rounded-circle" width="70" height="70" alt="">
+                            <img src="/storage/avatars/{{$item->avatar}}" class="rounded-circle" width="70" height="70"
+                                alt="">
                         </td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
                         <td>{{$item->created_at->format('H:i:s - d/m/Y')}}</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-info"><i class="ri-eye-line"></i></a>
-                            <a href="{{route('admin.product.addOrUpdate',$item->id)}}" class="btn btn-sm btn-warning"><i
+                            <a href="{{route('admin.user.addOrUpdate',$item->id)}}" class="btn btn-sm btn-warning"><i
                                     class="ri-quill-pen-line"></i></a>
-                            <a href="{{route('admin.product.delete',$item->id)}}" class="btn btn-sm btn-danger"><i
+                            <a href="{{route('admin.user.delete',$item->id)}}" class="btn btn-sm btn-danger"><i
                                     class="ri-delete-bin-line"></i></a>
                         </td>
                     </tr>

@@ -23,6 +23,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Tên</th>
                         <th>Ảnh</th>
+                        <th>Tổng sản phẩm</th>
                         <th scope="col">Thao tác</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                             <span>Đang cập nhật...</span>
                             @endif
                         </td>
+                        <td>{{$item->product->count()}}</td>
                         <td>
                             <a href="{{route('admin.category',$item->id)}}" class="btn btn-sm btn-warning"><i
                                     class="ri-quill-pen-line"></i></a>

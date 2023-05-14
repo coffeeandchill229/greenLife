@@ -1,5 +1,5 @@
 @php
-$nav_bar = config('nav_bar');
+    $nav_bar = config('nav_bar');
 @endphp
 <!doctype html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
@@ -8,7 +8,7 @@ $nav_bar = config('nav_bar');
 <head>
 
     <meta charset="utf-8" />
-    <title>{{$attributes['title']}}</title>
+    <title>{{ $attributes['title'] }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -42,7 +42,7 @@ $nav_bar = config('nav_bar');
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar-brand-box horizontal-logo">
-                            <a href="index.html" class="logo logo-dark">
+                            <a href="" class="logo logo-dark">
                                 <span class="logo-sm">
                                     {{-- <img src="/ad/assets/images/logo-sm.png" alt="" height="22"> --}}
                                     Admin
@@ -53,7 +53,7 @@ $nav_bar = config('nav_bar');
                                 </span>
                             </a>
 
-                            <a href="index.html" class="logo logo-light">
+                            <a href="" class="logo logo-light">
                                 <span class="logo-sm">
                                     {{-- <img src="/ad/assets/images/logo-sm.png" alt="" height="22"> --}}
                                     Admin
@@ -163,7 +163,8 @@ $nav_bar = config('nav_bar');
                                 </div>
 
                                 <div class="text-center pt-3 pb-1">
-                                    <a href="pages-search-results.html" class="btn btn-primary btn-sm">View All Results
+                                    <a href="pages-search-results.html" class="btn btn-primary btn-sm">View All
+                                        Results
                                         <i class="ri-arrow-right-line ms-1"></i></a>
                                 </div>
                             </div>
@@ -206,10 +207,10 @@ $nav_bar = config('nav_bar');
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-flex align-items-center">
                                     <img class="rounded-circle header-profile-user"
-                                        src="/storage/avatars/{{Auth::user()->avatar}}" alt="Header Avatar">
+                                        src="/storage/avatars/{{ Auth::user()->avatar }}" alt="Header Avatar">
                                     <span class="text-start ms-xl-2">
                                         <span
-                                            class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{Auth::user()->name}}</span>
+                                            class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ Auth::user()->name }}</span>
                                         <span
                                             class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
                                     </span>
@@ -217,8 +218,8 @@ $nav_bar = config('nav_bar');
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <h6 class="dropdown-header">Welcome {{Auth::user()->name}}!</h6>
-                                <a class="dropdown-item" href="{{route('admin.logout')}}"><i
+                                <h6 class="dropdown-header">Welcome {{ Auth::user()->name }}!</h6>
+                                <a class="dropdown-item" href="{{ route('admin.logout') }}"><i
                                         class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                                         class="align-middle" data-key="t-logout">Đăng xuất</span></a>
                             </div>
@@ -266,45 +267,45 @@ $nav_bar = config('nav_bar');
                     </div>
                     <ul class="navbar-nav" id="navbar-nav">
                         @foreach ($nav_bar as $nav_item)
-                        @if (isset($nav_item['childs']))
-                        <li class="nav-item">
-                            <a class="nav-link menu-link {{$nav_item['codePage'] == $attributes['title'] ? 'active' : ''}}"
-                                href="#{{$nav_item['codePage']}}" data-bs-toggle="collapse" role="button"
-                                aria-expanded="false" aria-controls="{{$nav_item['codePage']}}">
-                                <i class="{{$nav_item['icon']}}"></i> <span
-                                    data-key="t-dashboards">{{$nav_item['title']}}</span>
-                            </a>
-                            <div class="text-light">
-                                @php
-                                $result = array_filter($nav_item['childs'], function ($child) use ($attributes){
-                                return $child['codePage'] == $attributes['title'];
-                                });
-                                $isShow = !empty($result);
-                                @endphp
-                            </div>
-                            <div class="collapse menu-dropdown {{$isShow ? 'show' : ''}}"
-                                id="{{$nav_item['codePage']}}">
-                                <ul class="nav nav-sm flex-column">
-                                    @foreach ($nav_item['childs'] as $child)
-                                    <li class="nav-item">
-                                        <a href="{{route($child['href'])}}"
-                                            class="nav-link {{$child['codePage'] == $attributes['title'] ? 'active' : ''}}"
-                                            data-key="t-analytics">
-                                            {{$child['title']}} </a>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </li>
-                        @else
-                        <li class="nav-item">
-                            <a class="nav-link menu-link {{$nav_item['codePage'] == $attributes['title'] ? 'active' : ''}}"
-                                href="{{route($nav_item['href'])}}">
-                                <i class="mdi mdi-puzzle-outline"></i> <span
-                                    data-key="t-widgets">{{$nav_item['title']}}</span>
-                            </a>
-                        </li>
-                        @endif
+                            @if (isset($nav_item['childs']))
+                                <li class="nav-item">
+                                    <a class="nav-link menu-link {{ $nav_item['codePage'] == $attributes['title'] ? 'active' : '' }}"
+                                        href="#{{ $nav_item['codePage'] }}" data-bs-toggle="collapse" role="button"
+                                        aria-expanded="false" aria-controls="{{ $nav_item['codePage'] }}">
+                                        <i class="{{ $nav_item['icon'] }}"></i> <span
+                                            data-key="t-dashboards">{{ $nav_item['title'] }}</span>
+                                    </a>
+                                    <div class="text-light">
+                                        @php
+                                            $result = array_filter($nav_item['childs'], function ($child) use ($attributes) {
+                                                return $child['codePage'] == $attributes['title'];
+                                            });
+                                            $isShow = !empty($result);
+                                        @endphp
+                                    </div>
+                                    <div class="collapse menu-dropdown {{ $isShow ? 'show' : '' }}"
+                                        id="{{ $nav_item['codePage'] }}">
+                                        <ul class="nav nav-sm flex-column">
+                                            @foreach ($nav_item['childs'] as $child)
+                                                <li class="nav-item">
+                                                    <a href="{{ route($child['href']) }}"
+                                                        class="nav-link {{ $child['codePage'] == $attributes['title'] ? 'active' : '' }}"
+                                                        data-key="t-analytics">
+                                                        {{ $child['title'] }} </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link menu-link {{ $nav_item['codePage'] == $attributes['title'] ? 'active' : '' }}"
+                                        href="{{ route($nav_item['href']) }}">
+                                        <i class="mdi mdi-puzzle-outline"></i> <span
+                                            data-key="t-widgets">{{ $nav_item['title'] }}</span>
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>
@@ -329,12 +330,12 @@ $nav_bar = config('nav_bar');
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h4 class="mb-sm-0">{{$attributes['title']}}</h4>
+                                <h4 class="mb-sm-0">{{ $attributes['title'] }}</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                                        <li class="breadcrumb-item active">{{$attributes['title']}}</li>
+                                        <li class="breadcrumb-item active">{{ $attributes['title'] }}</li>
                                     </ol>
                                 </div>
 
@@ -342,7 +343,7 @@ $nav_bar = config('nav_bar');
                         </div>
                         <div class="col-12">
                             @include('sweetalert::alert')
-                            {{$slot}}
+                            {{ $slot }}
                         </div>
                     </div>
                     <!-- end page title -->
@@ -394,7 +395,7 @@ $nav_bar = config('nav_bar');
     </div>
 
     <!-- Theme Settings -->
-    <form action="{{route('admin.store_theme_setting')}}" method="post">
+    <form action="{{ route('admin.store_theme_setting') }}" method="post">
         @csrf
         <div class="offcanvas offcanvas-end border-0" tabindex="-1" id="theme-setting">
             <div class="d-flex align-items-center bg-primary bg-gradient p-3 offcanvas-header">
@@ -412,8 +413,8 @@ $nav_bar = config('nav_bar');
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-check card-radio">
-                                    <input id="customizer-layout01" name="data-layout" type="radio" value="vertical"
-                                        class="form-check-input">
+                                    <input id="customizer-layout01" name="data-layout" type="radio"
+                                        value="vertical" class="form-check-input">
                                     <label class="form-check-label p-0 avatar-md w-100 shadow-sm"
                                         for="customizer-layout01">
                                         <span class="d-flex gap-1 h-100">
@@ -438,8 +439,8 @@ $nav_bar = config('nav_bar');
                             </div>
                             <div class="col-4">
                                 <div class="form-check card-radio">
-                                    <input id="customizer-layout02" name="data-layout" type="radio" value="horizontal"
-                                        class="form-check-input">
+                                    <input id="customizer-layout02" name="data-layout" type="radio"
+                                        value="horizontal" class="form-check-input">
                                     <label class="form-check-label p-0 avatar-md w-100 shadow-sm"
                                         for="customizer-layout02">
                                         <span class="d-flex h-100 flex-column gap-1">
@@ -457,8 +458,8 @@ $nav_bar = config('nav_bar');
                             </div>
                             <div class="col-4">
                                 <div class="form-check card-radio">
-                                    <input id="customizer-layout03" name="data-layout" type="radio" value="twocolumn"
-                                        class="form-check-input">
+                                    <input id="customizer-layout03" name="data-layout" type="radio"
+                                        value="twocolumn" class="form-check-input">
                                     <label class="form-check-label p-0 avatar-md w-100 shadow-sm"
                                         for="customizer-layout03">
                                         <span class="d-flex gap-1 h-100">
@@ -1050,7 +1051,8 @@ $nav_bar = config('nav_bar');
             <div class="offcanvas-footer border-top p-3 text-center">
                 <div class="row">
                     <div class="col-6">
-                        <button type="button" class="btn btn-light w-100" id="reset-layout">Khôi phục mặc định</button>
+                        <button type="button" class="btn btn-light w-100" id="reset-layout">Khôi phục mặc
+                            định</button>
                     </div>
                     <div class="col-6">
                         <button class="btn btn-primary w-100">Lưu</button>
@@ -1073,7 +1075,7 @@ $nav_bar = config('nav_bar');
     <!-- App js -->
     <script src="/ad/assets/js/app.js"></script>
     <script>
-        CKEDITOR.replace( 'editor1' );
+        CKEDITOR.replace('editor1');
     </script>
 </body>
 

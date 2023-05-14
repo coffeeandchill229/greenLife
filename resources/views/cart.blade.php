@@ -16,13 +16,12 @@
                     <form action="{{route('cart.update')}}" method="post">
                         @csrf
                         @foreach ($cart->items as $item)
-                        <tr style="vertical-align: middle;">
+                        <tr class="cart_item" style="vertical-align: middle;">
                             <td class="d-flex align-items-center">
                                 <a href="{{route('cart.delete',$item['id'])}}" class="text-danger"><i
                                         class="fas fa-times"></i></a>
-                                <img class="mx-3"
-                                    src="/storage/products/{{$item['image']}}"
-                                    width="60" height="60" alt="">
+                                <img class="mx-3" src="/storage/products/{{$item['image']}}" width="60" height="60"
+                                    alt="">
                                 <span>{{$item['name']}}</span>
                             </td>
                             <td class="fw-bold">{{number_format($item['price'])}} <sup>đ</sup></td>
@@ -30,7 +29,9 @@
                                 <input type="number" class="form-control w-75" name="{{$item['id']}}"
                                     value="{{$item['quantity']}}" min="1" max="10">
                             </td>
-                            <td class="fw-bold">{{number_format($item['price'] * $item['quantity'])}} <sup>đ</sup></td>
+                            <td class="fw-bold">{{number_format($item['price'] * $item['quantity'])}}
+                                <sup>đ</sup>
+                            </td>
                         </tr>
                         @endforeach
                         <tr>
@@ -75,8 +76,8 @@
         </div>
         @else
         <p class="text-danger text-center">Chưa có sản phẩm nào trong giỏ hàng!</p>
-        <a href="{{route('home')}}" class="btn btn-outline-success w-25"><i
-            class="fas fa-long-arrow-left me-1"></i> Quay về trang chủ</a>
+        <a href="{{route('home')}}" class="btn btn-outline-success w-25"><i class="fas fa-long-arrow-left me-1"></i>
+            Quay về trang chủ</a>
         @endif
     </div>
 </x-only-header>

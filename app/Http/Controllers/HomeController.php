@@ -11,20 +11,16 @@ use App\Models\Comment;
 use App\Models\Customer;
 use App\Models\OrderDetail;
 use App\Models\Post;
-use App\View\Components\input;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use PhpParser\Error;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
     function index()
     {
-        Alert::success('Success Title', 'Success Message');
-        $products = Product::orderByDesc('id')->take(32)->get();
+        $products = Product::orderByDesc('id')->take(12)->get();
         return view('welcome', compact('products'));
     }
     // Cart
@@ -65,6 +61,10 @@ class HomeController extends Controller
                 $order_detail->order_id = $order->id;
                 $order_detail->price = $item['price'];
                 $order_detail->quantity = $item['quantity'];
+                // Update product stock
+                $product = Product::findOrFail($order_detail->product_id);
+                $product->update(['stock' => $product->stock - $item['quantity']]);
+                $product->save();
                 $order_detail->save();
             }
             $cart->remove();
@@ -82,6 +82,8 @@ class HomeController extends Controller
             }
         );
 
+        alert()->success('Đơn hàng đã được đặt thành công!');
+
         return redirect()->route('home');
     }
     function product_detail($id)
@@ -93,7 +95,7 @@ class HomeController extends Controller
     {
         $cats = Category::all();
         $category_find = Category::findOrFail($id);
-        // Fillter
+        // Filter
         $orderBy = $request->input('orderBy');
         $products = null;
         if ($orderBy == 'default') {

@@ -43,7 +43,7 @@
                         <td>
                             <a href="{{route('admin.customer.edit',$item->id)}}" class="btn btn-sm btn-warning"><i
                                     class="ri-quill-pen-line"></i></a>
-                            <a href="{{route('admin.product.delete',$item->id)}}" class="btn btn-sm btn-danger"><i
+                            <a href="{{route('admin.customer.delete',$item->id)}}" class="btn btn-sm btn-danger"><i
                                     class="ri-delete-bin-line"></i></a>
                         </td>
                     </tr>
