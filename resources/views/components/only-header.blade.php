@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>{{$attributes['title']}}</title>
+    <title>{{ $attributes['title'] }}</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="/home/assets/style.css" />
     <link rel="stylesheet" href="/home/assets/responsive.css" />
     {{-- Jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.4.js"
-        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous"></script>
     <link rel="icon"
         href="https://9xgarden.com/wp-content/uploads/2020/09/danh-muc-tieu-canh-de-ban-terrarium-9xgarden.jpg">
     <style>
@@ -63,51 +63,55 @@
     <header>
         <div class="container">
             <div class="row py-2 d-flex align-items-center">
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-4">
                     <div class="logo">
                         <h2 class="m-0" style="color: var(--header_color)">
                             Nam Lê <i class="fab fa-pagelines"></i>
                         </h2>
                     </div>
                 </div>
-                <div class="col-lg-5">
-                    <form action="{{route('home.search')}}" method="get" class="search_form">
+                <div class="col-lg-5 d-none d-lg-block">
+                    <form action="{{ route('home.search') }}" method="get" class="search_form">
                         <div class="search_box">
-                            <input type="text" name="key" class="search_input" placeholder="Tìm kiếm sản phẩm..." />
+                            <input type="text" name="key" class="search_input"
+                                placeholder="Tìm kiếm sản phẩm..." />
                             <button class="search_btn">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </form>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-8">
                     <div class="login">
                         <ul class="m-0 p-0 d-flex align-items-center justify-content-end" style="list-style: none">
                             <li class="me-2">
                                 @if (Auth::guard('customer')->user())
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        <img src="/storage/avatars/{{Auth::guard('customer')->user()->avatar}}"
-                                            width="30" height="30" class="rounded-circle"
-                                            alt="{{Auth::guard('customer')->user()->name}}">
-                                        {{Auth::guard('customer')->user()->name}}
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                        <li><a href="{{route('home.info')}}" class="dropdown-item" type="button">Thông
-                                                tin</a></li>
-                                        <li><a href="{{route('home.logout')}}" class="dropdown-item" type="button">Đăng
-                                                xuất</a></li>
-                                    </ul>
-                                </div>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
+                                            data-mdb-toggle="dropdown" aria-expanded="false">
+                                            <img src="/storage/avatars/{{ Auth::guard('customer')->user()->avatar }}"
+                                                width="30" height="30" class="rounded-circle"
+                                                alt="{{ Auth::guard('customer')->user()->name }}">
+                                            {{ Auth::guard('customer')->user()->name }}
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <li><a href="{{ route('home.info') }}" class="dropdown-item"
+                                                    type="button">Thông
+                                                    tin</a></li>
+                                            <li><a href="{{ route('home.logout') }}" class="dropdown-item"
+                                                    type="button">Đăng
+                                                    xuất</a></li>
+                                        </ul>
+                                    </div>
                                 @else
-                                <a class="text-dark" href="{{route('home.login')}}">Đăng nhập</a>
+                                    <a class="text-dark" href="{{ route('home.login') }}">Đăng nhập</a>
                                 @endif
                             </li>
                             <li class="me-2">
-                                <a style="color: var(--header_color)" href="{{route('home.cart')}}">Giỏ hàng <i
+                                <a style="color: var(--header_color)" href="{{ route('home.cart') }}">Giỏ hàng <i
                                         class="fas fa-shopping-bag"></i>
-                                    <sup style="font-size: 13px;" id="cart_number">[{{$cart->total_quantity}}]</sup></a>
+                                    <sup style="font-size: 13px;"
+                                        id="cart_number">[{{ $cart->total_quantity }}]</sup></a>
                             </li>
                         </ul>
                     </div>
@@ -120,38 +124,38 @@
             <div class="row pb-2 border-bottom">
                 <div class="col-lg-10">
                     @php
-                    $navbars = [
-                    [
-                    'name'=>'Trang chủ',
-                    'route'=>'home'
-                    ],
-                    [
-                    'name'=>'Giới thiệu',
-                    'route'=>'about'
-                    ],
-                    [
-                    'name'=>'Tin tức',
-                    'route'=>'new'
-                    ],
-                    [
-                    'name'=>'Liên hệ',
-                    'route'=>'contact'
-                    ]
-                    ];
-                    $route_curr = Route::currentRouteName();
+                        $navbars = [
+                            [
+                                'name' => 'Trang chủ',
+                                'route' => 'home',
+                            ],
+                            [
+                                'name' => 'Giới thiệu',
+                                'route' => 'about',
+                            ],
+                            [
+                                'name' => 'Tin tức',
+                                'route' => 'new',
+                            ],
+                            [
+                                'name' => 'Liên hệ',
+                                'route' => 'contact',
+                            ],
+                        ];
+                        $route_curr = Route::currentRouteName();
                     @endphp
                     <nav class="nav_bar">
                         <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
                             @foreach ($navbars as $item)
-                            <li class="nav_bar_item me-1 py-1 pe-2">
-                                <a class="{{$item['route'] == $route_curr ? 'text-success' : 'text-dark'}}"
-                                    href="{{$item['route'] ? route($item['route']) : ''}}">{{$item['name']}}</a>
-                            </li>
+                                <li class="nav_bar_item me-1 py-1 pe-2">
+                                    <a class="{{ $item['route'] == $route_curr ? 'text-success' : 'text-dark' }}"
+                                        href="{{ $item['route'] ? route($item['route']) : '' }}">{{ $item['name'] }}</a>
+                                </li>
                             @endforeach
                         </ul>
                     </nav>
                 </div>
-                <div class="col-lg-2 text-end">
+                <div class="col-lg-2 d-none d-md-block text-end">
                     <span class="px-3 btn rounded-pill text-light"
                         style="background-color: var(--header_color)">0123.456.789</span>
                 </div>
@@ -161,13 +165,13 @@
     <section class="content my-2">
         <div class="container">
             @include('sweetalert::alert')
-            {{$slot}}
+            {{ $slot }}
         </div>
     </section>
     <footer>
         <div class="container">
             <div class="row py-4">
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-6 col-12">
                     <h5 class="fw-bold badge bg-success">Về chúng tôi</h5>
                     <div class="logo my-3">
                         <h2 class="m-0" style="color: var(--header_color)">
@@ -184,7 +188,7 @@
                         mọi nhu cầu của khách hàng.
                     </p>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-6 col-12">
                     <h5 class="fw-bold badge bg-success">Hỗ trợ khách hàng</h5>
                     <ul>
                         <li class="mb-2">
@@ -207,8 +211,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
-                    <h5 class="fw-bold badge bg-success">Fanpage</h5>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <h5 class="fw-bold badge bg-success">Fanpage</h5> <br>
                     <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100091749211692"
                         data-width="380" data-hide-cover="false" data-show-facepile="false"></div>
                 </div>
@@ -237,34 +241,36 @@
         nonce="tdycEoV4"></script>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1 = document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    Tawk_API.customStyle = {
-		visibility : {
-			desktop : {
-				position : 'br',
-				xOffset : 50,
-				yOffset : 10
-			},
-			mobile : {
-				position : 'br',
-				xOffset : 0,
-				yOffset : 0
-			},
-			bubble : {
-				rotate : '0deg',
-			 	xOffset : -20,
-			 	yOffset : 0
-			}
-		}
-	};
-    s1.async=true;
-    s1.src='https://embed.tawk.to/642bd2e231ebfa0fe7f65df2/1gt5ivhfh';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            Tawk_API.customStyle = {
+                visibility: {
+                    desktop: {
+                        position: 'br',
+                        xOffset: 50,
+                        yOffset: 10
+                    },
+                    mobile: {
+                        position: 'br',
+                        xOffset: 0,
+                        yOffset: 0
+                    },
+                    bubble: {
+                        rotate: '0deg',
+                        xOffset: -20,
+                        yOffset: 0
+                    }
+                }
+            };
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/642bd2e231ebfa0fe7f65df2/1gt5ivhfh';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
     </script>
     <!--End of Tawk.to Script-->
 </body>

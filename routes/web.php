@@ -30,34 +30,10 @@ Route::prefix('/')->group(function () {
     // Search
     Route::get('search', [HomeController::class, 'search'])->name('home.search');
     // Cart
-    Route::prefix('cart')->group(function () {
-        // Cart - Page
-        Route::get('/', [HomeController::class, 'cart'])->name('home.cart');
-        // Checkout - Page
-        Route::get('/checkout', [HomeController::class, 'checkout'])->name('home.checkout')->middleware('customer');
-        Route::post('/checkout', [HomeController::class, 'store_checkout'])->name('home.store_checkout')->middleware('customer');
-        // Crud
-        Route::get('/add/{id?}', [CartController::class, 'add'])->name('cart.add');
-        Route::post('/update', [CartController::class, 'update'])->name('cart.update');
-        Route::get('/delete/{id?}', [CartController::class, 'delete'])->name('cart.delete');
-        Route::get('/remove', [CartController::class, 'remove'])->name('cart.remove');
-    });
+    include('client/cart.php');
     // Customer
-    Route::prefix('customer')->group(function () {
-        // Login
-        Route::get('login', [CustomerController::class, 'login'])->name('home.login');
-        Route::post('login', [CustomerController::class, 'store_login'])->name('home.store_login');
-        // Register
-        Route::get('register', [CustomerController::class, 'register'])->name('home.register');
-        Route::post('register', [CustomerController::class, 'store_register'])->name('home.store_register');
-        // Logout
-        Route::get('logout', [CustomerController::class, 'logout'])->name('home.logout');
+    include('client/customer.php');
 
-        Route::get('/info', [HomeController::class, 'info'])->name('home.info')->middleware('customer', 'checkbanned');
-        Route::post('/info', [HomeController::class, 'store_info'])->name('home.store_info')->middleware('customer', 'checkbanned');
-
-        Route::get('/my-order/{id?}', [HomeController::class, 'my_order'])->name('home.my_order')->middleware('customer', 'checkbanned');
-    });
     // About
     Route::get('about', [HomeController::class, 'about'])->name('about');
     // Contact
@@ -86,62 +62,23 @@ Route::prefix('admin')->group(function () {
     // Dashboard
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware('auth');
     // Products
-    Route::prefix('products')->middleware('auth')->group(function () {
-        Route::get('/', [ProductController::class, 'index'])->name('admin.product');
-        Route::get('addOrUpdate/{id?}', [ProductController::class, 'addOrUpdate'])->name('admin.product.addOrUpdate');
-        Route::post('store/{id?}', [ProductController::class, 'store'])->name('admin.product.store');
-        Route::get('delete/{id?}', [ProductController::class, 'delete'])->name('admin.product.delete');
-    });
+    include('admin/product.php');
     // Categories
-    Route::prefix('categories')->middleware('auth')->group(function () {
-        Route::get('{id?}', [CategoryController::class, 'index'])->name('admin.category');
-        Route::post('store/{id?}', [CategoryController::class, 'store'])->name('admin.category.store');
-        Route::get('delete/{id?}', [CategoryController::class, 'delete'])->name('admin.category.delete');
-    });
+    include('admin/category.php');
     // Customers
-    Route::prefix('customers')->middleware('auth')->group(function () {
-        Route::get('{id?}', [CustomerController::class, 'index'])->name('admin.customer');
-        Route::get('edit/{id?}', [CustomerController::class, 'edit'])->name('admin.customer.edit');
-        Route::post('store/{id?}', [CustomerController::class, 'store'])->name('admin.customer.store');
-        Route::get('delete/{id?}', [CustomerController::class, 'delete'])->name('admin.customer.delete');
-    });
+    include('admin/customer.php');
     // Users
-    Route::prefix('users')->middleware('auth')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('admin.user');
-        Route::get('addOrUpdate/{id?}', [UserController::class, 'addOrUpdate'])->name('admin.user.addOrUpdate');
-        Route::post('store/{id?}', [UserController::class, 'store'])->name('admin.user.store');
-        Route::get('delete/{id?}', [UserController::class, 'delete'])->name('admin.user.delete');
-    });
+    include('admin/user.php');
     // Orders
-    Route::prefix('orders')->middleware('auth')->group(function () {
-        Route::get('/', [OrderController::class, 'index'])->name('admin.order');
-        Route::get('/detail/{id?}', [OrderController::class, 'detail'])->name('admin.order.detail');
-        Route::get('/update/{id?}', [OrderController::class, 'update'])->name('admin.order.update');
-        Route::post('/store/{id?}', [OrderController::class, 'store'])->name('admin.order.store');
-        Route::get('/delete/{id?}', [OrderController::class, 'delete'])->name('admin.order.delete');
-        Route::get('/print/{id?}', [OrderController::class, 'print_order'])->name('admin.order.print');
-    });
+    include('admin/order.php');
     // Order - Status
-    Route::prefix('order-status')->middleware('auth')->group(function () {
-        Route::get('/', [OrderStatusController::class, 'index'])->name('admin.order_status');
-        Route::post('/store', [OrderStatusController::class, 'store'])->name('admin.order_status.store');
-    });
+    include('admin/order_status.php');
     // Order - Detail
-    Route::prefix('order-detail')->middleware('auth')->group(function () {
-        Route::get('/delete/{id?}', [OrderController::class, 'order_detail_delete'])->name('admin.order_detail.delete');
-    });
+    include('admin/order_detail.php');
     // Banner
-    Route::prefix('banners')->middleware('auth')->group(function () {
-        Route::get('/{id?}', [BannerController::class, 'index'])->name('admin.banner');
-        Route::post('/store/{id?}', [BannerController::class, 'store'])->name('admin.banner.store');
-        Route::get('/delete/{id?}', [BannerController::class, 'delete'])->name('admin.banner.delete');
-    });
+    include('admin/banner.php');
     // Posts
-    Route::prefix('posts')->middleware('auth')->group(function () {
-        Route::get('/', [PostController::class, 'index'])->name('admin.post');
-        Route::get('addOrUpdate/{id?}', [PostController::class, 'addOrUpdate'])->name('admin.post.addOrUpdate');
-        Route::post('add/{id?}', [PostController::class, 'store'])->name('admin.post.store');
-    });
+    include('admin/post.php');
     // Setting store
     Route::post('store_theme_setting', [ThemeSettingController::class, 'store'])->name('admin.store_theme_setting');
 });

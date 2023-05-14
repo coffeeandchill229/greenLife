@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>{{$attributes['title']}}</title>
+    <title>{{ $attributes['title'] }}</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -23,8 +23,8 @@
         href="https://9xgarden.com/wp-content/uploads/2020/09/danh-muc-tieu-canh-de-ban-terrarium-9xgarden.jpg">
     <script src="/ckeditor.js"></script>
     <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.js"
-        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous"></script>
 
     <style>
         @media (min-width: 1200px) {
@@ -65,51 +65,55 @@
     <header>
         <div class="container">
             <div class="row py-2 d-flex align-items-center">
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-4">
                     <div class="logo">
-                        <h2 class="m-0" style="color: var(--header_color)">
+                        <h3 class="m-0" style="color: var(--header_color)">
                             Nam Lê <i class="fab fa-pagelines"></i>
-                        </h2>
+                        </h3>
                     </div>
                 </div>
-                <div class="col-lg-5">
-                    <form action="{{route('home.search')}}" method="get" class="search_form">
+                <div class="col-lg-5 d-none d-lg-block">
+                    <form action="{{ route('home.search') }}" method="get" class="search_form">
                         <div class="search_box">
-                            <input type="text" name="key" class="search_input" placeholder="Tìm kiếm sản phẩm..." />
+                            <input type="text" name="key" class="search_input"
+                                placeholder="Tìm kiếm sản phẩm..." />
                             <button class="search_btn">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
                     </form>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-8">
                     <div class="login">
                         <ul class="m-0 p-0 d-flex justify-content-end align-items-center" style="list-style: none">
                             <li class="me-2">
                                 @if (Auth::guard('customer')->user())
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
-                                        data-mdb-toggle="dropdown" aria-expanded="false">
-                                        <img src="/storage/avatars/{{Auth::guard('customer')->user()->avatar}}"
-                                            width="30" height="30" class="rounded-circle"
-                                            alt="{{Auth::guard('customer')->user()->name}}">
-                                        {{Auth::guard('customer')->user()->name}}
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                        <li><a href="{{route('home.info')}}" class="dropdown-item" type="button">Thông
-                                                tin</a></li>
-                                        <li><a href="{{route('home.logout')}}" class="dropdown-item" type="button">Đăng
-                                                xuất</a></li>
-                                    </ul>
-                                </div>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
+                                            data-mdb-toggle="dropdown" aria-expanded="false">
+                                            <img src="/storage/avatars/{{ Auth::guard('customer')->user()->avatar }}"
+                                                width="30" height="30" class="rounded-circle"
+                                                alt="{{ Auth::guard('customer')->user()->name }}">
+                                            {{ Auth::guard('customer')->user()->name }}
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <li><a href="{{ route('home.info') }}" class="dropdown-item"
+                                                    type="button">Thông
+                                                    tin</a></li>
+                                            <li><a href="{{ route('home.logout') }}" class="dropdown-item"
+                                                    type="button">Đăng
+                                                    xuất</a></li>
+                                        </ul>
+                                    </div>
                                 @else
-                                <a class="text-dark" href="{{route('home.login')}}">Đăng nhập</a>
+                                    <a class="text-dark" href="{{ route('home.login') }}">Đăng nhập</a>
                                 @endif
                             </li>
                             <li class="me-2">
-                                <a style="color: var(--header_color)" href="{{route('home.cart')}}">Giỏ hàng <i
+                                <a style="color: var(--header_color)" href="{{ route('home.cart') }}">Giỏ hàng <i
                                         class="fas fa-shopping-bag"></i>
-                                    <sup style="font-size: 13px;" id="cart_number">[{{$cart->total_quantity}}]</sup></a>
+                                    <sup style="font-size: 13px;"
+                                        id="cart_number">[{{ $cart->total_quantity }}]</sup></a>
                             </li>
                         </ul>
                     </div>
@@ -121,63 +125,86 @@
     <section class="navigation">
         <div class="container">
             <div class="row bg-white">
-                <div class="col-lg-3">
-                    <div class="category">
-                        <ul class="list-group rounded-0">
-                            <li class="list-group-item text-light" style="background-color: var(--header_color)"
-                                aria-current="true">
-                                <i class="fas fa-bars"></i> <span>DANH MỤC SẢN PHẨM</span>
-                            </li>
-                            @foreach ($cats as $item)
-                            <li class="list-group-item">
-                                <a class="text-dark"
-                                    href="{{route('home.product_category',$item->id)}}">{{$item->name}}</a>
-                            </li>
-                            @endforeach
-                        </ul>
+                <div class="col-lg-3 d-none d-md-block">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-6 mb-4">
+                            <div class="category">
+                                <ul class="list-group rounded-0">
+                                    <li class="list-group-item text-light"
+                                        style="background-color: var(--header_color);" aria-current="true">
+                                        <i class="fas fa-bars"></i> <span>DANH MỤC SẢN PHẨM</span>
+                                    </li>
+                                    @foreach ($cats as $item)
+                                        <li class="list-group-item">
+                                            <a class="text-dark"
+                                                href="{{ route('home.product_category', $item->id) }}">{{ $item->name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <div class="news">
+                                <ul class="list-group rounded-0">
+                                    <li class="list-group-item text-light"
+                                        style="background-color: var(--header_color);;" aria-current="true">
+                                        <i class="fas fa-earth"></i> <span>TIN TỨC MỚI NHẤT</span>
+                                    </li>
+                                    @foreach ($news as $item)
+                                        <li class="list-group-item text-truncate">
+                                            <img src="{{ asset('/storage/posts/' . $item->image) }}" width="30"
+                                                alt="">
+                                            <a class="text-dark" style="font-size: 13px;"
+                                                href="{{ route('new_detail', $item->id) }}">{{ $item->title }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
                 @php
-                $navbars = [
-                [
-                'name'=>'Trang chủ',
-                'route'=>'home'
-                ],
-                [
-                'name'=>'Giới thiệu',
-                'route'=>'about'
-                ],
-                [
-                'name'=>'Tin tức',
-                'route'=>'new'
-                ],
-                [
-                'name'=>'Liên hệ',
-                'route'=>'contact'
-                ]
-                ];
-                $route_curr = Route::currentRouteName();
+                    $navbars = [
+                        [
+                            'name' => 'Trang chủ',
+                            'route' => 'home',
+                        ],
+                        [
+                            'name' => 'Giới thiệu',
+                            'route' => 'about',
+                        ],
+                        [
+                            'name' => 'Tin tức',
+                            'route' => 'new',
+                        ],
+                        [
+                            'name' => 'Liên hệ',
+                            'route' => 'contact',
+                        ],
+                    ];
+                    $route_curr = Route::currentRouteName();
                 @endphp
                 <div class="col-lg-9">
                     <div class="row d-flex align-items-center">
-                        <div class="col-lg-10">
+                        <div class="col-lg-10 col-md-8">
                             <nav class="nav_bar">
                                 <ul class="nav_bar_list d-flex m-0 p-0" style="list-style: none">
                                     @foreach ($navbars as $item)
-                                    <li class="nav_bar_item me-1 py-1 pe-2">
-                                        <a class="{{$item['route'] == $route_curr ? 'text-success' : 'text-dark'}}"
-                                            href="{{$item['route'] ? route($item['route']) : ''}}">{{$item['name']}}</a>
-                                    </li>
+                                        <li class="nav_bar_item me-1 py-1 pe-2">
+                                            <a class="{{ $item['route'] == $route_curr ? 'text-success fw-bold' : 'text-dark' }}"
+                                                href="{{ $item['route'] ? route($item['route']) : '' }}">{{ $item['name'] }}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </nav>
                         </div>
-                        <div class="col-lg-2 text-end">
+                        <div class="col-lg-2 col-md-4 d-none d-md-block text-end">
                             <span class="px-3 btn rounded-pill text-light"
                                 style="background-color: var(--header_color)">0123.456.789</span>
                         </div>
                     </div>
-                    <div class="row my-2">
+                    <div class="row d-none d-md-block my-2">
                         <div id="carouselExampleControls" class="carousel slide" data-mdb-ride="carousel">
                             <div class="carousel-inner rounded-3" style="height: 350px">
                                 <div class="carousel-item active">
@@ -185,10 +212,10 @@
                                         alt="Wild Landscape" />
                                 </div>
                                 @foreach ($banners as $item)
-                                <div class="carousel-item">
-                                    <img src="/storage/banner/{{$item->image}}" class="d-block w-100"
-                                        alt="Wild Landscape" />
-                                </div>
+                                    <div class="carousel-item">
+                                        <img src="/storage/banner/{{ $item->image }}" class="d-block w-100"
+                                            alt="Wild Landscape" />
+                                    </div>
                                 @endforeach
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -217,47 +244,50 @@
                 </h4>
             </div>
             <div class="row py-3 d-flex align-items-center">
-                @if ($cat->count()>0)
-                <!-- Danh mục đầu tiên -->
-                <div class="col-lg-6 text-center">
-                    <div class="card shadow category_item_first d-grid justify-content-center">
-                        <div class="bg-image hover-overlay rippler" data-mdb-ripple-color="light">
-                            <img src="/storage/images/{{$cat->first()->image}}" class="img-thumbnail border-0" />
-                            <a href="{{route('home.product_category',$cat->first()->id)}}">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                            </a>
-                        </div>
-                        <div class="card-body p-1 text-center">
-                            <span class="card-title">{{$cat->first()->name}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <!-- Danh mục thứ 2 trở về sau -->
-                        @php
-                        unset($cat[0]);
-                        @endphp
-                        @foreach ($cat as $item)
-                        @if ($item->image)
-                        <div class="col-lg-6 mb-3">
-                            <div class="card shadow">
-                                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light"
-                                    style="height: 240px;">
-                                    <img src="/storage/images/{{$item->image}}" class="img-thumbnail" />
-                                    <a href="{{route('home.product_category',$item->id)}}">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                                    </a>
-                                </div>
-                                <div class="card-body p-1 text-center">
-                                    <span class="card-title">{{$item->name}}</span>
-                                </div>
+                @if ($cat->count() > 0)
+                    <!-- Danh mục đầu tiên -->
+                    <div class="col-lg-6 mb-3 text-center">
+                        <div class="card border shadow category_item_first d-grid justify-content-center">
+                            <div class="bg-image hover-overlay rippler" data-mdb-ripple-color="light">
+                                <img src="/storage/images/{{ $cat->first()->image }}"
+                                    class="img-thumbnail border-0" />
+                                <a href="{{ route('home.product_category', $cat->first()->id) }}">
+                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                                </a>
+                            </div>
+                            <div class="card-body p-1 text-center">
+                                <span class="card-title">{{ $cat->first()->name }}</span>
                             </div>
                         </div>
-                        @endif
-                        @endforeach
                     </div>
-                </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <!-- Danh mục thứ 2 trở về sau -->
+                            @php
+                                unset($cat[0]);
+                            @endphp
+                            @foreach ($cat as $item)
+                                @if ($item->image)
+                                    <div class="col-lg-6 col-6 mb-3">
+                                        <div class="card border shadow">
+                                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light"
+                                                style="height: 240px;">
+                                                <img src="/storage/images/{{ $item->image }}"
+                                                    class="img-thumbnail" />
+                                                <a href="{{ route('home.product_category', $item->id) }}">
+                                                    <div class="mask"
+                                                        style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                                                </a>
+                                            </div>
+                                            <div class="card-body p-1 text-center">
+                                                <span class="card-title">{{ $item->name }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
                 @endif
             </div>
             <!-- Sản phẩm -->
@@ -266,19 +296,19 @@
             </div>
             <div class="product_list row py-3">
                 @include('sweetalert::alert')
-                {{$slot}}
+                {{ $slot }}
             </div>
         </div>
     </section>
     <footer>
         <div class="container">
             <div class="row py-4">
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-6 col-12">
                     <h5 class="fw-bold badge bg-success">Về chúng tôi</h5>
                     <div class="logo my-3">
-                        <h2 class="m-0" style="color: var(--header_color)">
+                        <h3 class="m-0" style="color: var(--header_color)">
                             Nam Lê <i class="fab fa-pagelines"></i>
-                        </h2>
+                        </h3>
                     </div>
                     <p style="text-align: justify">
                         Cây Xinh là thương hiệu dẫn đầu trong lĩnh vực sản xuất & cung cấp
@@ -290,7 +320,7 @@
                         mọi nhu cầu của khách hàng.
                     </p>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-6 col-12">
                     <h5 class="fw-bold badge bg-success">Hỗ trợ khách hàng</h5>
                     <ul>
                         <li class="mb-2">
@@ -313,8 +343,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
-                    <h5 class="fw-bold badge bg-success">Fanpage</h5>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <h5 class="fw-bold badge bg-success">Fanpage</h5> <br>
                     <div class="fb-page" data-href="https://www.facebook.com/profile.php?id=100091749211692"
                         data-width="380" data-hide-cover="false" data-show-facepile="false"></div>
                 </div>
@@ -343,34 +373,36 @@
         nonce="tdycEoV4"></script>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1 = document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    Tawk_API.customStyle = {
-		visibility : {
-			desktop : {
-				position : 'br',
-				xOffset : 50,
-				yOffset : 10
-			},
-			mobile : {
-				position : 'br',
-				xOffset : 0,
-				yOffset : 0
-			},
-			bubble : {
-				rotate : '0deg',
-			 	xOffset : -20,
-			 	yOffset : 0
-			}
-		}
-	};
-    s1.async=true;
-    s1.src='https://embed.tawk.to/642bd2e231ebfa0fe7f65df2/1gt5ivhfh';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            Tawk_API.customStyle = {
+                visibility: {
+                    desktop: {
+                        position: 'br',
+                        xOffset: 50,
+                        yOffset: 10
+                    },
+                    mobile: {
+                        position: 'br',
+                        xOffset: 0,
+                        yOffset: 0
+                    },
+                    bubble: {
+                        rotate: '0deg',
+                        xOffset: -20,
+                        yOffset: 0
+                    }
+                }
+            };
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/642bd2e231ebfa0fe7f65df2/1gt5ivhfh';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
     </script>
     <!--End of Tawk.to Script-->
 </body>
