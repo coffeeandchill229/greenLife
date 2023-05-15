@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
 
 // Product

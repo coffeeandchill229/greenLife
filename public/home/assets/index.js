@@ -18,7 +18,7 @@ function addToCart(id) {
         },
         error: (err) => {
             swal({
-                text: "Thêm vào giỏ hàng thành công!",
+                text: "Thêm vào giỏ hàng không thành công!",
                 icon: "warning"
             });
         }
