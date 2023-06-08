@@ -54,13 +54,14 @@ class UserController extends Controller
 
         if ($id) {
             // Cập nhập
-            if ($request->old_password) { // Nếu có nhập trường mật khẩu cũ
-                // Kiểm tra mật khẩu cũ đúng không
+            if (!empty($request->old_password)) { // Nếu có nhập trường mật khẩu cũ
+                // check đúng
                 if (Hash::check($request->old_password, User::findOrFail($id)->password)) {
-                    // Nếu đúng thì thay đổi
-                    $data['password'] = Hash::make($request->password);
-                } else {
-                    alert()->warning('Mật khẩu cũ không đúng!');
+                    if (!empty($request->password)) {
+                        $data['password'] = Hash::make($request->password);
+                    } else {
+                        $data['password'] = User::findOrFail($id)->password;
+                    }
                 }
             } else {
                 // Không có nhập trường mật khẩu cũ thì lấy mật khẩu hiện tại
@@ -75,11 +76,11 @@ class UserController extends Controller
                 'password' => 'required|min:6',
                 'confirm_password' => 'required|min:6|same:password'
             ], [
-                'name' => 'Họ tên',
-                'email' => 'Email',
-                'password' => 'Mật khẩu',
-                'confirm_password' => 'Nhập lại mật khẩu'
-            ]);
+                    'name' => 'Họ tên',
+                    'email' => 'Email',
+                    'password' => 'Mật khẩu',
+                    'confirm_password' => 'Nhập lại mật khẩu'
+                ]);
             $data['password'] = Hash::make($request->password);
         }
 
@@ -111,9 +112,9 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ], [
-            'email' => 'Email',
-            'password' => 'Password'
-        ]);
+                'email' => 'Email',
+                'password' => 'Password'
+            ]);
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
             Alert::success('Đăng nhập thành công!');
