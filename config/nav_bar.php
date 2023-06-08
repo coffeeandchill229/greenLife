@@ -17,31 +17,20 @@ return [
                 'title' => 'Danh sách',
                 'icon' => '',
                 'href' => 'admin.product',
+                'url' => '/products'
             ],
             [
                 'codePage' => 'Categories',
                 'title' => 'Danh mục',
                 'icon' => '',
                 'href' => 'admin.category',
-            ],
-        ]
-    ],
-    [
-        'codePage' => 'Customers',
-        'title' => 'Khách hàng',
-        'icon' => 'bx bx-user',
-        'childs' => [
-            [
-                'codePage' => 'Customer-list',
-                'title' => 'Danh sách',
-                'icon' => '',
-                'href' => 'admin.customer',
+                'url' => '/categories'
             ],
         ]
     ],
     [
         'codePage' => 'Users',
-        'title' => 'Nhân viên',
+        'title' => 'Users   ',
         'icon' => 'bx bx-ghost',
         'childs' => [
             [
@@ -49,6 +38,7 @@ return [
                 'title' => 'Danh sách',
                 'icon' => '',
                 'href' => 'admin.user',
+                'url' => '/users'
             ],
         ]
     ],
@@ -62,12 +52,14 @@ return [
                 'title' => 'Danh sách',
                 'icon' => '',
                 'href' => 'admin.order',
+                'url' => '/orders'
             ],
             [
                 'codePage' => 'Order-status',
                 'title' => 'Trạng thái',
                 'icon' => '',
                 'href' => 'admin.order_status',
+                'url' => '/order-status'
             ],
         ]
     ],
@@ -81,6 +73,7 @@ return [
                 'title' => 'Danh sách',
                 'icon' => '',
                 'href' => 'admin.banner',
+                'url' => '/banners'
             ],
         ]
     ],
@@ -94,6 +87,7 @@ return [
                 'title' => 'Danh sách',
                 'icon' => '',
                 'href' => 'admin.post',
+                'url' => '/posts'
             ],
         ]
     ],

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('customer_id')->unsigned()->nullable();
             $table->bigInteger('post_id')->unsigned()->nullable();
 
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('customer_id')->references('id')->on('users');
             $table->foreign('post_id')->references('id')->on('posts');
 
             $table->string('content');

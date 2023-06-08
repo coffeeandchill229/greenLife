@@ -22,7 +22,7 @@ class navAccount extends Component
      */
     public function render(): View|Closure|string
     {
-        $cus = Auth::guard('customer')->user();
+        $cus = Auth::user();
         return view('components.nav-account', compact('cus'));
     }
 }

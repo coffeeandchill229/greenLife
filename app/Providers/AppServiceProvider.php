@@ -6,6 +6,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Helper\CartHelper;
+use App\Models\Post;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +26,13 @@ class AppServiceProvider extends ServiceProvider
         Paginator::usebootstrap();
 
         View::composer('*', function ($view) {
-            $view->with(['cart' => new CartHelper()]);
+            $news = Post::orderByDesc('id')->get()->take(5);
+            $view->with(
+                [
+                    'cart' => new CartHelper(),
+                    'news'=>$news
+                ]
+            );
         });
     }
 }

@@ -2,16 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
-    function index()
+    function index(Request $request)
     {
-        $products = Product::orderByDesc('id')->paginate(4);
-        return view('admin.products.index', compact('products'));
+        $filters = [];
+        $products = null;
+
+        if (!empty($request->key)) {
+            $filters[] = ['name', 'like', '%' . $request->key . '%'];
+        }
+        if (!empty($request->category_id)) {
+            $filters[] = ['category_id', $request->category_id];
+        }
+        $categories = Category::all();
+        $products = Product::where($filters)->orderByDesc('id')->paginate(4);
+        return view('admin.products.index', compact('products', 'categories'));
     }
     function addOrUpdate($id = null)
     {
@@ -21,27 +34,11 @@ class ProductController extends Controller
         }
         return view('admin.products.addOrUpdate', compact('product_edit'));
     }
-    function store(Request $request, $id = null)
+    function store(ProductRequest $request, $id = null)
     {
         $data = $request->all();
         unset($data['_token']);
 
-        $rules = [
-            'name' => 'required',
-            'price' => 'required|numeric|max:999999|min:0',
-            'stock' => 'required|numeric|min:0',
-            'description' => 'required',
-            'category_id' => 'required'
-        ];
-        $messages = [
-            'name' => 'Tên sản phẩm',
-            'price' => 'Giá',
-            'stock' => 'Tồn kho',
-            'description' => 'Mô tả',
-            'category_id' => 'Danh mục'
-        ];
-
-        $this->customValidate($data, $rules, $messages);
         $file = $request->file('image');
         if ($file) {
             $filename = $file->hashName();
@@ -56,5 +53,22 @@ class ProductController extends Controller
     {
         Product::destroy($id);
         return back();
+    }
+    function active_product($id = null)
+    {
+        if ($id) {
+            $product = Product::find($id);
+            if ($product->status == 0) {
+                $product->update(['status' => 1]);
+                $product->save();
+                return response()->json(['message' => 'Đã hiển thị sản phẩm'], 200);
+            } else {
+                $product->update(['status' => 0]);
+                $product->save();
+                return response()->json(['message' => 'Đã ẩn sản phẩm'], 200);
+            }
+        } else {
+            return response()->json(['message' => 'Fail'], 404);
+        }
     }
 }

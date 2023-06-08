@@ -3,7 +3,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('users')->middleware('auth')->group(function () {
+Route::prefix('users')->middleware(['isAdmin'])->group(function () {
   Route::get('/', [UserController::class, 'index'])->name('admin.user');
   Route::get('addOrUpdate/{id?}', [UserController::class, 'addOrUpdate'])->name('admin.user.addOrUpdate');
   Route::post('store/{id?}', [UserController::class, 'store'])->name('admin.user.store');

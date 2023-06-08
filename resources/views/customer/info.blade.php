@@ -10,8 +10,9 @@
                     <x-input name="address" value="{{ $cus->address }}" label="Địa chỉ" />
                     <x-input name="phone" value="0{{ $cus->phone }}" label="Số điện thoại" />
                     <div class="form-group">
-                        <label class="form-label">Ảnh đại diện</label>
-                        <input name="avatar" onchange="changeAvatar(event)" id="avatar" class="form-control"
+                        <label class="form-label">Ảnh đại diện</label> <br>
+                        <label for="avatar" class="btn"><i class="fa-solid fa-upload"></i> Tải lên</label>
+                        <input name="avatar" onchange="changeAvatar(event)" id="avatar" class="form-control d-none"
                             type="file" />
                     </div>
                 </div>

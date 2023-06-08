@@ -13,8 +13,8 @@
         <div class="col-5 m-auto bg-light border p-4">
             <h3 class="bg-success text-center py-4 text-light">Cảm ơn bạn đã đặt hàng!</h3>
             <div class="py-3">
-                <p>Xin chào! {{$order->customer->name}},</p>
-                <p>Đơn hàng #{{$order->id}} đã được đặt thành công và chúng tôi đang xử lý</p>
+                <p>Xin chào! {{ $order->customer->name }},</p>
+                <p>Đơn hàng #{{ $order->id }} đã được đặt thành công và chúng tôi đang xử lý</p>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -25,19 +25,19 @@
                     </thead>
                     <tbody>
                         @foreach ($order->order_detail as $item)
-                        <tr>
-                            <td>{{$item->product->name}}</td>
-                            <td>{{$item->quantity}}</td>
-                            <td>{{$item->product->price}} <sup>đ</sup></td>
-                        </tr>
+                            <tr>
+                                <td>{{ $item->product->name }}</td>
+                                <td>{{ $item->quantity }}</td>
+                                <td>{{ $item->product->price }} <sup>đ</sup></td>
+                            </tr>
                         @endforeach
                         <tr>
                             <td class="fw-bold" colspan="2">Tổng cộng:</td>
-                            <td>{{$order->total}} <sup>đ</sup></td>
+                            <td>{{ $order->total }} <sup>đ</sup></td>
                         </tr>
                         <tr>
                             <td class="fw-bold" colspan="2">Phương thức thanh toán:</td>
-                            <td>{{$order->method == 0 ? 'Thanh toán bằng tiền mặt' : 'Chuyển khoản ngân hàng'}}</td>
+                            <td>{{ $order->method == 0 ? 'Thanh toán bằng tiền mặt' : 'Chuyển khoản ngân hàng' }}</td>
                         </tr>
                     </tbody>
                 </table>

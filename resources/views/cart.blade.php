@@ -27,7 +27,7 @@
                                     <td class="fw-bold">{{ number_format($item['price']) }} <sup>đ</sup></td>
                                     <td>
                                         <input type="number" class="form-control w-75" name="{{ $item['id'] }}"
-                                            value="{{ $item['quantity'] }}" min="1" max="10">
+                                            value="{{ $item['quantity'] }}" min="1" max="{{ $item['stock'] }}">
                                     </td>
                                     <td class="fw-bold">{{ number_format($item['price'] * $item['quantity']) }}
                                         <sup>đ</sup>

@@ -19,7 +19,7 @@
             </div>
             {{-- Comment --}}
             <h6 class="mb-3">Bình luận ({{ count($comments) }})</h6>
-            @if (Auth::guard('customer')->user())
+            @if (Auth::user())
                 @foreach ($comments as $item)
                     <div class="d-flex">
                         <img src="/storage/avatars/{{ $item->customer->avatar }}" width="40" height="40"
@@ -31,7 +31,7 @@
                             {{-- Delete - comment --}}
                             <div class="text-end">
                                 <a style="font-size: 13px;" class="btn_reply">Trả lời</a>
-                                @if ($item->customer == Auth::guard('customer')->user())
+                                @if ($item->customer == Auth::user())
                                     <a style="font-size: 13px;" class="ms-2 text-danger"
                                         href="{{ route('home.comment.delete', $item->id) }}">Xóa</a>
                                 @endif
@@ -50,7 +50,7 @@
                                                     style="text-align: justify; background: #f1f1f1;">
                                                     {{ $child->content }}</p>
                                                 <div class="text-end">
-                                                    @if ($child->customer == Auth::guard('customer')->user())
+                                                    @if ($child->customer == Auth::user())
                                                         <a style="font-size: 13px;" class="ms-2 text-danger"
                                                             href="{{ route('home.reply_comment.delete', $child->id) }}">Xóa</a>
                                                     @endif
@@ -64,11 +64,11 @@
 
                             {{-- Reply Box --}}
                             <div class="mt-3 box_reply" style="display: none;">
-                                <img src="/storage/avatars/{{ Auth::guard('customer')->user()->avatar }}"
-                                    width="40" height="40" class="rounded-circle" alt="">
+                                <img src="/storage/avatars/{{ Auth::user()->avatar }}" width="40" height="40"
+                                    class="rounded-circle" alt="">
                                 <div class="ms-2" style="width: 100%;">
                                     <form
-                                        action="{{ route('home.store_reply_comment', [$item->id, Auth::guard('customer')->user()->id]) }}"
+                                        action="{{ route('home.store_reply_comment', [$item->id, Auth::user()->id]) }}"
                                         method="POST">
                                         @csrf
                                         <textarea name="content" class="form-control" rows="2"></textarea>
@@ -84,11 +84,10 @@
                     </div>
                 @endforeach
                 <div class="d-flex mt-3">
-                    <img src="/storage/avatars/{{ Auth::guard('customer')->user()->avatar }}" width="40"
-                        height="40" class="rounded-circle" alt="">
+                    <img src="/storage/avatars/{{ Auth::user()->avatar }}" width="40" height="40"
+                        class="rounded-circle" alt="">
                     <div class="ms-2" style="width: 100%;">
-                        <form
-                            action="{{ route('home.store_comment', [$new_detail->id, Auth::guard('customer')->user()->id]) }}"
+                        <form action="{{ route('home.store_comment', [$new_detail->id, Auth::user()->id]) }}"
                             method="POST">
                             @csrf
                             <textarea name="content" placeholder="Hãy nhập gì đó..." class="form-control" rows="4"></textarea>

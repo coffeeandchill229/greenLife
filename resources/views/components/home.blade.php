@@ -33,6 +33,11 @@
                 padding: 0 15px;
             }
         }
+
+        .carousel-inner .carousel-item img {
+            width: 100%;
+            min-height: 350px;
+        }
     </style>
 </head>
 
@@ -87,19 +92,25 @@
                     <div class="login">
                         <ul class="m-0 p-0 d-flex justify-content-end align-items-center" style="list-style: none">
                             <li class="me-2">
-                                @if (Auth::guard('customer')->user())
+                                @if (Auth::user())
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
-                                            data-mdb-toggle="dropdown" aria-expanded="false">
-                                            <img src="/storage/avatars/{{ Auth::guard('customer')->user()->avatar }}"
-                                                width="30" height="30" class="rounded-circle"
-                                                alt="{{ Auth::guard('customer')->user()->name }}">
-                                            {{ Auth::guard('customer')->user()->name }}
+                                        <a class="dropdown-toggle text-dark d-flex align-items-center" type="button"
+                                            id="dropdownMenu2" data-mdb-toggle="dropdown" aria-expanded="false">
+                                            <div style="display: inline-block; width: 30px; height: 30px; overflow: hidden;"
+                                                class="border rounded-circle">
+                                                <img src="/storage/avatars/{{ Auth::user()->avatar }}" class="w-100"
+                                                    alt="{{ Auth::user()->name }}">
+                                            </div>
+                                            <span class="ms-2">{{ Auth::user()->name }}</span>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            @if (Auth::user()->is_customer == 1)
+                                                <li><a href="{{ route('admin.dashboard') }}" class="dropdown-item"
+                                                        type="button">Trang
+                                                        quản trị</a></li>
+                                            @endif
                                             <li><a href="{{ route('home.info') }}" class="dropdown-item"
-                                                    type="button">Thông
-                                                    tin</a></li>
+                                                    type="button">Tài khoản</a></li>
                                             <li><a href="{{ route('home.logout') }}" class="dropdown-item"
                                                     type="button">Đăng
                                                     xuất</a></li>
@@ -134,12 +145,16 @@
                                         style="background-color: var(--header_color);" aria-current="true">
                                         <i class="fas fa-bars"></i> <span>DANH MỤC SẢN PHẨM</span>
                                     </li>
-                                    @foreach ($cats as $item)
-                                        <li class="list-group-item">
-                                            <a class="text-dark"
-                                                href="{{ route('home.product_category', $item->id) }}">{{ $item->name }}</a>
-                                        </li>
-                                    @endforeach
+                                    @if (count($cats) > 0)
+                                        @foreach ($cats as $item)
+                                            <li class="list-group-item">
+                                                <a class="text-dark"
+                                                    href="{{ route('home.product_category', $item->id) }}">{{ $item->name }}</a>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <p class="text-center py-2">Đang cập nhật...</p>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -150,14 +165,18 @@
                                         style="background-color: var(--header_color);;" aria-current="true">
                                         <i class="fas fa-earth"></i> <span>TIN TỨC MỚI NHẤT</span>
                                     </li>
-                                    @foreach ($news as $item)
-                                        <li class="list-group-item text-truncate">
-                                            <img src="{{ asset('/storage/posts/' . $item->image) }}" width="30"
-                                                alt="">
-                                            <a class="text-dark" style="font-size: 13px;"
-                                                href="{{ route('new_detail', $item->id) }}">{{ $item->title }}</a>
-                                        </li>
-                                    @endforeach
+                                    @if (count($news) > 0)
+                                        @foreach ($news as $item)
+                                            <li class="list-group-item text-truncate">
+                                                <img src="{{ asset('/storage/posts/' . $item->image) }}"
+                                                    width="35" alt="">
+                                                <a class="text-dark" style="font-size: 13px;"
+                                                    href="{{ route('new_detail', $item->id) }}">{{ $item->title }}</a>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <p class="text-center py-2">Đang cập nhật...</p>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -206,15 +225,14 @@
                     </div>
                     <div class="row d-none d-md-block my-2">
                         <div id="carouselExampleControls" class="carousel slide" data-mdb-ride="carousel">
-                            <div class="carousel-inner rounded-3" style="height: 350px">
-                                <div class="carousel-item active">
-                                    <img src="https://vuoncayviet.com/data/aditems/93/vuon-cay-viet-banner-new.jpg"
+                            <div class="carousel-inner rounded-3 border" style="height: 350px">
+                                <div class="carousel-item active h-100">
+                                    <img src="https://sebumi.sebelumpagi.com/images/sebumi_img/journey/889Banner.jpg"
                                         alt="Wild Landscape" />
                                 </div>
                                 @foreach ($banners as $item)
-                                    <div class="carousel-item">
-                                        <img src="/storage/banner/{{ $item->image }}" class="d-block w-100"
-                                            alt="Wild Landscape" />
+                                    <div class="carousel-item h-100">
+                                        <img src="/storage/banner/{{ $item->image }}" alt="Wild Landscape" />
                                     </div>
                                 @endforeach
                             </div>
@@ -228,6 +246,29 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-4 d-flex">
+                            <img src="https://9xgarden.com/wp-content/uploads/2020/04/terrarium-workshop.png"
+                                width="70" height="70" style="background: #40513B;"
+                                class="rounded-circle p-2">
+                            <p class="ms-2 text-secondary">Bạn đang tìm những hoạt động gần gũi thiên
+                                nhiên để thêm trãi nghiệm, hay để kết nối bản thân sau bao bận rộn của cuộc sống?!</p>
+                        </div>
+                        <div class="col-lg-4 d-flex">
+                            <img src="https://9xgarden.com/wp-content/uploads/2020/04/qua-tang-xanh.png"
+                                width="70" height="70" style="background: #40513B;"
+                                class="rounded-circle p-2">
+                            <p class="ms-2 text-secondary">Những món quà xanh sáng tạo đang đợi bạn gửi trao đến người
+                                thân, người thương và quý đối tác trong những dịp đặc biệt.</p>
+                        </div>
+                        <div class="col-lg-4 d-flex">
+                            <img src="https://9xgarden.com/wp-content/uploads/2020/04/green-decoration.png"
+                                width="70" height="70" style="background: #40513B;"
+                                class="rounded-circle p-2">
+                            <p class="ms-2 text-secondary">Góc nhỏ trong nhà đang thiếu mảng xanh? Thiếu sức sống? Bạn
+                                không có thời gian? Hãy để chúng tôi thực hiện thay bạn!</p>
                         </div>
                     </div>
                 </div>
@@ -288,6 +329,8 @@
                             @endforeach
                         </div>
                     </div>
+                @else
+                    <p class="py-2 text-center">Đang cập nhật...</p>
                 @endif
             </div>
             <!-- Sản phẩm -->
@@ -300,7 +343,7 @@
             </div>
         </div>
     </section>
-    <footer>
+    <footer style="background: #F1F6F9;">
         <div class="container">
             <div class="row py-4">
                 <div class="col-lg-4 col-md-6 col-12">
@@ -350,7 +393,7 @@
                 </div>
             </div>
             <div class="row">
-                <p class="text-center">
+                <p class="text-center p-1 m-0">
                     Copyright 2023 © Nam Lê | Mọi hình ảnh trên trang web được sưu tầm
                 </p>
             </div>

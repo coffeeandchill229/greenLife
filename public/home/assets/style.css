@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
 
 :root {
-    --header_color: #00b214;
+    --header_color: #7FB77E;
     --header_height: 90px;
     --top_height: 32px;
 }
@@ -76,6 +76,7 @@ header .search_form .search_box .search_btn {
     background-color: var(--header_color);
     color: white;
 }
+
 /* Navigation */
 .navigation {
     margin-top: calc(var(--header_height) + 20px);

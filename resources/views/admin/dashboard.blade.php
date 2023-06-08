@@ -11,7 +11,10 @@
                                 <div>
                                     <p class="fw-medium text-muted mb-0">Nhân viên</p>
                                     <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                            data-target="{{$total_users}}">{{$total_users}}</span></h2>
+                                            data-target="{{ $total_users }}">{{ $total_users }}</span></h2>
+                                    <a href="{{ route('admin.user') }}?is_customer=1">Chi tiết
+                                        <i class="ri-arrow-right-line"></i>
+                                    </a>
                                 </div>
                                 <div>
                                     <div class="avatar-sm flex-shrink-0">
@@ -31,12 +34,38 @@
                                 <div>
                                     <p class="fw-medium text-muted mb-0">Khách hàng</p>
                                     <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                            data-target="{{$total_customers}}">{{$total_customers}}</span></h2>
+                                            data-target="{{ $total_customers }}">{{ $total_customers }}</span></h2>
+                                    <a href="{{ route('admin.user') }}?is_customer=0">Chi tiết
+                                        <i class="ri-arrow-right-line"></i>
+                                    </a>
                                 </div>
                                 <div>
                                     <div class="avatar-sm flex-shrink-0">
                                         <span class="avatar-title bg-warning rounded-circle fs-2">
                                             <i class="las la-user"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end card body -->
+                    </div> <!-- end card-->
+                </div>
+                <div class="col-4">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="fw-medium text-muted mb-0">Sản phẩm</p>
+                                    <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
+                                            data-target="{{ $total_products }}">{{ $total_products }}</span></h2>
+                                    <a href="{{ route('admin.product') }}">Chi tiết
+                                        <i class="ri-arrow-right-line"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title bg-success rounded-circle fs-2">
+                                            <i class="las la-shopping-bag"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -61,7 +90,7 @@
                                     <p class="text-uppercase fw-semibold fs-12 text-muted mb-1">
                                         Tổng doanh thu</p>
                                     <h4 class=" mb-0"><span class="counter-value"
-                                            data-target="{{$total_revenue}}"></span> <sup>đ</sup></h4>
+                                            data-target="{{ $total_revenue }}"></span> <sup>đ</sup></h4>
                                 </div>
                             </div>
                         </div><!-- end card body -->
@@ -80,7 +109,7 @@
                                     <p class="text-uppercase fw-semibold fs-12 text-muted mb-1">
                                         Doanh thu hôm nay</p>
                                     <h4 class=" mb-0"><span class="counter-value"
-                                            data-target="{{$revenue_today}}"></span> <sup>đ</sup></h4>
+                                            data-target="{{ $revenue_today }}"></span> <sup>đ</sup></h4>
                                 </div>
                             </div>
                         </div><!-- end card body -->
@@ -101,33 +130,34 @@
                         <table class="table table-hover table-centered align-middle table-nowrap mb-0">
                             <tbody>
                                 @foreach ($best_selling->take(5) as $item)
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-sm bg-light rounded p-1 me-2">
-                                                <img src="/storage/products/{{$item->image}}" alt=""
-                                                    class="img-fluid d-block">
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-sm bg-light rounded p-1 me-2">
+                                                    <img src="/storage/products/{{ $item->image }}" alt=""
+                                                        class="img-fluid d-block">
+                                                </div>
+                                                <div>
+                                                    <h5 class="fs-14 my-1"><a href="apps-ecommerce-product-details.html"
+                                                            class="text-reset">{{ $item->name }}</a></h5>
+                                                    <span class="text-muted">{{ $item->created_at }}1</span>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h5 class="fs-14 my-1"><a href="apps-ecommerce-product-details.html"
-                                                        class="text-reset">{{$item->name}}</a></h5>
-                                                <span class="text-muted">{{$item->created_at}}1</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h5 class="fs-14 my-1 fw-normal">{{number_format($item->price)}} <sup>đ</sup>
-                                        </h5>
-                                    </td>
-                                    <td>
-                                        <h5 class="fs-14 my-1 fw-normal">{{$item->sold}}</h5>
-                                        <span class="text-muted">Đã bán</span>
-                                    </td>
-                                    <td>
-                                        <h5 class="fs-14 my-1 fw-normal">{{$item->stock}}</h5>
-                                        <span class="text-muted">Tồn kho</span>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td>
+                                            <h5 class="fs-14 my-1 fw-normal">{{ $cart->format_price($item->price) }}
+                                                <sup>đ</sup>
+                                            </h5>
+                                        </td>
+                                        <td>
+                                            <h5 class="fs-14 my-1 fw-normal">{{ $item->sold }}</h5>
+                                            <span class="text-muted">Đã bán</span>
+                                        </td>
+                                        <td>
+                                            <h5 class="fs-14 my-1 fw-normal">{{ $item->stock }}</h5>
+                                            <span class="text-muted">Tồn kho</span>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -135,11 +165,11 @@
                     <div class="align-items-center mt-4 pt-2 justify-content-between d-flex">
                         <div class="flex-shrink-0">
                             <div class="text-muted">
-                                Hiển thị {{$best_selling->count()}} của {{$best_selling->total()}} kết quả
+                                Hiển thị {{ $best_selling->count() }} của {{ $best_selling->total() }} kết quả
                             </div>
                         </div>
                         <div>
-                            {{$best_selling->links()}}
+                            {{ $best_selling->links() }}
                         </div>
                     </div>
                 </div>
@@ -158,42 +188,45 @@
                                 <tr>
                                     <th scope="col">Order ID</th>
                                     <th scope="col">Khách hàng</th>
-                                    <th scope="col">Sản phẩm</th>
-                                    <th scope="col">Giá</th>
+                                    <th scope="col">Địa chỉ</th>
+                                    <th scope="col">Tổng tiền</th>
                                     <th scope="col">Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($recent_orders as $item)
-                                <tr>
-                                    <td>
-                                        <a href="apps-ecommerce-order-details.html"
-                                            class="fw-medium link-primary">{{$item->id}}</a>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0 me-2">
-                                                <img src="/storage/avatars/{{$item->customer->avatar}}" alt=""
-                                                    class="avatar-xs rounded-circle shadow">
-                                            </div>
-                                            <div class="flex-grow-1">{{$item->customer->name}}</div>
-                                        </div>
-                                    </td>
-                                    <td>{{$item->order_detail[0]->product->name}}</td>
-                                    <td>
-                                        <span class="text-success">{{number_format($item->order_detail[0]['price'])}}
-                                            <sup>đ</sup></span>
-                                    </td>
-                                    <td>
-                                        <span class="badg badge-soft-success">{{$item->status->name}}</span>
-                                    </td>
-                                </tr><!-- end tr -->
-                                @endforeach
-                            </tbody><!-- end tbody -->
-                        </table><!-- end table -->
+                                @if (count($recent_orders) > 0)
+                                    @foreach ($recent_orders as $item)
+                                        <tr>
+                                            <td>
+                                                <a href="apps-ecommerce-order-details.html"
+                                                    class="fw-medium link-primary">{{ $item->id }}</a>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <img src="/storage/avatars/{{ $item->customer->avatar }}"
+                                                            alt="" class="avatar-xs rounded-circle shadow">
+                                                    </div>
+                                                    <div>{{ $item->name }}</div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div>{{ $item->address }}</div>
+                                            </td>
+                                            <td>
+                                                <div>{{ $cart->format_price($item->total) }} đ</div>
+                                            </td>
+                                            <td>
+                                                <span class="badg badge-soft-success">{{ $item->status->name }}</span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div> <!-- .card-->
+            </div>
         </div>
     </div>
 </x-admin>

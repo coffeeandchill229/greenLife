@@ -24,8 +24,8 @@ Route::post('contact', [HomeController::class, 'store_contact'])->name('home.sto
 Route::get('new', [HomeController::class, 'new'])->name('new');
 Route::get('new_detail/{id?}', [HomeController::class, 'new_detail'])->name('new_detail');
 // Comments
-Route::post('/comment/{post_id?}/{customer_id?}', [CommentController::class, 'store'])->name('home.store_comment')->middleware('customer');
+Route::post('/comment/{post_id?}/{customer_id?}', [CommentController::class, 'store'])->name('home.store_comment')->middleware('auth');
 Route::get('/delete-comment/{id?}', [CommentController::class, 'delete'])->name('home.comment.delete');
 // Reply - comment
-Route::post('/reply-comment/{comment_id?}/{customer_id?}', [ReplyController::class, 'store'])->name('home.store_reply_comment')->middleware('customer');
+Route::post('/reply-comment/{comment_id?}/{customer_id?}', [ReplyController::class, 'store'])->name('home.store_reply_comment')->middleware('auth');
 Route::get('/delete-reply-comment/{id?}', [ReplyController::class, 'delete'])->name('home.reply_comment.delete');

@@ -8,34 +8,34 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     // Home
-    include('client/home.php');
+    Route::group([], __DIR__ . '/client/home.php');
     // Cart
-    include('client/cart.php');
+    Route::group([], __DIR__ . '/client/cart.php');
     // Customer
-    include('client/customer.php');
+    Route::group([], __DIR__ . '/client/customer.php');
 });
 // Admin
 Route::prefix('admin')->group(function () {
     // Login
-    include('admin/admin.php');
+    Route::group([], __DIR__ . '/admin/admin.php');
     // Products
-    include('admin/product.php');
+    Route::group([], __DIR__ . '/admin/product.php');
     // Categories
-    include('admin/category.php');
+    Route::group([], __DIR__ . '/admin/category.php');
     // Customers
-    include('admin/customer.php');
+    Route::group([], __DIR__ . '/admin/customer.php');
     // Users
-    include('admin/user.php');
+    Route::group([], __DIR__ . '/admin/user.php');
     // Orders
-    include('admin/order.php');
+    Route::group([], __DIR__ . '/admin/order.php');
     // Order - Status
-    include('admin/order_status.php');
+    Route::group([], __DIR__ . '/admin/order_status.php');
     // Order - Detail
-    include('admin/order_detail.php');
+    Route::group([], __DIR__ . '/admin/order_detail.php');
     // Banner
-    include('admin/banner.php');
+    Route::group([], __DIR__ . '/admin/banner.php');
     // Posts
-    include('admin/post.php');
+    Route::group([], __DIR__ . '/admin/post.php');
     // Setting store
     Route::post('store_theme_setting', [ThemeSettingController::class, 'store'])->name('admin.store_theme_setting');
 });

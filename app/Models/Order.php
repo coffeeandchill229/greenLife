@@ -12,7 +12,7 @@ class Order extends Model
 
     public function customer()
     {
-        return $this->hasOne(Customer::class, 'id', 'customer_id');
+        return $this->hasOne(User::class, 'id', 'customer_id');
     }
     public function status()
     {

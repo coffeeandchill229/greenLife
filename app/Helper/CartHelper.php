@@ -21,6 +21,7 @@ class CartHelper
             'name' => $product->name,
             'image' => $product->image,
             'price' => $product->price,
+            'stock' => $product->stock,
             'quantity' => $quantity ?? 1,
         ];
         if (isset($this->items[$product->id])) {
@@ -62,5 +63,10 @@ class CartHelper
     function remove()
     {
         session(['cart' => []]);
+    }
+
+    function format_price($num)
+    {
+        return number_format($num, 0, ',', '.');
     }
 }

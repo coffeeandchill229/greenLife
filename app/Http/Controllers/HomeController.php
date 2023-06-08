@@ -11,6 +11,7 @@ use App\Models\Comment;
 use App\Models\Customer;
 use App\Models\OrderDetail;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -20,7 +21,7 @@ class HomeController extends Controller
 {
     function index()
     {
-        $products = Product::orderByDesc('id')->take(12)->get();
+        $products = Product::where('status', 1)->orderByDesc('id')->take(12)->get();
         return view('welcome', compact('products'));
     }
     // Cart
@@ -50,7 +51,7 @@ class HomeController extends Controller
         );
 
         $data['total'] = $cart->total_price;
-        $data['customer_id'] = Auth::guard('customer')->user()->id;
+        $data['customer_id'] = Auth::user()->id;
         $data['status_id'] = 1;
 
         $order = Order::create($data);
@@ -97,17 +98,20 @@ class HomeController extends Controller
         $category_find = Category::findOrFail($id);
         // Filter
         $orderBy = $request->input('orderBy');
-        $products = null;
+        $products = Product::where([
+            ['category_id', '=', $id],
+            ['status', '=', 1]
+        ]);
         if ($orderBy == 'default') {
-            $products = Product::where('category_id', '=', $id)->orderBy('price', 'ASC')->get();
+            $products = $products->orderBy('price', 'ASC')->get();
         } else if ($orderBy == 'latest') {
-            $products = Product::where('category_id', '=', $id)->orderBy('id', 'DESC')->get();
+            $products = $products->orderBy('id', 'DESC')->get();
         } else if ($orderBy == 'low_price') {
-            $products = Product::where('category_id', '=', $id)->orderBy('price', 'ASC')->get();
+            $products = $products->orderBy('price', 'ASC')->get();
         } else if ($orderBy == 'high_price') {
-            $products = Product::where('category_id', '=', $id)->orderBy('price', 'DESC')->get();
+            $products = $products->orderBy('price', 'DESC')->get();
         } else {
-            $products = Product::where('category_id', '=', $id)->get();
+            $products = $products->get();
         }
         return view('product_category', compact('products', 'cats', 'category_find'));
     }
@@ -117,7 +121,7 @@ class HomeController extends Controller
         $data = $request->all();
         $key = $request->key;
         $cats = Category::all();
-        $products = Product::where('name', 'like', '%' . $key . '%')->get();
+        $products = Product::where('name', 'like', '%' . $key . '%')->orderByDesc('id')->get();
         return view('search', compact('products', 'cats', 'key'));
     }
     // Trang giới thiệu
@@ -172,7 +176,7 @@ class HomeController extends Controller
     // Customer
     function info()
     {
-        $cus = Auth::guard('customer')->user();
+        $cus = Auth::user();
         return view('customer.info', compact('cus'));
     }
     function store_info(Request $request)
@@ -187,7 +191,7 @@ class HomeController extends Controller
             $data['avatar'] = $filename;
         }
 
-        $cus = Auth::guard('customer')->user();
+        $cus = Auth::user();
 
         $password = $request->password;
 
@@ -196,9 +200,9 @@ class HomeController extends Controller
                 'password' => 'min:6',
                 'confirm_password' => 'required|same:password'
             ], [], [
-                'password' => 'Mật khẩu',
-                'confirm_password' => 'Mật khẩu nhập lại'
-            ]);
+                    'password' => 'Mật khẩu',
+                    'confirm_password' => 'Mật khẩu nhập lại'
+                ]);
             $data['password'] = Hash::make($password);
         } else {
             $data['password'] = $cus->password;
@@ -207,13 +211,13 @@ class HomeController extends Controller
         unset($data['old_password']);
         unset($data['confirm_password']);
 
-        Customer::whereId($cus->id)->update($data);
+        User::whereId($cus->id)->update($data);
         return back();
     }
     // Đơn hàng
     function my_order($id = null)
     {
-        $cus = Auth::guard('customer')->user();
+        $cus = Auth::user();
 
         $my_order = Order::where('customer_id', $cus->id)->orderBy('id', 'desc')->get();
         $order_detail = null;

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->bigInteger('customer_id')->unsigned()->nullable();
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('customer_id')->references('id')->on('users');
 
             $table->bigInteger('comment_id')->unsigned()->nullable();
             $table->foreign('comment_id')->references('id')->on('comments');

@@ -8,4 +8,5 @@ Route::prefix('products')->middleware('auth')->group(function () {
   Route::get('addOrUpdate/{id?}', [ProductController::class, 'addOrUpdate'])->name('admin.product.addOrUpdate');
   Route::post('store/{id?}', [ProductController::class, 'store'])->name('admin.product.store');
   Route::get('delete/{id?}', [ProductController::class, 'delete'])->name('admin.product.delete');
+  Route::get('/active/{id?}', [ProductController::class, 'active_product'])->name('admin.product.active');
 });

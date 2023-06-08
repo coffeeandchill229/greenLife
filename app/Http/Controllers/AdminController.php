@@ -17,7 +17,11 @@ class AdminController extends Controller
 {
     function index()
     {
-        return view('admin.login');
+        if (Auth::user()) {
+            return redirect(route('admin.dashboard'));
+        } else {
+            return redirect(route('home.login'));
+        }
     }
     function dashboard()
     {
@@ -32,74 +36,28 @@ class AdminController extends Controller
             ->groupBy('order_details.product_id')
             ->orderByDesc('sold')
             ->paginate(5);
+
         // Đơn hàng gần đây
         $recent_orders = Order::orderByDesc('id')->take(5)->get();
 
-        $total_users = count(User::all());
-        $total_customers = count(Customer::all());
+        $total_users = count(User::where('is_customer', 1)->get());
+        $total_customers = count(User::where('is_customer', 0)->get());
+        $total_products = count(Product::all());
 
         return view('admin.dashboard', compact([
             'best_selling',
             'revenue_today',
             'total_revenue',
             'total_users',
+            'total_products',
             'total_customers',
             'recent_orders'
         ]));
-    }
-    function store_login(Request $request)
-    {
-        $data = $request->all();
-        unset($data['_token']);
-
-        $this->customValidate($data, [
-            'email' => 'required|email',
-            'password' => 'required'
-        ], [
-            'email' => 'Email',
-            'password' => 'Password'
-        ]);
-        if (Auth::attempt($data)) {
-            $request->session()->regenerate();
-            Alert::success('Đăng nhập thành công!');
-            return redirect()->route('admin.dashboard');
-        }
-        return back();
-    }
-    function register()
-    {
-        return view('admin.register');
-    }
-    function store_register(Request $request)
-    {
-        $data = $request->all();
-        unset($data['_token']);
-
-        $rules = [
-            'email' => 'required|email',
-            'name' => 'required',
-            'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password|min:6'
-        ];
-        $messages = [
-            'email' => 'Email',
-            'name' => 'Name',
-            'password' => 'Password',
-            'confirm_password' => 'Confirm Password'
-        ];
-        $this->customValidate($data, $rules, $messages);
-
-        $data['password'] = Hash::make($request->password);
-        unset($data['confirm_password']);
-
-        $user = User::create($data);
-        $user->save();
-        return redirect()->route('admin.login');
     }
     function logout(Request $request)
     {
         Auth::logout();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+        return redirect()->route('home.login');
     }
 }

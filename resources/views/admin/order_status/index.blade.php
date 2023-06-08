@@ -1,29 +1,29 @@
 <x-admin title="Order-status">
     <div class="row">
+        @php
+            $colors = ['#0275d8', '#5bc0de', '#5cb85c', '#f0ad4e', '#d9534f'];
+        @endphp
         <div class="col-4">
             <h6 class="badge bg-info">Thêm trạng thái</h6>
-            <form action="{{route('admin.order_status.store')}}" method="post">
+            <form action="{{ route('admin.order_status.store', $order_stt_edit ? $order_stt_edit->id : '') }}"
+                method="post">
                 @csrf
-                <x-input name="name" label="Tên trạng thái" />
+                <x-input name="name" value="{{ $order_stt_edit ? $order_stt_edit->name : '' }}"
+                    label="Tên trạng thái" />
                 <div class="form-group my-2">
                     <label class="form-label">Màu sắc</label> <br>
-                    <input name="color" checked type="radio" value="#0275d8" />
-                    <div style="background: #0275d8; width: 30px; height: 30px; display: inline-block; border-radius: 50%;"></div>
-                    <input name="color" checked type="radio" value="#5bc0de" />
-                    <div style="background: #5bc0de; width: 30px; height: 30px; display: inline-block; border-radius: 50%;"></div>
-                    <input name="color" type="radio" value="#5cb85c" />
-                    <div style="background: #5cb85c; width: 30px; height: 30px; display: inline-block; border-radius: 50%;"></div>
-                    <input name="color" type="radio" value="#f0ad4e" />
-                    <div style="background: #f0ad4e; width: 30px; height: 30px; display: inline-block; border-radius: 50%;"></div> 
-                    <input name="color" type="radio" value="#d9534f" />
-                    <div style="background: #d9534f; width: 30px; height: 30px; display: inline-block; border-radius: 50%;"></div> 
+                    @foreach ($colors as $item)
+                        <input name="color" {{ $order_stt_edit && $item == $order_stt_edit->color ? 'checked' : '' }}
+                            type="radio" value="{{ $item }}" />
+                        <div
+                            style="background: {{ $item }}; width: 30px; height: 30px; display: inline-block; border-radius: 50%;">
+                        </div>
+                    @endforeach
                 </div>
-                {{-- @if ($cat_edit)
-                <a href="{{route('admin.category')}}" class="btn btn-dark btn-sm">Trở lại</a>
-                <button class="btn btn-sm btn-success">Cập nhật</button>
-                @else
-                @endif --}}
-                <button class="btn btn-sm btn-success">Thêm</button>
+                @if ($order_stt_edit)
+                    <a href="{{ route('admin.order_status') }}" class="btn btn-dark btn-sm">Trở lại</a>
+                @endif
+                <button class="btn btn-sm btn-success">{{ $order_stt_edit ? 'Cập nhật' : 'Thêm' }}</button>
             </form>
         </div>
         <div class="col-lg-6 m-auto">
@@ -39,17 +39,20 @@
                 </thead>
                 <tbody>
                     @foreach ($order_status as $item)
-                    <tr style="vertical-align: middle;">
-                        <td scope="row">{{$item->id}}</td>
-                        <td>{{$item->name}}</td>
-                        <td><div style="background: {{$item->color}}; width: 30px; height: 30px; display: inline-block; border-radius: 50%;"></div> </td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-warning"><i
-                                    class="ri-quill-pen-line"></i></a>
-                            <a href="" class="btn btn-sm btn-danger"><i
-                                    class="ri-delete-bin-line"></i></a>
-                        </td>
-                    </tr>
+                        <tr style="vertical-align: middle;">
+                            <td scope="row">{{ $item->id }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>
+                                <div
+                                    style="background: {{ $item->color }}; width: 30px; height: 30px; display: inline-block; border-radius: 50%;">
+                                </div>
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.order_status', $item->id) }}"
+                                    class="btn btn-sm btn-warning"><i class="ri-quill-pen-line"></i></a>
+                                <a href="" class="btn btn-sm btn-danger"><i class="ri-delete-bin-line"></i></a>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

@@ -1,19 +1,45 @@
 <x-only-header title="Tìm kiếm - '{{ $key }}'">
     <div class="row my-4">
         <div class="col-lg-3 col-md-4 col-12 mb-3">
-            <div class="category">
-                <ul class="list-group rounded-0">
-                    <li class="list-group-item text-light" style="background-color: var(--header_color)"
-                        aria-current="true">
-                        <i class="fas fa-bars"></i> <span>DANH MỤC SẢN PHẨM</span>
-                    </li>
-                    @foreach ($cats as $item)
-                        <li class="list-group-item">
-                            <a class="text-dark"
-                                href="{{ route('home.product_category', $item->id) }}">{{ $item->name }}</a>
-                        </li>
-                    @endforeach
-                </ul>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="category">
+                        <ul class="list-group rounded-0">
+                            <li class="list-group-item text-light" style="background-color: var(--header_color)"
+                                aria-current="true">
+                                <i class="fas fa-bars"></i> <span>DANH MỤC SẢN PHẨM</span>
+                            </li>
+                            @foreach ($cats as $item)
+                                <li class="list-group-item">
+                                    <a class="text-dark"
+                                        href="{{ route('home.product_category', $item->id) }}">{{ $item->name }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-6 d-none d-md-block mt-3">
+                    <div class="news">
+                        <ul class="list-group rounded-0">
+                            <li class="list-group-item text-light" style="background-color: var(--header_color);;"
+                                aria-current="true">
+                                <i class="fas fa-earth"></i> <span>TIN TỨC MỚI NHẤT</span>
+                            </li>
+                            @if (count($news) > 0)
+                                @foreach ($news as $item)
+                                    <li class="list-group-item text-truncate">
+                                        <img src="{{ asset('/storage/posts/' . $item->image) }}" width="35"
+                                            alt="">
+                                        <a class="text-dark" style="font-size: 13px;"
+                                            href="{{ route('new_detail', $item->id) }}">{{ $item->title }}</a>
+                                    </li>
+                                @endforeach
+                            @else
+                                <p class="text-center py-2">Đang cập nhật...</p>
+                            @endif
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-9 col-md-8 col-12">
@@ -49,8 +75,6 @@
                         </div>
                     @endforeach
                 @else
-                    <img src="https://hautesignatures.com/images/utilities/empty_product.svg" class="text-center"
-                        width="100" height="100" alt="">
                     <p class="text-danger text-center">Không tìm thấy sản phẩm!</p>
                 @endif
             </div>

@@ -30,5 +30,7 @@
                 </div>
             </div>
         @endforeach
+    @else
+        <p class="text-center py-2">Đang cập nhật...</p>
     @endif
 </x-home>

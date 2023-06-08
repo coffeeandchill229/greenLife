@@ -12,9 +12,18 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
 {
-    function index()
+    function index(Request $request)
     {
-        $orders = Order::orderByDesc('id')->get();
+        $orders = null;
+        if ($request->key) {
+            $orders = Order::where('name', 'like', '%' . $request->key . '%')
+                ->orWhere('phone', 'like', '%' . $request->key . '%')
+                ->orWhere('address', 'like', '%' . $request->key . '%')
+                ->get();
+            ;
+        } else {
+            $orders = Order::orderByDesc('id')->get();
+        }
         return view('admin.orders.index', compact('orders'));
     }
     function detail($id)
@@ -34,7 +43,7 @@ class OrderController extends Controller
         $data = $request->all();
         unset($data['_token']);
 
-        $data['staff_id'] = Auth::user()->id;
+        $data['user_id'] = Auth::user()->id;
 
         $order_edit = Order::updateOrCreate(['id' => $id], $data);
         $order_edit->save();

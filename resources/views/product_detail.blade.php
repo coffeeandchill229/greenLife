@@ -17,7 +17,9 @@
                 </div>
                 <h3 class="fw-bold mt-3">{{ $product->name }}</h3>
                 <h5 class="fw-bold">{{ number_format($product->price) }} <sup>đ</sup></h5>
-                <p class="mt-2" style="text-align: justify;">{!! $product->description !!}</p>
+                <p class="mt-2" style="text-align: justify;">
+                    {!! $product->description !!}
+                </p>
                 @if ($product->stock > 0)
                     <div class="d-flex ">
                         <input class="form-control" name="id" type="hidden" />

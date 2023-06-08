@@ -86,19 +86,25 @@
                     <div class="login">
                         <ul class="m-0 p-0 d-flex align-items-center justify-content-end" style="list-style: none">
                             <li class="me-2">
-                                @if (Auth::guard('customer')->user())
+                                @if (Auth::user())
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-dark" type="button" id="dropdownMenu2"
-                                            data-mdb-toggle="dropdown" aria-expanded="false">
-                                            <img src="/storage/avatars/{{ Auth::guard('customer')->user()->avatar }}"
-                                                width="30" height="30" class="rounded-circle"
-                                                alt="{{ Auth::guard('customer')->user()->name }}">
-                                            {{ Auth::guard('customer')->user()->name }}
+                                        <a class="dropdown-toggle text-dark d-flex align-items-center" type="button"
+                                            id="dropdownMenu2" data-mdb-toggle="dropdown" aria-expanded="false">
+                                            <div style="display: inline-block; width: 30px; height: 30px; overflow: hidden;"
+                                                class="border rounded-circle">
+                                                <img src="/storage/avatars/{{ Auth::user()->avatar }}" class="w-100"
+                                                    alt="{{ Auth::user()->name }}">
+                                            </div>
+                                            <span class="ms-2">{{ Auth::user()->name }}</span>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            @if (Auth::user()->is_customer == 1)
+                                                <li><a href="{{ route('admin.dashboard') }}" class="dropdown-item"
+                                                        type="button">Trang
+                                                        quản trị</a></li>
+                                            @endif
                                             <li><a href="{{ route('home.info') }}" class="dropdown-item"
-                                                    type="button">Thông
-                                                    tin</a></li>
+                                                    type="button">Tài khoản</a></li>
                                             <li><a href="{{ route('home.logout') }}" class="dropdown-item"
                                                     type="button">Đăng
                                                     xuất</a></li>
@@ -169,7 +175,7 @@
             {{ $slot }}
         </div>
     </section>
-    <footer>
+    <footer style="background: #F1F6F9;">
         <div class="container">
             <div class="row py-4">
                 <div class="col-lg-4 col-md-6 col-12">
@@ -219,7 +225,7 @@
                 </div>
             </div>
             <div class="row">
-                <p class="text-center">
+                <p class="text-center p-1 m-0">
                     Copyright 2023 © Nam Lê | Mọi hình ảnh trên trang web được sưu tầm
                 </p>
             </div>

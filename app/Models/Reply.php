@@ -12,6 +12,6 @@ class Reply extends Model
     protected $guarded = [];
 
     public function customer(){
-        return $this->hasOne(Customer::class, 'id', 'customer_id');
+        return $this->hasOne(User::class, 'id', 'customer_id');
     }
 }
