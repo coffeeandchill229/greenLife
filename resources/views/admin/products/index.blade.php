@@ -5,7 +5,7 @@
                 <div class="col-8">
                     <form method="GET">
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-4">
                                 <input type="text" name="key" value="{{ old('key') }}" class="form-control"
                                     placeholder="Tìm kiếm sản phẩm...">
                             </div>
@@ -56,8 +56,8 @@
                                 <th>{{ $item->name }}</th>
                                 <td>{{ number_format($item->price) }}</td>
                                 <td>
-                                    <img src="/storage/products/{{ $item->image }}" width="100" height="100"
-                                        alt="">
+                                    <img src="{{ $item->image ? asset('/storage/products/' . $item->image) : 'https://trolleymate.co.uk/assets/img/error_404.jpeg' }}"
+                                        width="100" height="100" alt="">
                                 </td>
                                 <td>{{ $item->stock }}</td>
                                 <td>{{ $item->category->name }}</td>

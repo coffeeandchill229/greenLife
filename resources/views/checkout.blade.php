@@ -8,15 +8,18 @@
                 <h6 class="fw-bold">THÔNG TIN THANH TOÁN</h6>
                 <div class="form-group mb-2">
                     <label class="form-label">Họ tên</label>
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" value="{{ Auth::user()->name }}" class="form-control">
+                    @error('name')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="form-group mb-2">
                     <label class="form-label">Địa chỉ</label>
-                    <input type="address" name="address" class="form-control">
+                    <input type="address" value="{{ Auth::user()->address }}" name="address" class="form-control">
                 </div>
                 <div class="form-group mb-2">
                     <label class="form-label">Số điện thoại</label>
-                    <input type="phone" name="phone" class="form-control">
+                    <input type="phone" value="0{{ Auth::user()->phone }}" name="phone" class="form-control">
                     @error('phone')
                         <p class="text-danger">{{ $message }}</p>
                     @enderror
@@ -58,11 +61,10 @@
                 </table>
                 <h6 class="fw-bold">CHỌN PHƯƠNG THỨC THANH TOÁN</h6>
                 <div class="form group">
-                    <input type="radio" name="method" checked value="0" class="mt-3"> <span>Trả tiền mặt khi
-                        nhận
-                        hàng</span> <br>
-                    <input type="radio" name="method" value="1" class="mt-3"> <span>Chuyển khoản ngân
-                        hàng</span>
+                    <input type="radio" name="method" checked value="0" class="mt-3">
+                    <span>Thanh toán khi nhận hàng</span> <br>
+                    <input type="radio" name="method" value="1" class="mt-3">
+                    <span>Thanh toán trực tuyến</span>
                 </div>
                 <button class="btn btn-success mt-3">ĐẶT HÀNG</button>
             </div>

@@ -6,9 +6,10 @@
                     @if ($item->stock == 0)
                         <div class="ribbon-corner">Đã hết hàng</div>
                     @endif
+
                     <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                        <img src="/storage/products/{{ $item->image }}" width="270" height="270"
-                            style="object-fit: cover;" class="img-fluid" alt="" />
+                        <img src="{{ $item->image ? asset('/storage/products/' . $item->image) : 'https://trolleymate.co.uk/assets/img/error_404.jpeg' }}"
+                            width="270" height="270" style="object-fit: cover;" class="img-fluid" alt="" />
                         <a href="{{ route('home.product_detail', $item->id) }}">
                             <div class="mask" style="background-color: rgba(0, 0, 0, 0.05)"></div>
                         </a>

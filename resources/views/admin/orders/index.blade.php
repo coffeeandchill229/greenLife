@@ -35,14 +35,14 @@
                         <tr style="vertical-align: middle;">
                             <td>{{ $item->id }}</td>
                             <td class="d-flex align-items-center">
-                                <img src="/storage/avatars/{{ $item->customer->avatar }}" class="rounded-circle"
+                                <img src="/storage/avatars/{{ $item->user->avatar }}" class="rounded-circle"
                                     width="40" height="40" alt="">
                                 <div class="ms-2">
                                     <ul class="ms-3 m-0 p-0">
-                                        <li>{{ $item->customer->name }}</li>
-                                        <li>{{ $item->customer->email }}</li>
-                                        <li>{{ $item->customer->phone }}</li>
-                                        <li>{{ $item->customer->address }}</li>
+                                        <li>{{ $item->user->name }}</li>
+                                        <li>{{ $item->user->email }}</li>
+                                        <li>{{ $item->user->phone }}</li>
+                                        <li>{{ $item->user->address }}</li>
                                     </ul>
                                 </div>
                             </td>

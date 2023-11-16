@@ -19,6 +19,7 @@
                     <th scope="col">#</th>
                     <th>Ảnh</th>
                     <th>Ngày tạo</th>
+                    <th>Người tạo</th>
                     <th scope="col">Thao tác</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                                 height="80" alt="">
                         </td>
                         <td>{{ $item->created_at->format('d/m/Y H:i:s') }}</td>
+                        <td>{{ $item->user->name }}</td>
                         <td>
                             <a href="{{ route('admin.banner', $item->id) }}" class="btn btn-sm btn-warning"><i
                                     class="ri-quill-pen-line"></i></a>

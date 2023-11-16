@@ -8,19 +8,28 @@ use Illuminate\Http\Request;
 use App\Helper\CartHelper;
 use App\Models\Category;
 use App\Models\Comment;
-use App\Models\Customer;
 use App\Models\OrderDetail;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
-    function index()
+    function index(CartHelper $cart)
     {
+        if (isset($_GET['vnp_TransactionStatus'])) {
+            $status = $_GET['vnp_TransactionStatus'];
+            if ($status == 00) {
+                toast()->success('Đặt hàng thành công!');
+                $cart->remove();
+            } else {
+                toast()->warning('Đặt hàng không thành công!');
+            }
+            return redirect(route('home'));
+        }
+
         $products = Product::where('status', 1)->orderByDesc('id')->take(12)->get();
         return view('welcome', compact('products'));
     }
@@ -40,22 +49,30 @@ class HomeController extends Controller
 
         $request->validate(
             [
+                'name' => 'required',
                 'email' => 'required|email',
                 'phone' => 'required',
             ],
             [],
             [
+                'name' => 'Họ tên',
                 'email' => 'Email',
                 'phone' => 'Điện thoại',
             ]
         );
 
         $data['total'] = $cart->total_price;
-        $data['customer_id'] = Auth::user()->id;
+        $data['user_id'] = Auth::user()->id;
         $data['status_id'] = 1;
 
+        $method = $request->method;
+
         $order = Order::create($data);
+
+        $isSuccess = false;
+
         if ($order) {
+            $isSuccess = true;
             foreach ($cart->items as $item) {
                 $order_detail = new OrderDetail();
                 $order_detail->product_id = $item['id'];
@@ -68,24 +85,111 @@ class HomeController extends Controller
                 $product->save();
                 $order_detail->save();
             }
-            $cart->remove();
-        }
+            if ($method == 1) {
+                $orderId = $order->id;
 
-        Mail::send(
-            'email.checkout',
-            [
-                'order' => $order,
-            ],
-            function ($mail) use ($request) {
-                $mail->to($request->email);
-                $mail->from('lnam6507@gmail.com');
-                $mail->subject('Đơn hàng tại Cây cảnh Nam Lê đã được đặt!');
+                error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+                $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+                $vnp_Returnurl = "http://127.0.0.1:8000/";
+                $vnp_TmnCode = "K15FI4LL"; //Mã website tại VNPAY
+                $vnp_HashSecret = "ICFMMJRRJGWMFMGIRDREGDUXZKLLMALJ"; //Chuỗi bí mật
+
+                $vnp_TxnRef = "DH00" . $orderId; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+                $vnp_OrderInfo = "Thanh toán thành công tại Website Cây Cảnh Nam Lê";
+                $vnp_OrderType = "paybillment";
+                $vnp_Amount = $cart->total_price * 100;
+                $vnp_Locale = "vn";
+                $vnp_BankCode = "NCB";
+                $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+
+                $inputData = array(
+                    "vnp_Version" => "2.1.0",
+                    "vnp_TmnCode" => $vnp_TmnCode,
+                    "vnp_Amount" => $vnp_Amount,
+                    "vnp_Command" => "pay",
+                    "vnp_CreateDate" => date('YmdHis'),
+                    "vnp_CurrCode" => "VND",
+                    "vnp_IpAddr" => $vnp_IpAddr,
+                    "vnp_Locale" => $vnp_Locale,
+                    "vnp_OrderInfo" => $vnp_OrderInfo,
+                    "vnp_OrderType" => $vnp_OrderType,
+                    "vnp_ReturnUrl" => $vnp_Returnurl,
+                    "vnp_TxnRef" => $vnp_TxnRef,
+                );
+
+                if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                    $inputData['vnp_BankCode'] = $vnp_BankCode;
+                }
+                if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+                    $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+                }
+
+                //var_dump($inputData);
+                ksort($inputData);
+                $query = "";
+                $i = 0;
+                $hashdata = "";
+                foreach ($inputData as $key => $value) {
+                    if ($i == 1) {
+                        $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                    } else {
+                        $hashdata .= urlencode($key) . "=" . urlencode($value);
+                        $i = 1;
+                    }
+                    $query .= urlencode($key) . "=" . urlencode($value) . '&';
+                }
+
+                $vnp_Url = $vnp_Url . "?" . $query;
+                if (isset($vnp_HashSecret)) {
+                    $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
+                    $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+                }
+                $returnData = array(
+                    'code' => '00'
+                    ,
+                    'message' => 'success'
+                    ,
+                    'data' => $vnp_Url
+                );
+                if (isset($_POST['method'])) {
+
+                    Mail::send(
+                        'email.checkout',
+                        [
+                            'order' => $order,
+                        ],
+                        function ($mail) use ($request) {
+                            $mail->to($request->email);
+                            $mail->from('lnam6507@gmail.com');
+                            $mail->subject('Đơn hàng tại Cây cảnh Nam Lê đã được đặt!');
+                        }
+                    );
+
+                    header('Location: ' . $vnp_Url);
+                    die();
+                } else {
+                    echo json_encode($returnData);
+                }
             }
-        );
-
-        alert()->success('Đơn hàng đã được đặt thành công!');
-
-        return redirect()->route('home');
+        }
+        if ($isSuccess) {
+            Mail::send(
+                'email.checkout',
+                [
+                    'order' => $order,
+                ],
+                function ($mail) use ($request) {
+                    $mail->to($request->email);
+                    $mail->from('lnam6507@gmail.com');
+                    $mail->subject('Đơn hàng tại Cây cảnh Nam Lê đã được đặt!');
+                }
+            );
+            toast()->success('Đặt hàng thành công!');
+            $cart->remove();
+            return redirect()->route('home');
+        }
     }
     function product_detail($id)
     {
@@ -200,9 +304,9 @@ class HomeController extends Controller
                 'password' => 'min:6',
                 'confirm_password' => 'required|same:password'
             ], [], [
-                    'password' => 'Mật khẩu',
-                    'confirm_password' => 'Mật khẩu nhập lại'
-                ]);
+                'password' => 'Mật khẩu',
+                'confirm_password' => 'Mật khẩu nhập lại'
+            ]);
             $data['password'] = Hash::make($password);
         } else {
             $data['password'] = $cus->password;
@@ -219,13 +323,12 @@ class HomeController extends Controller
     {
         $cus = Auth::user();
 
-        $my_order = Order::where('customer_id', $cus->id)->orderBy('id', 'desc')->get();
+        $my_order = Order::where('user_id', $cus->id)->orderBy('id', 'desc')->get();
         $order_detail = null;
 
         if ($id) {
             $order_detail = OrderDetail::where('order_id', $id)->get();
         }
-
         return view('customer.my_order', compact('my_order', 'order_detail'));
     }
 }

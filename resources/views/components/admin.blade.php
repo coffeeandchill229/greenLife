@@ -81,7 +81,7 @@
                         <button type="button"
                             class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger shadow-none"
                             id="topnav-hamburger-icon">
-                            <a href="{{route('home')}}">Trang chủ</a>
+                            <a href="{{ route('home') }}">Trang chủ</a>
                         </button>
 
                     </div>
@@ -134,6 +134,9 @@
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
                                 <h6 class="dropdown-header">Welcome {{ Auth::user()->name }}!</h6>
+                                <a class="dropdown-item" href="{{route('admin.user.info')}}"><i
+                                        class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
+                                        class="align-middle" data-key="t-logout">Tài khoản</span></a>
                                 <a class="dropdown-item" href="{{ route('admin.logout') }}"><i
                                         class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                                         class="align-middle" data-key="t-logout">Đăng xuất</span></a>
@@ -994,6 +997,8 @@
     <script>
         CKEDITOR.replace('editor1');
     </script>
+    @yield('script')
+
 </body>
 
 </html>
