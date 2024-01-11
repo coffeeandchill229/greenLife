@@ -14,16 +14,34 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
     function index(CartHelper $cart)
     {
+
         if (isset($_GET['vnp_TransactionStatus'])) {
             $status = $_GET['vnp_TransactionStatus'];
-            if ($status == 00) {
+            $order_id = $_GET['vnp_TxnRef'];
+
+            if ($status == 00 && $order_id) {
                 toast()->success('Đặt hàng thành công!');
                 $cart->remove();
+
+                $order = Order::findOrFail($order_id);
+
+                Mail::send(
+                    'email.checkout',
+                    [
+                        'order' => $order,
+                    ],
+                    function ($mail) use ($order) {
+                        $mail->to($order->email);
+                        $mail->from('lnam6507@gmail.com');
+                        $mail->subject('Đơn hàng tại Cây cảnh Nam Lê đã được đặt!');
+                    }
+                );
             } else {
                 toast()->warning('Đặt hàng không thành công!');
             }
@@ -69,10 +87,8 @@ class HomeController extends Controller
 
         $order = Order::create($data);
 
-        $isSuccess = false;
-
         if ($order) {
-            $isSuccess = true;
+
             foreach ($cart->items as $item) {
                 $order_detail = new OrderDetail();
                 $order_detail->product_id = $item['id'];
@@ -96,7 +112,7 @@ class HomeController extends Controller
                 $vnp_TmnCode = "K15FI4LL"; //Mã website tại VNPAY
                 $vnp_HashSecret = "ICFMMJRRJGWMFMGIRDREGDUXZKLLMALJ"; //Chuỗi bí mật
 
-                $vnp_TxnRef = "DH00" . $orderId; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+                $vnp_TxnRef = $orderId; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
                 $vnp_OrderInfo = "Thanh toán thành công tại Website Cây Cảnh Nam Lê";
                 $vnp_OrderType = "paybillment";
                 $vnp_Amount = $cart->total_price * 100;
@@ -147,48 +163,17 @@ class HomeController extends Controller
                     $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
                 }
                 $returnData = array(
-                    'code' => '00'
-                    ,
-                    'message' => 'success'
-                    ,
+                    'code' => '00',
+                    'message' => 'success',
                     'data' => $vnp_Url
                 );
                 if (isset($_POST['method'])) {
-
-                    Mail::send(
-                        'email.checkout',
-                        [
-                            'order' => $order,
-                        ],
-                        function ($mail) use ($request) {
-                            $mail->to($request->email);
-                            $mail->from('lnam6507@gmail.com');
-                            $mail->subject('Đơn hàng tại Cây cảnh Nam Lê đã được đặt!');
-                        }
-                    );
-
                     header('Location: ' . $vnp_Url);
                     die();
                 } else {
                     echo json_encode($returnData);
                 }
             }
-        }
-        if ($isSuccess) {
-            Mail::send(
-                'email.checkout',
-                [
-                    'order' => $order,
-                ],
-                function ($mail) use ($request) {
-                    $mail->to($request->email);
-                    $mail->from('lnam6507@gmail.com');
-                    $mail->subject('Đơn hàng tại Cây cảnh Nam Lê đã được đặt!');
-                }
-            );
-            toast()->success('Đặt hàng thành công!');
-            $cart->remove();
-            return redirect()->route('home');
         }
     }
     function product_detail($id)

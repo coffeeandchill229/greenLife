@@ -17,7 +17,8 @@ class CategoryController extends Controller
         }
         $cat = Category::orderBy('image')->get();
 
-        return view('admin.categories.index', compact('cat', 'cat_edit'));
+        $categories = Category::orderByDesc("id")->get();
+        return view('admin.categories.index', compact(['cat', 'cat_edit', 'categories']));
     }
     function store(Request $request, $id = null)
     {
