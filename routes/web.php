@@ -1,9 +1,7 @@
 <?php
-
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ThemeSettingController;
 use Illuminate\Support\Facades\Route;
-
 // Client
 Route::prefix('/')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -36,6 +34,8 @@ Route::prefix('admin')->group(function () {
     Route::group([], __DIR__ . '/admin/banner.php');
     // Posts
     Route::group([], __DIR__ . '/admin/post.php');
+    // Comments
+    Route::group([], __DIR__ . '/admin/comment.php');
     // Setting store
     Route::post('store_theme_setting', [ThemeSettingController::class, 'store'])->name('admin.store_theme_setting');
 });

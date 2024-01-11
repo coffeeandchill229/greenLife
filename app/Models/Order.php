@@ -10,9 +10,9 @@ class Order extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function customer()
+    public function user()
     {
-        return $this->hasOne(User::class, 'id', 'customer_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
     public function status()
     {

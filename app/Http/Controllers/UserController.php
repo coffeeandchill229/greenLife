@@ -76,11 +76,11 @@ class UserController extends Controller
                 'password' => 'required|min:6',
                 'confirm_password' => 'required|min:6|same:password'
             ], [
-                    'name' => 'Họ tên',
-                    'email' => 'Email',
-                    'password' => 'Mật khẩu',
-                    'confirm_password' => 'Nhập lại mật khẩu'
-                ]);
+                'name' => 'Họ tên',
+                'email' => 'Email',
+                'password' => 'Mật khẩu',
+                'confirm_password' => 'Nhập lại mật khẩu'
+            ]);
             $data['password'] = Hash::make($request->password);
         }
 
@@ -112,9 +112,9 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ], [
-                'email' => 'Email',
-                'password' => 'Password'
-            ]);
+            'email' => 'Email',
+            'password' => 'Password'
+        ]);
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
             Alert::success('Đăng nhập thành công!');
@@ -166,5 +166,10 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->regenerateToken();
         return redirect()->route('home.login');
+    }
+    // Info
+    function info(){
+        $user = auth()->user();
+        return view('admin.user.info',compact('user'));
     }
 }

@@ -91,4 +91,18 @@ return [
             ],
         ]
     ],
+    [
+        'codePage' => 'Comments',
+        'title' => 'Bình luận',
+        'icon' => 'bx bx-comment',
+        'childs' => [
+            [
+                'codePage' => 'List-Comment',
+                'title' => 'Danh sách',
+                'icon' => '',
+                'href' => 'admin.comment',
+                'url' => '/comments'
+            ],
+        ]
+    ]
 ];

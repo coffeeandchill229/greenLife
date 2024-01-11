@@ -14,6 +14,10 @@ class Comment extends Model
     {
         return $this->hasOne(User::class, 'id', 'customer_id');
     }
+    public function post()
+    {
+        return $this->hasOne(Post::class, 'id', 'customer_id');
+    }
 
     public function replies()
     {

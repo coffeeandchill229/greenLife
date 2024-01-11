@@ -2,7 +2,8 @@
     <form action="{{ route('cart.add', $product->id) }}" method="get">
         <div class="row my-4">
             <div class="col-lg-5 col-md-4 col-12">
-                <img class="w-100 h-100" style="object-fit: contain;" src="/storage/products/{{ $product->image }}"
+                <img class="w-100 h-100" style="object-fit: contain;"
+                    src="{{ $product->image ? asset('/storage/products/' . $product->image) : 'https://trolleymate.co.uk/assets/img/error_404.jpeg' }}"
                     alt="">
             </div>
             <div class="col-lg-7 col-md-8 col-12">

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    function index(){
+        $comments = Comment::orderByDesc('id')->get();
+        return view('admin.comment.index',compact('comments'));
+    }
     function store(Request $request, $post_id = null, $customer_id = null)
     {
         $data = $request->all();

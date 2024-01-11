@@ -44,6 +44,36 @@ class AdminController extends Controller
         $total_customers = count(User::where('is_customer', 0)->get());
         $total_products = count(Product::all());
 
+        // Tạo ra mảng chứa tên các tháng
+        $monthNames = [
+            1 => 'Tháng Một',
+            2 => 'Tháng Hai',
+            3 => 'Tháng Ba',
+            4 => 'Tháng Tư',
+            5 => 'Tháng Năm',
+            6 => 'Tháng Sáu',
+            7 => 'Tháng Bảy',
+            8 => 'Tháng Tám',
+            9 => 'Tháng Chín',
+            10 => 'Tháng Mười',
+            11 => 'Tháng Mười Một',
+            12 => 'Tháng Mười Hai',
+        ];
+        // Câu truy vấn lấy ra tổng doanh thu các tháng
+        $revenueByMonth = Order::selectRaw('MONTH(created_at) as month, SUM(total) as total_revenue')
+            ->groupBy('month')
+            ->get();
+
+        $labels = [];
+        $revenueData = [];
+
+        foreach ($revenueByMonth as $item) {
+            // Ghi đè các tháng hiện có bằng tháng trong câu truy vấn
+            $month = $monthNames[$item->month];
+            $labels[] = $month;
+            $revenueData[] = $item->total_revenue;
+        }
+
         return view('admin.dashboard', compact([
             'best_selling',
             'revenue_today',
@@ -51,7 +81,9 @@ class AdminController extends Controller
             'total_users',
             'total_products',
             'total_customers',
-            'recent_orders'
+            'recent_orders',
+            'labels',
+            'revenueData'
         ]));
     }
     function logout(Request $request)

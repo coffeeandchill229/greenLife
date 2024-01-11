@@ -10,6 +10,7 @@ Route::prefix('cart')->group(function () {
   // Checkout - Page
   Route::get('/checkout', [HomeController::class, 'checkout'])->name('home.checkout')->middleware('auth');
   Route::post('/checkout', [HomeController::class, 'store_checkout'])->name('home.store_checkout')->middleware('auth');
+  Route::get('/check', [HomeController::class, 'check']);
   // Crud
   Route::get('/add/{id?}', [CartController::class, 'add'])->name('cart.add');
   Route::post('/update', [CartController::class, 'update'])->name('cart.update');

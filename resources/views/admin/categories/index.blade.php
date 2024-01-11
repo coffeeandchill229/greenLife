@@ -7,6 +7,17 @@
                 @csrf
                 <x-input name="name" label="Tên danh mục" value="{{ $cat_edit ? $cat_edit->name : '' }}" />
                 <x-input name="image" type="file" label="Hình ảnh" />
+                <div class="form-group">
+                    <label class="form-label">Danh mục cha</label>
+                    <select name="parent_id" class="form-select">
+                        @foreach ($categories as $c)
+                            @if ($c->parent_id === $c->id)
+                                <option value="{{ $c->parent_id }}">--{{ $c->name }}</option>
+                            @endif
+                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 @if ($cat_edit)
                     <a href="{{ route('admin.category') }}" class="btn btn-dark btn-sm">Trở lại</a>
                     <button class="btn btn-sm btn-success">Cập nhật</button>

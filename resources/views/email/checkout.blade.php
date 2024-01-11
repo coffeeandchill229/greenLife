@@ -13,7 +13,7 @@
         <div class="col-5 m-auto bg-light border p-4">
             <h3 class="bg-success text-center py-4 text-light">Cảm ơn bạn đã đặt hàng!</h3>
             <div class="py-3">
-                <p>Xin chào! {{ $order->customer->name }},</p>
+                <p>Xin chào! {{ $order->user->name }},</p>
                 <p>Đơn hàng #{{ $order->id }} đã được đặt thành công và chúng tôi đang xử lý</p>
                 <table class="table table-bordered">
                     <thead>
