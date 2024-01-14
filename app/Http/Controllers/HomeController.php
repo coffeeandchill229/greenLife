@@ -38,8 +38,8 @@ class HomeController extends Controller
                     ],
                     function ($mail) use ($order) {
                         $mail->to($order->email);
-                        $mail->from('lnam6507@gmail.com');
-                        $mail->subject('Đơn hàng tại Cây cảnh Nam Lê đã được đặt!');
+                        $mail->from('parunitashi@gmail.com');
+                        $mail->subject('Đơn hàng tại Greenlife đã được đặt!');
                     }
                 );
             } else {
@@ -109,11 +109,11 @@ class HomeController extends Controller
 
                 $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
                 $vnp_Returnurl = "http://127.0.0.1:8000/";
-                $vnp_TmnCode = "K15FI4LL"; //Mã website tại VNPAY
-                $vnp_HashSecret = "ICFMMJRRJGWMFMGIRDREGDUXZKLLMALJ"; //Chuỗi bí mật
+                $vnp_TmnCode = "Q0AT92PE"; //Mã website tại VNPAY
+                $vnp_HashSecret = "KRLMJKYHLSWHPWHLUXZTQJDHEDUNUFXX"; //Chuỗi bí mật
 
                 $vnp_TxnRef = $orderId; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-                $vnp_OrderInfo = "Thanh toán thành công tại Website Cây Cảnh Nam Lê";
+                $vnp_OrderInfo = "Thanh toán thành công tại Website Cây Cảnh Greenlife";
                 $vnp_OrderType = "paybillment";
                 $vnp_Amount = $cart->total_price * 100;
                 $vnp_Locale = "vn";
@@ -173,6 +173,10 @@ class HomeController extends Controller
                 } else {
                     echo json_encode($returnData);
                 }
+            } else {
+                toast()->success('Đặt hàng thành công!');
+                $cart->remove();
+                return redirect()->route('home');
             }
         }
     }
@@ -235,7 +239,7 @@ class HomeController extends Controller
                 'content' => $request->content
             ],
             function ($mail) use ($request) {
-                $mail->to('lnam6507@gmail.com');
+                $mail->to('parunitashi@gmail.com');
                 $mail->from($request->email);
                 $mail->subject('Có liên hệ mới!');
             }

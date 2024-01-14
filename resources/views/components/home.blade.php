@@ -73,7 +73,7 @@
                 <div class="col-lg-3 col-4">
                     <div class="logo">
                         <h3 class="m-0" style="color: var(--header_color)">
-                            Nam Lê <i class="fab fa-pagelines"></i>
+                            Greenlife <i class="fab fa-pagelines"></i>
                         </h3>
                     </div>
                 </div>
@@ -350,7 +350,7 @@
                     <h5 class="fw-bold badge bg-success">Về chúng tôi</h5>
                     <div class="logo my-3">
                         <h3 class="m-0" style="color: var(--header_color)">
-                            Nam Lê <i class="fab fa-pagelines"></i>
+                            Greenlife <i class="fab fa-pagelines"></i>
                         </h3>
                     </div>
                     <p style="text-align: justify">
@@ -394,7 +394,7 @@
             </div>
             <div class="row">
                 <p class="text-center p-1 m-0">
-                    Copyright 2023 © Nam Lê | Mọi hình ảnh trên trang web được sưu tầm
+                    Copyright 2023 © Greenlife | Mọi hình ảnh trên trang web được sưu tầm
                 </p>
             </div>
         </div>
@@ -415,38 +415,19 @@
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=238683943543481&autoLogAppEvents=1"
         nonce="tdycEoV4"></script>
     <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date();
-        (function() {
-            var s1 = document.createElement("script"),
-                s0 = document.getElementsByTagName("script")[0];
-            Tawk_API.customStyle = {
-                visibility: {
-                    desktop: {
-                        position: 'br',
-                        xOffset: 50,
-                        yOffset: 10
-                    },
-                    mobile: {
-                        position: 'br',
-                        xOffset: 0,
-                        yOffset: 0
-                    },
-                    bubble: {
-                        rotate: '0deg',
-                        xOffset: -20,
-                        yOffset: 0
-                    }
-                }
-            };
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/642bd2e231ebfa0fe7f65df2/1gt5ivhfh';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
-            s0.parentNode.insertBefore(s1, s0);
-        })();
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/65a0f05d0ff6374032bf34d7/1hjualrmj';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
     </script>
+    <!--End of Tawk.to Script-->
     <!--End of Tawk.to Script-->
 </body>
 

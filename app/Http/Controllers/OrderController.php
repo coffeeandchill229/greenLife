@@ -19,8 +19,7 @@ class OrderController extends Controller
             $orders = Order::where('name', 'like', '%' . $request->key . '%')
                 ->orWhere('phone', 'like', '%' . $request->key . '%')
                 ->orWhere('address', 'like', '%' . $request->key . '%')
-                ->get();
-            ;
+                ->get();;
         } else {
             $orders = Order::orderByDesc('id')->get();
         }
@@ -43,7 +42,7 @@ class OrderController extends Controller
         $data = $request->all();
         unset($data['_token']);
 
-        $data['user_id'] = Auth::user()->id;
+
 
         $order_edit = Order::updateOrCreate(['id' => $id], $data);
         $order_edit->save();
