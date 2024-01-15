@@ -41,10 +41,10 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Tên sản phẩm</th>
-                            <th scope="col">Giá</th>
                             <th scope="col">Ảnh</th>
-                            <th scope="col">Tồn kho</th>
+                            <th scope="col">Giá</th>
                             <th scope="col">Danh mục</th>
+                            <th scope="col">Tồn kho</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col">Actions</th>
                         </tr>
@@ -54,13 +54,13 @@
                             <tr style="vertical-align: middle;">
                                 <td>{{ $item->id }}</td>
                                 <th>{{ $item->name }}</th>
-                                <td>{{ number_format($item->price) }}</td>
                                 <td>
-                                    <img src="{{ $item->image ? asset('/storage/products/' . $item->image) : 'https://trolleymate.co.uk/assets/img/error_404.jpeg' }}"
-                                        width="100" height="100" alt="">
+                                    <img class="img-thumbnail" src="{{ $item->image ? asset('/storage/products/' . $item->image) : 'https://trolleymate.co.uk/assets/img/error_404.jpeg' }}"
+                                        width="100" height="100" alt="product">
                                 </td>
-                                <td>{{ $item->stock }}</td>
+                                <td class="fw-bold">{{ number_format($item->price) }}</td>
                                 <td>{{ $item->category->name }}</td>
+                                <td>{{ $item->stock }}</td>
                                 <td>
                                     <div class="form-check form-switch">
                                         <input value="{{ $item->id }}" class="form-check-input product_active_btn"

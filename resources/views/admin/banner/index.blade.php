@@ -5,9 +5,9 @@
         <form action="{{ route('admin.banner.store', $banner_edit ? $banner_edit->id : '') }}" method="post"
             enctype="multipart/form-data">
             @csrf
-            <x-input name="image" type="file" label="Hình ảnh" />
-            <img src="{{ $banner_edit ? '/storage/banner/' . $banner_edit->image : 'https://www.chanchao.com.tw/VietnamPrintPack/images/default.jpg' }}"
-                width="60%" alt=""> <br>
+            <x-input name="image" id="image" type="file" label="Hình ảnh" />
+            <img id="preview_image" src="{{ $banner_edit ? '/storage/banner/' . $banner_edit->image : 'https://www.chanchao.com.tw/VietnamPrintPack/images/default.jpg' }}"
+                width="60%" alt="banner"> <br>
             <button class="btn btn-sm btn-success mt-2">{{ $banner_edit ? 'Cập nhật' : 'Thêm' }}</button>
         </form>
     </div>
@@ -45,4 +45,16 @@
         </table>
     </div>
 </div>
+@section('script')
+        <script>
+            const file = document.querySelector("#image");
+            const preview_image = document.querySelector("#preview_image");
+            if(file) {
+                file.onchange = (e) => {
+                    let url = URL.createObjectURL(e.target.files[0]);
+                    preview_image.src = url;
+                }
+            }
+        </script>
+    @endsection
 </x-admin>

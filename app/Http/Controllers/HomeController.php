@@ -174,6 +174,17 @@ class HomeController extends Controller
                     echo json_encode($returnData);
                 }
             } else {
+                Mail::send(
+                    'email.checkout',
+                    [
+                        'order' => $order,
+                    ],
+                    function ($mail) use ($order) {
+                        $mail->to($order->email);
+                        $mail->from('parunitashi@gmail.com');
+                        $mail->subject('Đơn hàng tại Greenlife đã được đặt!');
+                    }
+                );
                 toast()->success('Đặt hàng thành công!');
                 $cart->remove();
                 return redirect()->route('home');

@@ -311,10 +311,10 @@
                                 @if ($item->image)
                                     <div class="col-lg-6 col-6 mb-3">
                                         <div class="card border shadow">
-                                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                            <div class="bg-image hover-overlay ripple" style="height: 206px" data-mdb-ripple-color="light">
                                                 <img style="max-width: 100%; height: auto !important;"
                                                     src="/storage/images/{{ $item->image }}"
-                                                    class="img-thumbnail" />
+                                                    class="img-thumbnail w-100 h-100 object-fit-contain" />
                                                 <a href="{{ route('home.product_category', $item->id) }}">
                                                     <div class="mask"
                                                         style="background-color: rgba(251, 251, 251, 0.15)"></div>

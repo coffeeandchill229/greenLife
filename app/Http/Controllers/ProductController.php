@@ -47,7 +47,7 @@ class ProductController extends Controller
         }
         $product = Product::updateOrCreate(['id' => $id], $data);
         $product->save();
-        return back();
+        return redirect()->route('admin.product');
     }
     function delete($id = null)
     {

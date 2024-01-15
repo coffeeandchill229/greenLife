@@ -115,6 +115,7 @@ class UserController extends Controller
             'email' => 'Email',
             'password' => 'Password'
         ]);
+        //Check user có hợp lệ
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
             Alert::success('Đăng nhập thành công!');

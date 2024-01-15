@@ -6,8 +6,8 @@
                 enctype="multipart/form-data">
                 @csrf
                 <x-input name="name" label="Tên danh mục" value="{{ $cat_edit ? $cat_edit->name : '' }}" />
-                <x-input name="image" type="file" label="Hình ảnh" />
-                <div class="form-group">
+
+                {{-- <div class="form-group">
                     <label class="form-label">Danh mục cha</label>
                     <select name="parent_id" class="form-select">
                         @foreach ($categories as $c)
@@ -17,13 +17,20 @@
                             <option value="{{ $c->id }}">{{ $c->name }}</option>
                         @endforeach
                     </select>
+                </div> --}}
+
+                <x-input name="image" id="image" type="file" label="Hình ảnh" />
+                <img id="preview_image" src="{{ $cat_edit ? '/storage/images/' . $cat_edit->image : 'https://www.chanchao.com.tw/VietnamPrintPack/images/default.jpg' }}"
+                width="30%" alt="product">
+
+                <div class="mt-3">
+                    @if ($cat_edit)
+                        <a href="{{ route('admin.category') }}" class="btn btn-dark btn-sm">Trở lại</a>
+                        <button class="btn btn-sm btn-success">Cập nhật</button>
+                    @else
+                        <button class="btn btn-sm btn-success">Thêm</button>
+                    @endif
                 </div>
-                @if ($cat_edit)
-                    <a href="{{ route('admin.category') }}" class="btn btn-dark btn-sm">Trở lại</a>
-                    <button class="btn btn-sm btn-success">Cập nhật</button>
-                @else
-                    <button class="btn btn-sm btn-success">Thêm</button>
-                @endif
             </form>
         </div>
         <div class="col-lg-6 m-auto">
@@ -67,4 +74,16 @@
             </table>
         </div>
     </div>
+    @section('script')
+        <script>
+            const file = document.querySelector("#image"); //lay ra the input
+            const preview_image = document.querySelector("#preview_image");// lay re the img
+            if(file) { // Check neu co file
+                file.onchange = (e) => { // Check file co thay doi hay khong
+                    let url = URL.createObjectURL(e.target.files[0]);
+                    preview_image.src = url; //gan src cua img = url vua tao
+                }
+            }
+        </script>
+    @endsection
 </x-admin>

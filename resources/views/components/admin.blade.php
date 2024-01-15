@@ -235,7 +235,7 @@
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
-        <div class="main-content">
+        <div class="main-content mb-3">
 
             <div class="page-content">
                 <div class="container-fluid">
@@ -270,13 +270,13 @@
             </div>
             <!-- End Page-content -->
 
-            <footer class="footer">
+            <footer class="footer mt-3">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> © Nam Le.
+                            </script> © Ngoc Dat.
                         </div>
                     </div>
                 </div>

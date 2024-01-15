@@ -20,11 +20,22 @@
             </div>
             <div class="col-6">
                 <x-select-category category_id="{{ $product_edit ? $product_edit->category_id : '' }}" />
-                <x-input name="image" type="file" label="Ảnh sản phẩm" />
-                <div class="form-group">
-                    <label for="" class="form-label">Trạng thái</label>
-                </div>
+                <x-input name="image" id="image" type="file" label="Ảnh sản phẩm" />
+                <img id="preview_image" src="{{ $product_edit ? '/storage/products/' . $product_edit->image : 'https://www.chanchao.com.tw/VietnamPrintPack/images/default.jpg' }}"
+                width="45%" alt="product">
             </div>
         </div>
     </form>
+    @section('script')
+        <script>
+            const file = document.querySelector("#image"); //lay ra the input
+            const preview_image = document.querySelector("#preview_image");// lay re the img
+            if(file) { // Check neu co file
+                file.onchange = (e) => { // Check file co thay doi hay khong
+                    let url = URL.createObjectURL(e.target.files[0]);
+                    preview_image.src = url; //gan src cua img = url vua tao
+                }
+            }
+        </script>
+    @endsection
 </x-admin>
